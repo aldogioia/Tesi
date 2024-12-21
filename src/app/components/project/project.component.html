@@ -1,0 +1,166 @@
+<div class="project">
+  <div class="container">
+    <div class="header-container">
+      <div class="title">
+        <h1>Dettagli</h1>
+        <div (click)="goToUpdate()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+            <path d="M11.7973 2.61553C12.1888 2.22402 12.3845 2.02826 12.6014 1.93465C12.9139 1.79978 13.2681 1.79978 13.5805 1.93465C13.7973 2.02826 13.9931 2.22402 14.3846 2.61553C14.7761 3.00704 14.9719 3.2028 15.0655 3.41966C15.2004 3.7321 15.2004 4.08632 15.0655 4.39876C14.9719 4.61562 14.7761 4.81138 14.3846 5.20289L11.0369 8.55063C10.2121 9.37543 9.79973 9.78783 9.2832 10.0322C8.76667 10.2765 8.18627 10.3338 7.02549 10.4483L6.5 10.5002L6.55185 9.9747C6.66639 8.8139 6.72366 8.2335 6.96801 7.71696C7.21233 7.20043 7.62473 6.78805 8.44953 5.96326L11.7973 2.61553Z" stroke-linejoin="round"/>
+            <path d="M4.49998 10.5H2.99998C2.35565 10.5 1.83331 11.0223 1.83331 11.6667C1.83331 12.311 2.35565 12.8333 2.99998 12.8333H9.33331C9.97765 12.8333 10.5 13.3557 10.5 14C10.5 14.6443 9.97765 15.1667 9.33331 15.1667H7.83331" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="sub-container">
+      <div class="row">
+        <div class="wrapper">
+          <span>Nome</span>
+          <h2 *ngIf="!loading">{{project?.name}}</h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>Acronimo</span>
+          <h2 *ngIf="!loading">{{project?.acronym}}</h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="wrapper">
+          <span>Spesa Generale</span>
+          <h2 *ngIf="!loading">{{project?.overhead}}<span>%</span></h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>Budget</span>
+          <h2 *ngIf="!loading">{{project?.budget}}<span>€</span></h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="wrapper">
+          <span>Data Inizio</span>
+          <h2 *ngIf="!loading">{{project?.startDate}}</h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>Data Fine</span>
+          <h2 *ngIf="!loading">{{project?.endDate}}</h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="wrapper">
+          <span>Durata</span>
+          <h2 *ngIf="!loading">{{project?.duration}} <span>mesi</span></h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>PNRR</span>
+          <h2 *ngIf="!loading">{{project?.pnrr ? "SI" : "NO"}}</h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <span>CUP</span>
+        <h2 *ngIf="!loading">{{project?.cup}}</h2>
+        <h2 *ngIf="loading" class="skeleton-text"></h2>
+      </div>
+
+      <div class="column">
+        <div class="wrapper">
+          <span>Professore Ordinario</span>
+          <h2 *ngIf="!loading">{{remunerationFull?.amount}} <span>€/h</span></h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>Professore Associato</span>
+          <h2 *ngIf="!loading">{{remunerationAssociate?.amount}} <span>€/h</span></h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>Ricercatore</span>
+          <h2 *ngIf="!loading">{{remunerationResearcher?.amount}} <span>€/h</span></h2>
+          <h2 *ngIf="loading" class="skeleton-text"></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container"  *ngIf="responsibles.length > 0">
+    <div class="title">
+      <h1>Responsabili</h1>
+      <div (click)="goToCollaboration(true)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M11.7973 2.61553C12.1888 2.22402 12.3845 2.02826 12.6014 1.93465C12.9139 1.79978 13.2681 1.79978 13.5805 1.93465C13.7973 2.02826 13.9931 2.22402 14.3846 2.61553C14.7761 3.00704 14.9719 3.2028 15.0655 3.41966C15.2004 3.7321 15.2004 4.08632 15.0655 4.39876C14.9719 4.61562 14.7761 4.81138 14.3846 5.20289L11.0369 8.55063C10.2121 9.37543 9.79973 9.78783 9.2832 10.0322C8.76667 10.2765 8.18627 10.3338 7.02549 10.4483L6.5 10.5002L6.55185 9.9747C6.66639 8.8139 6.72366 8.2335 6.96801 7.71696C7.21233 7.20043 7.62473 6.78805 8.44953 5.96326L11.7973 2.61553Z" stroke-linejoin="round"/>
+          <path d="M4.49998 10.5H2.99998C2.35565 10.5 1.83331 11.0223 1.83331 11.6667C1.83331 12.311 2.35565 12.8333 2.99998 12.8333H9.33331C9.97765 12.8333 10.5 13.3557 10.5 14C10.5 14.6443 9.97765 15.1667 9.33331 15.1667H7.83331" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="sub-container">
+      <div class="item" *ngFor="let p of responsibles">
+        <h2>{{p.professorName}} {{p.professorSurname}}</h2>
+        <p *ngIf="!loading">{{p.workedHours}} / {{p.totalHours}} <span>ore</span></p>
+        <p *ngIf="loading" class="skeleton-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" *ngIf="collaborators.length > 0">
+    <div class="title">
+      <h1>Collaboratori</h1>
+      <div (click)="goToCollaboration(false)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M11.7973 2.61553C12.1888 2.22402 12.3845 2.02826 12.6014 1.93465C12.9139 1.79978 13.2681 1.79978 13.5805 1.93465C13.7973 2.02826 13.9931 2.22402 14.3846 2.61553C14.7761 3.00704 14.9719 3.2028 15.0655 3.41966C15.2004 3.7321 15.2004 4.08632 15.0655 4.39876C14.9719 4.61562 14.7761 4.81138 14.3846 5.20289L11.0369 8.55063C10.2121 9.37543 9.79973 9.78783 9.2832 10.0322C8.76667 10.2765 8.18627 10.3338 7.02549 10.4483L6.5 10.5002L6.55185 9.9747C6.66639 8.8139 6.72366 8.2335 6.96801 7.71696C7.21233 7.20043 7.62473 6.78805 8.44953 5.96326L11.7973 2.61553Z" stroke-linejoin="round"/>
+          <path d="M4.49998 10.5H2.99998C2.35565 10.5 1.83331 11.0223 1.83331 11.6667C1.83331 12.311 2.35565 12.8333 2.99998 12.8333H9.33331C9.97765 12.8333 10.5 13.3557 10.5 14C10.5 14.6443 9.97765 15.1667 9.33331 15.1667H7.83331" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+
+
+    <div class="sub-container">
+      <div class="item" *ngFor="let p of collaborators">
+        <h2>{{p.professorName}} {{p.professorSurname}}</h2>
+        <p *ngIf="!loading">{{p.workedHours}} / {{p.totalHours}} <span>ore</span></p>
+        <p *ngIf="loading" class="skeleton-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="responsibles.length == 0" class="missing" (click)="goToCollaboration(true)">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+          <path d="M4.04781 6.45512C5.65693 3.60783 6.46148 2.18418 7.56553 1.81771C8.17287 1.6161 8.82713 1.6161 9.43447 1.81771C10.5385 2.18418 11.3431 3.60783 12.9522 6.45512C14.5613 9.30239 15.3659 10.7261 15.1245 11.8861C14.9917 12.5243 14.6646 13.1031 14.19 13.5397C13.3273 14.3332 11.7183 14.3332 8.5 14.3332C5.28177 14.3332 3.67265 14.3332 2.80997 13.5397C2.33539 13.1031 2.00826 12.5243 1.87548 11.8861C1.63413 10.7261 2.43869 9.30239 4.04781 6.45512Z"/>
+          <path d="M8.49467 10.6665H8.50067" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.5 8.66669V6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      <p>0 responsabili presenti</p>
+      </span>
+    <p>Aggiungi</p>
+  </div>
+
+  <div *ngIf="collaborators.length == 0" class="missing" (click)="goToCollaboration(false)">
+      <span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+          <path d="M4.04781 6.45512C5.65693 3.60783 6.46148 2.18418 7.56553 1.81771C8.17287 1.6161 8.82713 1.6161 9.43447 1.81771C10.5385 2.18418 11.3431 3.60783 12.9522 6.45512C14.5613 9.30239 15.3659 10.7261 15.1245 11.8861C14.9917 12.5243 14.6646 13.1031 14.19 13.5397C13.3273 14.3332 11.7183 14.3332 8.5 14.3332C5.28177 14.3332 3.67265 14.3332 2.80997 13.5397C2.33539 13.1031 2.00826 12.5243 1.87548 11.8861C1.63413 10.7261 2.43869 9.30239 4.04781 6.45512Z"/>
+          <path d="M8.49467 10.6665H8.50067" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.5 8.66669V6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      <p>0 collaboratori presenti</p>
+      </span>
+    <p>Aggiungi</p>
+  </div>
+</div>

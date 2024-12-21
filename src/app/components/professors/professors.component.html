@@ -1,0 +1,125 @@
+<div class="professors">
+  <h1>Professori</h1>
+
+  <div class="container">
+    <form class="criteria" [formGroup]="filter" (ngSubmit)="addFilter()">
+      <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+          <path d="M18 17.5L22.5 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20.5 11C20.5 6.02944 16.4706 2 11.5 2C6.52944 2 2.5 6.02944 2.5 11C2.5 15.9706 6.52944 20 11.5 20C16.4706 20 20.5 15.9706 20.5 11Z" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <input class="search" placeholder="Cerca per nome" formControlName="name">
+      </div>
+
+      <div class="section">
+        <div class="header-section" [class]="{'close' : isCloseSorting}">
+          <h2>Ordinamento</h2>
+          <div (click)="isCloseSorting = !isCloseSorting">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M9.5 5.00002C9.5 5.00002 7.29055 8 6.5 8C5.7094 8 3.5 5 3.5 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="content-section" *ngIf="!isCloseSorting">
+          <h2>Verso ordinamento</h2>
+          <div class="sub-content">
+            <div class="item professors" [class]="{'active' : ordinamento === 'ASC'}" (click)="ordinamento = 'ASC'">
+              <h2>crescente</h2>
+            </div>
+            <div class="item professors" [class]="{'active' : ordinamento === 'DESC'}" (click)="ordinamento = 'DESC'">
+              <h2>decrescente</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section" *ngIf="!isCloseSorting">
+          <h2>Criterio ordinamento</h2>
+          <div class="item professors" [class]="{'active' : criterio === 'name'}" (click)="criterio = 'name'">
+            <h2>nome</h2>
+          </div>
+          <div class="item professors" [class]="{'active' : criterio === 'department'}" (click)="criterio = 'department'">
+            <h2>dipartimento</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="header-section" [class]="{'close' : isCloseFiltering}">
+          <h2>Filtri</h2>
+          <div (click)="isCloseFiltering = !isCloseFiltering">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M9.5 5.00002C9.5 5.00002 7.29055 8 6.5 8C5.7094 8 3.5 5 3.5 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="content-section" *ngIf="!isCloseFiltering">
+          <h2>Ruolo</h2>
+          <div class="item professors" [class]="{'active' : ruolo === ''}" (click)="ruolo = ''">
+            <h2>Qualsiasi</h2>
+          </div>
+          <div class="item professors" [class]="{'active' : ruolo === 'Full'}" (click)="ruolo = 'Full'">
+            <h2>Ordinario</h2>
+          </div>
+          <div class="item professors" [class]="{'active' : ruolo === 'Associate'}" (click)="ruolo = 'Associate'">
+            <h2>Associato</h2>
+          </div>
+          <div class="item professors" [class]="{'active' : ruolo === 'Researcher'}" (click)="ruolo = 'Researcher'">
+            <h2>Ricercatore</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit">Applica</button>
+        <button type="reset" (click)="resetFilter()">Azzera filtri</button>
+      </div>
+    </form>
+
+    <div class="list">
+      <button class="new" [routerLink]="['/add-professor']">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M8.5 3.1665V13.8332" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3.16666 8.5H13.8333" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Nuovo Professore
+      </button>
+
+      <div class="content">
+        <ng-container>
+          <div class="item" *ngFor="let professor of professors" (click)="navigate(professor.id)">
+            <h2>{{professor.name}} {{professor.surname}}</h2>
+            <div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6.00003 4C6.00003 4 10 6.94593 10 8C10 9.05413 6 12 6 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <button class="more" *ngIf="!loading" (click)="loadMore()">Carica altro</button>
+        </ng-container>
+
+        <ng-container *ngIf="loading">
+          <div class="skeleton">
+            <div class="skeleton-text"></div>
+            <div class="skeleton-icon"></div>
+          </div>
+          <div class="skeleton">
+            <div class="skeleton-text"></div>
+            <div class="skeleton-icon"></div>
+          </div>
+          <div class="skeleton">
+            <div class="skeleton-text"></div>
+            <div class="skeleton-icon"></div>
+          </div>
+          <div class="skeleton">
+            <div class="skeleton-text"></div>
+            <div class="skeleton-icon"></div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+

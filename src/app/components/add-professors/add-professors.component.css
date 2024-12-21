@@ -1,0 +1,77 @@
+.professors{
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  padding-top: 20px;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.professors > h1 {
+  color: var(--blu);
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.row{
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.input-wrapper.fixed > input{
+  border-radius: 5px;
+  background: var(--black20);
+}
+.input-wrapper.fixed > input[type="date"]{
+  font-size: 0;
+}
+
+
+.role-section{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.role-section > h2{
+  color: var(--black50);
+}
+
+.item{
+  display: flex;
+  width: 100%;
+  padding: 10px;
+  background: var(--black10);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+.item > p{
+  font-weight: 400;
+  transition: .3s ease-in-out;
+}
+.item.active{
+  background: var(--blu20);
+}
+.item.active > p{
+  color: var(--blu);
+}
+
+button{
+  padding: 10px;
+  background: var(--blu50);
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+button:hover{
+  background: var(--blu);
+}

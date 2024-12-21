@@ -1,0 +1,70 @@
+<div class="calendar">
+  <h1>Calendario Ore</h1>
+
+  <div class="select-box">
+    <div class="selection date">
+      <div>
+        <select [ngModel]="months[currentMonth]">
+          <option *ngFor="let month of months" [value]="month">{{month}}</option>
+        </select>
+        <select [ngModel]="currentYear">
+          <option *ngFor="let year of years" [value]="year">{{year}}</option>
+        </select>
+      </div>
+
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
+          <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
+          <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="selection professor">
+      <select [ngModel]="professors.length > 0 ? professors[0] : '0 Professori'">
+        <option *ngFor="let professor of professors" [value]="professor">{{professor.name}} {{professor.surname}}</option>
+      </select>
+
+      <p><span>Ore totali {{ currentMonth === 3 ? "ad" : "a" }} {{months[currentMonth]}}:</span> {{totalHours()}}</p>
+    </div>
+
+
+  </div>
+
+  <form>
+    <div class="box">
+      <button type="submit">Salva</button>
+      <div class="projects">
+        <div *ngFor="let p of pprojects">
+          <p class="hover on">{{ p }}</p>
+          <p class="hover off">{{ "24/50 ore" }}</p>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12" fill="none">
+            <path d="M11.5 6C11.5 3.23857 9.2614 1 6.5 1C3.73857 1 1.5 3.23857 1.5 6C1.5 8.7614 3.73857 11 6.5 11C9.2614 11 11.5 8.7614 11.5 6Z"/>
+            <path d="M6.62109 8.5V6C6.62109 5.7643 6.62109 5.64645 6.54784 5.5732C6.47464 5.5 6.35679 5.5 6.12109 5.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M6.496 4H6.5005" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      <div class="total">
+        <p>Totale Giorno</p>
+      </div>
+    </div>
+
+    <div class="days">
+      <div class="day" *ngFor="let day of days">
+        <p>{{ day }}</p>
+        <div class="hours">
+          <input
+            type="number"
+            *ngFor="let p of pprojects"
+            (input)="onInputChange($event)"
+            (blur)="onInputBlur($event)"
+            value="{{ 0 }}">
+        </div>
+        <p>{{ totalDayHours(day) }}</p>
+      </div>
+    </div>
+  </form>
+</div>

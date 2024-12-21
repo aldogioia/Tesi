@@ -1,0 +1,172 @@
+.project{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  gap: 50px;
+  padding: 20px 0 50px 0;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 25px;
+}
+
+.title > h1{
+  color: var(--orange);
+}
+.title > div:hover {
+  background: var(--orange20);
+}
+.title > div > svg{
+  stroke: var(--orange);
+}
+
+.sub-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.row{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 0 0;
+  gap: 10px;
+  background: var(--black20);
+  border-radius: 5px;
+  padding: 10px;
+}
+.wrapper > span{
+  font-size: 12px;
+  color: var(--black50);
+}
+.wrapper > h2{
+  font-weight: 300;
+}
+h2 > span{
+  color: var(--black50);
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background: var(--black20);
+}
+.column > .wrapper{
+  background: none;
+}
+
+.item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 10px;
+  background: var(--black5);
+}
+
+.item > h2{
+  color: var(--black50);
+  font-weight: 300;
+}
+.item:hover > h2{
+  color: var(--black);
+}
+
+.item > p{
+  font-weight: 400;
+}
+
+p > span{
+  color: var(--black50);
+}
+
+.input-wrapper{
+  margin-left: 10px;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity .3s;
+}
+
+.input-wrapper select{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  flex: 1 0 0;
+  height: 30px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  color: var(--black);
+  background: var(--white50);
+  padding-left: 10px ;
+}
+
+.missing{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FF000033;
+  padding: 10px;
+  border-radius: 5px;
+}
+.missing > span{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.missing > span > svg{
+  stroke: #FF0000;
+  height: 16px;
+  width: 16px;
+}
+.missing > span > p{
+  color: #FF0000;
+}
+.missing > p{
+  cursor: pointer;
+}
+.missing > p:hover{
+  text-decoration: underline;
+}
+
+
+.skeleton-text{
+  width: 25%;
+  height: 15px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--black5) 25%, var(--black20) 50%, var(--black5) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 3s infinite linear;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

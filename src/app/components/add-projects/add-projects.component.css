@@ -1,0 +1,113 @@
+.projects{
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  padding-top: 20px;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.projects > h1 {
+  color: var(--orange);
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.column{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.column > h2{
+  color: var(--black50);
+}
+
+.row{
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+
+.wrapper{
+  display: flex;
+  border-radius: 10px;
+  background: var(--black10);
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.wrapper > div {
+  position: relative;
+}
+.wrapper > div .end {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wrapper input{
+  text-align: right;
+  background: none;
+  padding-right: 40px;
+}
+
+.item{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  background: var(--black10);
+  border-radius: 5px;
+  transition: .3s ease-in-out;
+  cursor: pointer;
+}
+.item > h2{
+  font-weight: 400;
+  transition: .3s ease-in-out;
+}
+.item > p{
+  color: var(--black50);
+}
+.item.active{
+  background: var(--orange20);
+}
+.item.active > h2{
+  color: var(--orange);
+}
+
+.input-wrapper.fixed > input, .fake-input{
+  background: var(--black20);
+  border-radius: 5px;
+}
+
+.fake-input{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 200;
+}
+
+button{
+  padding: 10px;
+  background: var(--orange50);
+  color: var(--black);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+button:hover{
+  background: var(--orange);
+}

@@ -1,0 +1,319 @@
+.professor {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  gap: 50px;
+  padding: 20px 0 50px 0;
+}
+
+.details, .collaborations{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 25px;
+}
+
+.title > h1{
+  color: var(--blu);
+}
+.title > div:hover {
+  background: var(--blu20);
+}
+.title > div > svg{
+  stroke: var(--blu);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 0 0;
+  gap: 10px;
+  background: var(--black20);
+  border-radius: 5px;
+  padding: 10px;
+}
+.wrapper > h2{
+  font-weight: 300;
+}
+.wrapper > span{
+  font-size: 12px;
+  color: var(--black50);
+}
+
+.content{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: var(--black5);
+  border-radius: 10px;
+}
+
+.item > h2{
+  color: var(--black50);
+  font-weight: 300;
+}
+.item:hover > h2{
+   color: var(--black);
+}
+
+.item > div{
+  display: flex;
+  cursor: pointer;
+}
+.hide{
+  display: none;
+}
+.item > div:hover > .hide{
+  display: initial;
+}
+.item > div:hover > .show{
+   display: none;
+}
+.item > div > p{
+  font-weight: 400;
+}
+.item > div > p > span{
+  color: var(--black50);
+}
+
+/*
+.item, .skeleton{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  justify-content: space-between;
+  background: var(--black5);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.item > div{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.item > div > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  background: var(--black20);
+  transition: .3s ease-in-out;
+}
+
+.item > div h2{
+  font-weight: 300;
+}
+.item > div h2 > span{
+  color: var(--black50);
+}
+
+.item > div > div > svg{
+  stroke: var(--white);
+}
+.item:hover > div > div{
+  background: var(--blu);
+}
+
+.collaborations .selection-date,
+.collaborations .selection-project{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.collaborations .selection-date > div{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.collaborations .selection-date > div > svg{
+  stroke: var(--black50);
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+.collaborations .selection-date > div > svg:hover{
+  stroke: var(--black);
+}
+.collaborations .selection-date > div > p{
+  stroke: var(--black);
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  padding: 10px;
+}
+.calendar .day-header {
+  text-align: center;
+  color: var(--black);
+}
+.calendar .day, .calendar .day-next, .calendar .day-prev {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calendar .day {
+  position: relative;
+  cursor: pointer;
+}
+.calendar .day-next span p, .calendar .day-prev span p{
+  color: var(--black50);
+  cursor: default;
+}
+.calendar .day span {
+  height: 35px;
+  width: 35px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: .3s ease-in-out;
+}
+.calendar .day.selected span {
+  background: var(--orange20);
+}
+.calendar .day:hover span {
+  background: var(--black5);
+}
+.calendar .day.selected:hover span {
+  background: var(--orange20);
+}
+
+.calendar .day:hover::before {
+  content: attr(data-hours);
+  position: absolute;
+  top: 0;
+  font-size: 12px;
+  padding: 5px;
+  border-radius: 5px;
+  color: var(--white);
+  background: var(--black);
+  transform: translateY(-120%);
+  animation: show .3s ease-in-out;
+}
+.calendar .day:hover::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 10px;
+  width: 10px;
+  border-radius: 2px;
+  background: var(--black);
+  transform: translateY(-110%) rotate(45deg);
+  animation: show .3s ease-in-out;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.new-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--blu20);
+  border: 1px dashed var(--blu);
+  padding: 5px 5px 5px 10px;
+  border-radius: 10px;
+}
+
+.header-new-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.new-item .input-wrapper{
+  max-width: 150px;
+}
+.new-item .input-wrapper > input{
+  height: auto;
+  background: var(--white50);
+  border-radius: 5px;
+}
+
+
+.skeleton-text{
+  width: 35%;
+  height: 15px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--black5) 25%, var(--black20) 50%, var(--black5) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 3s infinite linear;
+}
+.skeleton-text.w50{
+  width: 50px;
+}
+.skeleton-text.w70{
+  width: 70px;
+}
+
+button{
+  padding: 10px;
+  background: var(--blu50);
+  color: var(--black);
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+button:hover{
+  background: var(--blu);
+}*/
+
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    scale: 0.5;
+  }
+  80% {
+    opacity: 1;
+    scale: 1.1;
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+  }
+}

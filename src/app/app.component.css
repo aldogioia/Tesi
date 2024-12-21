@@ -1,0 +1,13 @@
+main{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  padding: 10px;
+  background: var(--white);
+  gap: 20px;
+}
+
+router-outlet{
+  display: none;
+}

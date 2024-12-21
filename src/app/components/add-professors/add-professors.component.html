@@ -1,0 +1,63 @@
+<div class="professors">
+  <h1>{{ modify ? "Modifica" : "Aggiungi" }} Professore</h1>
+
+  <form [formGroup]="professorForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="input-wrapper" [class]="{'fixed' : modify}">
+        <input type="text" [readonly]="modify" placeholder="inserisci il nome" formControlName="name">
+        <span class="start">Nome</span>
+      </div>
+
+      <div class="input-wrapper" [class]="{'fixed' : modify}">
+        <input type="text" [readonly]="modify" placeholder="inserisci il cognome" formControlName="surname">
+        <span class="start">Cognome</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-wrapper" [class]="{'fixed' : modify}">
+        <input type="number" [readonly]="modify" placeholder="inserisci la matricola" formControlName="id">
+        <span class="start">Matricola</span>
+      </div>
+
+      <div class="input-wrapper" [class]="{'fixed' : modify}">
+        <input type="date" [readonly]="modify" id="date" formControlName="birthDate">
+        <span class="start">Data di Nascita</span>
+        <label class="end" for="date" *ngIf="!modify">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" fill="none">
+            <path d="M12.5 1.8335V3.16683M4.5 1.8335V3.16683" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M8.49698 9.1665H8.50298M8.49698 11.8332H8.50298M11.1606 9.1665H11.1666M5.83331 9.1665H5.83929M5.83331 11.8332H5.83929" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2.83331 5.8335H14.1666" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2.16669 8.66213C2.16669 5.75729 2.16669 4.30485 3.00143 3.40243C3.83618 2.5 5.17968 2.5 7.86669 2.5H9.13335C11.8204 2.5 13.1639 2.5 13.9986 3.40243C14.8334 4.30485 14.8334 5.75729 14.8334 8.66213V9.00453C14.8334 11.9094 14.8334 13.3618 13.9986 14.2643C13.1639 15.1667 11.8204 15.1667 9.13335 15.1667H7.86669C5.17968 15.1667 3.83618 15.1667 3.00143 14.2643C2.16669 13.3618 2.16669 11.9094 2.16669 9.00453V8.66213Z" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2.5 5.8335H14.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </label>
+      </div>
+    </div>
+
+    <div class="input-wrapper">
+      <input type="email" placeholder="inserisci l'email" formControlName="email">
+      <span class="start">Email</span>
+    </div>
+
+    <div class="input-wrapper">
+      <input type="text" placeholder="inserisci il dipartimento" formControlName="department">
+      <span class="start">Dipartimento</span>
+    </div>
+
+    <div class="role-section">
+      <h2>Ruolo</h2>
+      <div class="item" [class]="{'active' : role === 'Full'}" (click)="role = 'Full'">
+        <p>Ordinario</p>
+      </div>
+      <div class="item" [class]="{'active' : role === 'Associate'}" (click)="role = 'Associate'">
+        <p>Associato</p>
+      </div>
+      <div class="item" [class]="{'active' : role === 'Researcher'}" (click)="role = 'Researcher'">
+        <p>Ricercatore</p>
+      </div>
+    </div>
+
+    <button type="submit">{{ modify ? "Modifica" : "Aggiungi" }}</button>
+  </form>
+</div>

@@ -1,0 +1,180 @@
+.customization {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 50px 0;
+  gap: 50px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.customization > h1 {
+  color: var(--purple);
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.section > h2{
+  color: var(--black50);
+ }
+
+.sub-section {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.item{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1 0 0;
+  gap: 10px;
+  min-width: 200px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: var(--black10);
+  transition: 0.3s ease-in-out;
+}
+.item:hover{
+   background: var(--black20);
+ }
+.item.active{
+  background: var(--purple20);
+}
+.item > p{
+  color: var(--black50);
+}
+.item.active > h2{
+  color: var(--purple);
+}
+
+.item .colors{
+  display: flex;
+}
+
+.color{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-left: -25px;
+}
+.color:first-child {
+  margin-left: 0;
+}
+.item.swap:hover .color:first-child {
+  animation: swapWhite 4s ease-in-out infinite;
+}
+.item.swap:hover .color:nth-child(2) {
+  animation: swapBlack 4s ease-in-out infinite;
+}
+.color.white{
+  background: var(--white);
+}
+.color.black{
+  background: var(--black);
+}
+.color.purple{
+  background: var(--purple);
+}
+.color.orange{
+  background: var(--orange);
+}
+.color.blu{
+  background: var(--blu);
+}
+
+.view{
+  display: flex;
+  justify-content: space-between;
+  height: 60px;
+  width: 100px;
+  padding: 2px;
+  border-radius: 2px;
+  background: var(--white);
+  transition: 0.3s ease-in-out;
+}
+
+.leftbar, .rightbar{
+  width: 20px;
+  height: 30px;
+  border-radius: 1px;
+  background: var(--black20);
+}
+.item:hover .leftbar, .item:hover .rightbar{
+  border: .5px solid var(--purple);
+  animation: shrink 3s ease-in-out infinite;
+}
+.leftbar.ex, .rightbar.ex{
+  height: 100%;
+}
+.item:hover .leftbar.ex, .item:hover .rightbar.ex{
+  border: .5px solid var(--purple);
+  animation: expand 3s ease-in-out infinite;
+}
+.item:hover .leftbar.no, .item:hover .rightbar.no{
+  border: none;
+  animation: none;
+}
+
+button{
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: var(--purple50);
+  color: var(--black);
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+button:hover{
+  background: var(--purple);
+}
+
+@keyframes swapBlack {
+  50% {
+    background: var(--white);
+  }
+}
+
+@keyframes swapWhite {
+  40% {
+    background: var(--black);
+  }
+}
+
+@keyframes expand {
+  5% {
+    height: 30px;
+  }
+  50% {
+    height: 100%;
+  }
+  100% {
+    height: 100%;
+  }
+}
+
+@keyframes shrink {
+  5% {
+    height: 100%;
+  }
+  50% {
+    height: 30px;
+  }
+  100% {
+    height: 30px;
+  }
+}

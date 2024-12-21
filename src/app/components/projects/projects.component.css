@@ -1,0 +1,152 @@
+.projects{
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  padding-top: 20px;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.projects > h1 {
+  color: var(--orange);
+}
+
+.container{
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.list{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.new{
+  height: 40px;
+  width: 100%;
+  background: var(--orange20);
+  padding: 10px;
+  border: 2px dashed var(--orange);
+  color: var(--orange);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.new > svg{
+  stroke: var(--orange);
+}
+
+.content{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.item, .skeleton{
+  display: flex;
+  height: 100px;
+  min-width: 250px;
+  padding: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1 0 0;
+  background: var(--black5);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.header-item, .header-skeleton{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-item > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  background: var(--black20);
+  transition: .3s ease-in-out;
+}
+
+.header-item > div > svg{
+  stroke: var(--white);
+}
+.item:hover > .header-item > div{
+  background: var(--orange);
+}
+
+.content-item{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item .sub-content,
+.skeleton .sub-content{
+  display: flex;
+  flex-direction: column;
+}
+.sub-content > h3{
+  opacity: .5;
+}
+
+.more{
+  width: 100%;
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--black50);
+  transition: .3s ease-in-out;
+  cursor: pointer;
+}
+.more:hover{
+  color: var(--orange);
+}
+
+.skeleton-text{
+  width: 35%;
+  height: 15px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--black5) 25%, var(--black20) 50%, var(--black5) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 3s infinite linear;
+}
+.skeleton-text.w50{
+  width: 50px;
+}
+.skeleton-text.w70{
+  width: 70px;
+}
+
+.skeleton-icon{
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  background: linear-gradient(90deg, var(--black5) 25%, var(--black20) 50%, var(--black5) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 3s infinite linear;
+}
+
+
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

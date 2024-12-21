@@ -1,0 +1,103 @@
+<div class="left-bar {{settingsService.layout}}" [ngClass]="{'close' : isClose}">
+  <div class="header">
+    <h1>Menu</h1>
+    <div>
+      <svg (click)="isClose = !isClose" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 17" fill="none">
+        <path d="M1.33334 8.5C1.33334 6.00018 1.33334 4.75027 1.96995 3.87405C2.17555 3.59107 2.42441 3.34221 2.70739 3.13661C3.58361 2.5 4.83352 2.5 7.33334 2.5H8.66668C11.1665 2.5 12.4164 2.5 13.2926 3.13661C13.5756 3.34221 13.8245 3.59107 14.0301 3.87405C14.6667 4.75027 14.6667 6.00018 14.6667 8.5C14.6667 10.9998 14.6667 12.2497 14.0301 13.1259C13.8245 13.4089 13.5756 13.6578 13.2926 13.8634C12.4164 14.5 11.1665 14.5 8.66668 14.5H7.33334C4.83352 14.5 3.58361 14.5 2.70739 13.8634C2.42441 13.6578 2.17555 13.4089 1.96995 13.1259C1.33334 12.2497 1.33334 10.9998 1.33334 8.5Z" stroke-linejoin="round"/>
+        <path d="M6.33334 2.83331V14.1666" stroke-linejoin="round"/>
+        <path d="M3.33334 5.16669C3.33334 5.16669 3.94282 5.16669 4.33334 5.16669" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M3.33334 7.83331H4.33334" stroke-linecap="round" stroke-linejoin="round"/>
+        <path id="arrowToRotate" d="M11.6667 9.33333L10.9619 8.51567C10.6656 8.17187 10.5174 8 10.3333 8C10.1493 8 10.0011 8.17187 9.70479 8.51567L8.99999 9.33333" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="sub-content">
+      <div [ngClass]="{'close' : isCloseO}" class="section orange">
+        <div class="header-section">
+          <h2>Progetti</h2>
+          <div>
+            <svg (click)="isCloseO = !isCloseO" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M9.5 5.00002C9.5 5.00002 7.29055 8 6.5 8C5.7094 8 3.5 5 3.5 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="content-section">
+          <div class="item" [routerLink]="['/projects']" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M5.83334 3.8335H13.8333" stroke-linecap="round"/>
+              <path d="M3.16666 3.8335H3.17264" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.16666 8.5H3.17264" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.16666 13.1665H3.17264" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.83334 8.5H13.8333" stroke-linecap="round"/>
+              <path d="M5.83334 13.1665H13.8333" stroke-linecap="round"/>
+            </svg>
+            <a>Elenco Progetti</a>
+          </div>
+          <div class="item" [routerLink]="['/add-project']" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M8.5 3.1665V13.8332" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.16666 8.5H13.8333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <a>Aggiunta Progetti</a>
+          </div>
+        </div>
+      </div>
+
+      <div [ngClass]="{'close' : isCloseB}" class="section blu">
+        <div class="header-section">
+          <h2>Professori</h2>
+          <div>
+            <svg (click)="isCloseB = !isCloseB" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M9.5 5.00002C9.5 5.00002 7.29055 8 6.5 8C5.7094 8 3.5 5 3.5 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="content-section">
+          <div class="item" [routerLink]="['/professors']" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M5.83334 3.8335H13.8333" stroke-linecap="round"/>
+              <path d="M3.16666 3.8335H3.17264" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.16666 8.5H3.17264" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.16666 13.1665H3.17264" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5.83334 8.5H13.8333" stroke-linecap="round"/>
+              <path d="M5.83334 13.1665H13.8333" stroke-linecap="round"/>
+            </svg>
+            <a>Elenco Professori</a>
+          </div>
+
+          <div class="item" [routerLink]="['/add-professor']" routerLinkActive="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+              <path d="M8.5 3.1665V13.8332" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M3.16666 8.5H13.8333" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <a>Aggiunta Professori</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-content">
+      <div class="item" [routerLink]="['/calendar']" routerLinkActive="active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M12.5 1.83301V3.16634M4.5 1.83301V3.16634" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M7.16667 11.8337L7.16666 9.39846C7.16666 9.27066 7.0755 9.16699 6.96305 9.16699H6.5M9.58647 11.8337L10.4895 9.39979C10.5317 9.28599 10.4419 9.16699 10.3138 9.16699H9.16667" stroke-linecap="round"/>
+          <path d="M2.16666 8.66213C2.16666 5.75729 2.16666 4.30485 3.0014 3.40243C3.83615 2.5 5.17965 2.5 7.86666 2.5H9.13332C11.8203 2.5 13.1639 2.5 13.9986 3.40243C14.8333 4.30485 14.8333 5.75729 14.8333 8.66213V9.00453C14.8333 11.9094 14.8333 13.3618 13.9986 14.2643C13.1639 15.1667 11.8203 15.1667 9.13332 15.1667H7.86666C5.17965 15.1667 3.83615 15.1667 3.0014 14.2643C2.16666 13.3618 2.16666 11.9094 2.16666 9.00453V8.66213Z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4.5 5.83301H12.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <a>Calendario Ore</a>
+      </div>
+
+      <div class="item" [routerLink]="['customization']" routerLinkActive="active">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+          <path d="M14.6667 8.50004C14.6667 4.81814 11.6819 1.83337 8.00001 1.83337C4.31811 1.83337 1.33334 4.81814 1.33334 8.50004C1.33334 12.1819 4.31811 15.1667 8.00001 15.1667C8.56114 15.1667 9.33334 15.2442 9.33334 14.5C9.33334 14.094 9.12214 13.7808 8.91241 13.4696C8.60548 13.0144 8.30154 12.5636 8.66668 11.8334C9.11114 10.9445 9.85188 10.9445 10.9877 10.9445C11.5556 10.9445 12.2223 10.9445 13 10.8334C14.4007 10.6333 14.6667 9.77231 14.6667 8.50004Z"/>
+          <path d="M4.66666 10.5014L4.67244 10.4998" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6.33334 7.16663C6.88563 7.16663 7.33334 6.71891 7.33334 6.16663C7.33334 5.61434 6.88563 5.16663 6.33334 5.16663C5.78106 5.16663 5.33334 5.61434 5.33334 6.16663C5.33334 6.71891 5.78106 7.16663 6.33334 7.16663Z"/>
+          <path d="M11 7.83337C11.5523 7.83337 12 7.38566 12 6.83337C12 6.28109 11.5523 5.83337 11 5.83337C10.4477 5.83337 10 6.28109 10 6.83337C10 7.38566 10.4477 7.83337 11 7.83337Z"/>
+        </svg>
+        <a>Personalizzazione</a>
+      </div>
+    </div>
+  </div>
+</div>

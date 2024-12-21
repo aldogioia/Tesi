@@ -1,0 +1,142 @@
+.search-bar{
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 10px;
+  height: 40px;
+  width: 100%;
+  padding: 0 10px;
+  background: var(--black20);
+  border-radius: 10px;
+}
+
+.search-bar > svg{
+  height: 20px;
+  stroke: var(--black50);
+  transition: .3s ease-in-out;
+}
+
+.search{
+  height: 100%;
+  background: none;
+}
+
+.search:focus ~ svg{
+  stroke: var(--black);
+}
+
+.input-wrapper{
+  display: flex;
+  align-items: center;
+  position: relative;
+  min-width: 125px;
+  width: 100%;
+  flex: 1 0 0;
+}
+
+.start{
+  position: absolute;
+  left: 10px;
+  top: 0;
+  transform: translateY(-50%);
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 500;
+}
+.input-wrapper.fixed .start{
+  top: 50%;
+}
+
+.end{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: 10px;
+  color: var(--black50);
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.start, .end{
+  transition: .3s ease-in-out;
+}
+
+.end > svg{
+  height: 10px;
+  stroke: var(--black);
+  opacity: .5;
+  transition: .3s ease-in-out;
+}
+.input-wrapper.fixed input {
+  text-align: end;
+}
+
+input{
+  outline: none;
+  border: 1px solid transparent;
+  background: var(--black10);
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--black);
+  height: 40px;
+  font-size: 12px;
+  font-weight: 200;
+}
+input.error{
+  border: 1px solid red;
+}
+
+.projects input:focus ~ .start,
+.projects input:focus ~ .end,
+.projects input:focus ~ .end > svg{
+  color: var(--orange);
+  stroke: var(--orange);
+  opacity: 1;
+}
+.professors input:focus ~ .start,
+.professors input:focus ~ .end,
+.professors input:focus ~ .end > svg{
+  color: var(--blu);
+  stroke: var(--blu);
+  opacity: 1;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  display: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.input-wrapper svg {
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  stroke-width: 1px;
+}
+
+::-webkit-calendar-picker-indicator{
+  opacity: 0;
+  z-index: 2;
+}
+
+select{
+  padding: 5px 10px;
+  appearance: none;
+  background: none;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  color: var(--black);
+  font-size: 16px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+select:hover{
+  background: var(--black20);
+}
+
+

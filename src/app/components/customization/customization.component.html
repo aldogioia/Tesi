@@ -1,0 +1,106 @@
+<div class="customization">
+  <h1>Personalizzazione</h1>
+
+  <div class="content">
+    <div class="section">
+      <h2>Font</h2>
+      <div class="sub-section">
+        <div [class]="{'active' : settingsService.font == Font.helvetica}" class="item" (click)="settingsService.font = Font.helvetica">
+          <h2>Helvetica</h2>
+          <p>Un font sans-serif moderno, minimalista e pulito. Perfetto per qualsiasi contesto dove è richiesta una leggibilità chiara.</p>
+        </div>
+        <div [class]="{'active' : settingsService.font == Font.noto}" class="item" (click)="settingsService.font = Font.noto">
+          <h2>Noto Sans Georgian</h2>
+          <p>Un font sans-serif versatile e contemporaneo. È elegante, ma mantiene una leggibilità eccellente anche in formati piccoli.</p>
+        </div>
+        <div [class]="{'active' : settingsService.font == Font.comic}" class="item" (click)="settingsService.font = Font.comic">
+          <h2>Comic Sans</h2>
+          <p>Un font informale e divertente, indicato per persone con dislessia o difficoltà di lettura, grazie alla sua forma distintiva.</p>
+        </div>
+        <div [class]="{'active' : settingsService.font == Font.atkinson}" class="item" (click)="settingsService.font = Font.atkinson">
+          <h2>Atkinson Hyperlegible</h2>
+          <p>Un font progettato specificamente per migliorare la leggibilità per le persone con difficoltà visive. Ha forme distintive e ad alto contrasto.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Modalità</h2>
+      <div class="sub-section">
+        <div [class]="{'active' : settingsService.mode == Mode.light}" class="item" (click)="settingsService.mode = Mode.light">
+          <h2>Modalità Giorno</h2>
+          <p>Questa modalità è ideale per ambienti luminosi facilitando la lettura in condizioni di luce diurna.</p>
+          <div class="colors">
+            <div class="color white"></div>
+            <div class="color black"></div>
+            <div class="color orange"></div>
+            <div class="color blu"></div>
+            <div class="color purple"></div>
+          </div>
+        </div>
+        <div [class]="{'active' : settingsService.mode == Mode.dark}" class="item" (click)="settingsService.mode = Mode.dark">
+          <h2>Modalità Notte</h2>
+          <p>Questa modalità è ideale per ambienti poco illuminati riducendo l’affaticamento agli occhi.</p>
+          <div class="colors">
+            <div class="color black"></div>
+            <div class="color white"></div>
+            <div class="color orange"></div>
+            <div class="color blu"></div>
+            <div class="color purple"></div>
+          </div>
+        </div>
+        <div [class]="{'active' : settingsService.mode == Mode.auto}" class="item" (click)="settingsService.mode = Mode.auto">
+          <h2>Modalità Automatica</h2>
+          <p>Questa modalità si adatta in base all’orario e imposta la migliore modalità tra le due.</p>
+          <div class="colors">
+            <div class="color white"></div>
+            <div class="color black"></div>
+            <div class="color orange"></div>
+            <div class="color blu"></div>
+            <div class="color purple"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Layout</h2>
+      <div class="sub-section">
+        <div [class]="{'active' : settingsService.layout == Layout.compact}" class="item" (click)="settingsService.layout = Layout.compact">
+          <h2>Layout compatto</h2>
+          <p>In questo loyaut le due sidebar andranno ad occupare lo schermo in base alle infromazioni presenti al loro interno.</p>
+          <div class="view">
+            <div class="leftbar"></div>
+            <div class="rightbar"></div>
+          </div>
+        </div>
+        <div [class]="{'active' : settingsService.layout == Layout.extended}" class="item" (click)="settingsService.layout = Layout.extended">
+          <h2>Layout esteso</h2>
+          <p>In questo loyaut le due sidebar andranno ad occupare lo schermo in tutta la sua altezza.</p>
+          <div class="view">
+            <div class="leftbar ex"></div>
+            <div class="rightbar ex"></div>
+          </div>
+        </div>
+        <div [class]="{'active' : settingsService.layout == Layout.mixedSX}" class="item" (click)="settingsService.layout = Layout.mixedSX">
+          <h2>Layout Misto - Sinistro</h2>
+          <p>In questo loyaut la sidebar sinistra andrà ad occupare lo spazio per tutta la sua altezza.</p>
+          <div class="view">
+            <div class="leftbar ex"></div>
+            <div class="rightbar no"></div>
+          </div>
+        </div>
+        <div [class]="{'active' : settingsService.layout == Layout.mixedDX}" class="item" (click)="settingsService.layout = Layout.mixedDX">
+          <h2>Layout Misto - Destro</h2>
+          <p>In questo loyaut la sidebar destra andrà ad occupare lo spazio per tutta la sua altezza.</p>
+          <div class="view">
+            <div class="leftbar no"></div>
+            <div class="rightbar ex"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button>Salva</button>
+</div>

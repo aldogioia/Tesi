@@ -1,0 +1,212 @@
+<div class="projects">
+  <h1>Progetti</h1>
+
+  <div class="container">
+    <form class="criteria" [formGroup]="form" (ngSubmit)="addFilter()">
+      <div class="search-bar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+          <path d="M18 17.5L22.5 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20.5 11C20.5 6.02944 16.4706 2 11.5 2C6.52944 2 2.5 6.02944 2.5 11C2.5 15.9706 6.52944 20 11.5 20C16.4706 20 20.5 15.9706 20.5 11Z" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+        <input class="search" placeholder="Cerca per nome o CUP" formControlName="name">
+      </div>
+
+      <div class="section">
+        <div class="header-section" [class]="{'close' : isCloseSorting}">
+          <h2>Ordinamento</h2>
+          <div (click)="isCloseSorting = !isCloseSorting">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M9.5 5.00002C9.5 5.00002 7.29055 8 6.5 8C5.7094 8 3.5 5 3.5 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="content-section" *ngIf="!isCloseSorting">
+          <h2>Verso ordinamento</h2>
+          <div class="sub-content">
+            <div class="item" [class]="{'active' : ordinamento === 'ASC'}" (click)="ordinamento = 'ASC'">
+              <h2>crescente</h2>
+            </div>
+            <div class="item" [class]="{'active' : ordinamento === 'DESC'}" (click)="ordinamento = 'DESC'">
+              <h2>decrescente</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="content-section" *ngIf="!isCloseSorting">
+          <h2>Criterio ordinamento</h2>
+          <div class="item" [class]="{'active' : criterio === 'name'}" (click)="criterio = 'name'">
+            <h2>nome</h2>
+          </div>
+          <div class="item" [class]="{'active' : criterio === 'budget'}" (click)="criterio = 'budget'">
+            <h2>budget</h2>
+          </div>
+          <div class="item" [class]="{'active' : criterio === 'duration'}" (click)="criterio = 'duration'">
+            <h2>durata</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="header-section" [class]="{'close' : isCloseFiltering}">
+          <h2>Filtri</h2>
+          <div (click)="isCloseFiltering = !isCloseFiltering">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
+              <path d="M9.5 5.00002C9.5 5.00002 7.29055 8 6.5 8C5.7094 8 3.5 5 3.5 5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!--<div class="content-section" *ngIf="!isCloseFiltering">
+          <h2>Budget</h2>
+          <div class="sub-content">
+            <div class="input-wrapper">
+              <input type="number" value="0">
+              <span class="start">Min</span>
+              <span class="end">€</span>
+            </div>
+            <div class="input-wrapper">
+              <input type="number" value="1000000">
+              <span class="start">Max</span>
+              <span class="end">€</span>
+            </div>
+          </div>
+        </div>-->
+
+        <div class="content-section" *ngIf="!isCloseFiltering">
+          <h2>Durata</h2>
+          <div class="input-wrapper">
+            <input type="number" value="0" formControlName="duration">
+            <span class="end">Mesi</span>
+          </div>
+        </div>
+
+        <div class="content-section" *ngIf="!isCloseFiltering">
+          <h2>PNRR</h2>
+          <div class="sub-content">
+            <div class="item" [class]="{'active' : pnrr === true}" (click)="updatePnrr(true)">
+              <h2>Si</h2>
+              <p>Il progetto è finanziato da fondi PNRR</p>
+            </div>
+            <div class="item" [class]="{'active' : pnrr === false}" (click)="updatePnrr(false)">
+              <h2>No</h2>
+              <p>Il progetto non è finanziato da fondi PNRR</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit">Applica</button>
+        <button type="reset" (click)="resetFilter()">Azzera filtri</button>
+      </div>
+    </form>
+
+    <div class="list">
+      <button class="new" [routerLink]="['/add-project']">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M8.5 3.1665V13.8332" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3.16666 8.5H13.8333" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Nuovo Progetto
+      </button>
+
+      <div class="content">
+
+        <ng-container *ngIf="loading">
+          <div class="skeleton">
+            <div class="header-skeleton">
+              <h2 class="skeleton-text"></h2>
+              <div class="skeleton-icon"></div>
+            </div>
+            <div class="content-item">
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+            </div>
+          </div>
+          <div class="skeleton">
+            <div class="header-skeleton">
+              <h2 class="skeleton-text"></h2>
+              <div class="skeleton-icon"></div>
+            </div>
+            <div class="content-item">
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+            </div>
+          </div>
+          <div class="skeleton">
+            <div class="header-skeleton">
+              <h2 class="skeleton-text"></h2>
+              <div class="skeleton-icon"></div>
+            </div>
+            <div class="content-item">
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+            </div>
+          </div>
+          <div class="skeleton">
+            <div class="header-skeleton">
+              <h2 class="skeleton-text"></h2>
+              <div class="skeleton-icon"></div>
+            </div>
+            <div class="content-item">
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+              <div class="sub-content">
+                <h2 class="skeleton-text w50"></h2>
+                <h2 class="skeleton-text w70"></h2>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container  *ngIf="!loading">
+          <div class="item" *ngFor="let project of projects" (click)="navigate(project.cup)">
+            <div class="header-item">
+              <h2>{{project.name}}</h2>
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6.00003 4C6.00003 4 10 6.94593 10 8C10 9.05413 6 12 6 12" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+            <div class="content-item">
+              <div class="sub-content">
+                <h3>Responsabili:</h3>
+                <p *ngIf="project.numberOfResponsible == 0">nessuno</p>
+                <p *ngIf="project.numberOfResponsible == 1">{{project.responsible}}</p>
+                <p *ngIf="project.numberOfResponsible > 1">{{project.responsible}}, +{{project.numberOfResponsible-1}}</p>
+              </div>
+              <div class="sub-content">
+                <h3>Budget:</h3>
+                <p>{{project.budget}}€</p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <button class="more" (click)="loadMore()">Carica altro</button>
+      </div>
+    </div>
+  </div>
+</div>
+

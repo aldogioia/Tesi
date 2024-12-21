@@ -1,0 +1,140 @@
+.criteria{
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  width: 100%;
+  height: 100%;
+  min-width: 250px;
+  max-width: 350px;
+}
+
+.section{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.header-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  left: 5px;
+
+}
+.header-section > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 15px;
+  transition: .3s ease-in-out;
+}
+.header-section > div:hover{
+  background: var(--black20);
+}
+.header-section > div > svg{
+  height: 16px;
+  width: 16px;
+  stroke: var(--black50);
+  transition: .1s ease-in-out;
+}
+.header-section.close > div > svg{
+  transform: rotate(-90deg);
+}
+.header-section > div:hover > svg{
+  stroke: var(--black);
+}
+
+.content-section{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.content-section > h2{
+  opacity: .5;
+}
+
+.sub-content{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.sub-content > .item{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 125px;
+  flex: 1 0 0;
+}
+
+.criteria .item{
+  text-transform: capitalize;
+  transition: .3s ease-in-out;
+  border-radius: 5px;
+  padding: 10px;
+  align-items: flex-start;
+  height: fit-content;
+}
+.criteria .item > p{
+  color: var(--black50);
+}
+
+.professors .criteria .item.active{
+  background: var(--blu20);
+}
+.projects .criteria .item.active{
+  background: var(--orange20);
+}
+.professors .criteria .item.active > h2{
+  color: var(--blu);
+}
+.projects .criteria .item.active > h2{
+  color: var(--orange);
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 10px;
+  justify-content: center;
+}
+
+.buttons > button{
+  transition: .3s ease-in-out;
+}
+
+.buttons > button[type="submit"]{
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  color: var(--black);
+  font-weight: 600;
+  cursor: pointer;
+}
+.professors .buttons > button[type="submit"]{
+  background: var(--blu50);
+}
+.projects .buttons > button[type="submit"]{
+  background: var(--orange50);
+}
+.professors .buttons > button[type="submit"]:hover{
+  background: var(--blu);
+}
+.projects .buttons > button[type="submit"]:hover{
+  background: var(--orange);
+}
+
+.buttons > button[type="reset"]{
+  border: none;
+  background: none;
+  color: red;
+  opacity: .5;
+  font-weight: 600;
+  cursor: pointer;
+}
+.buttons > button[type="reset"]:hover{
+  opacity: 1;
+}

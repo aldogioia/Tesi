@@ -1,0 +1,135 @@
+.professors{
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  padding-top: 20px;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.professors > h1 {
+  color: var(--blu);
+}
+
+.container{
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+
+.list{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.new{
+  height: 40px;
+  width: 100%;
+  background: var(--blu20);
+  padding: 10px;
+  border: 2px dashed var(--blu);
+  color: var(--blu);
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.new > svg {
+  stroke: var(--blu);
+}
+
+.content{
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background: var(--black5);
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.item > div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  border-radius: 50%;
+  background: var(--black20);
+  transition: .3s ease-in-out;
+}
+
+.item > div > svg{
+  stroke: var(--white);
+}
+.item:hover > div{
+  background: var(--blu);
+}
+
+.skeleton{
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--black5);
+  border-radius: 10px;
+  width: 100%;
+}
+
+.skeleton-text{
+  width: 25%;
+  height: 15px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--black5) 25%, var(--black20) 50%, var(--black5) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 3s infinite linear;
+}
+
+.skeleton-icon{
+  width: 26px;
+  height: 26px;
+  border-radius: 13px;
+  background: linear-gradient(90deg, var(--black5) 25%, var(--black20) 50%, var(--black5) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 3s infinite linear;
+}
+
+.more{
+  background: none;
+  border: none;
+  text-align: center;
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--black50);
+  transition: .3s ease-in-out;
+  cursor: pointer;
+}
+.more:hover{
+  color: var(--blu);
+}
+
+
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

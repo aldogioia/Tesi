@@ -1,0 +1,141 @@
+<div class="professor">
+  <div class="details">
+    <div class="title">
+      <h1>Dettagli</h1>
+      <div (click)="goToUpdate()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+          <path d="M11.7973 2.61553C12.1888 2.22402 12.3845 2.02826 12.6014 1.93465C12.9139 1.79978 13.2681 1.79978 13.5805 1.93465C13.7973 2.02826 13.9931 2.22402 14.3846 2.61553C14.7761 3.00704 14.9719 3.2028 15.0655 3.41966C15.2004 3.7321 15.2004 4.08632 15.0655 4.39876C14.9719 4.61562 14.7761 4.81138 14.3846 5.20289L11.0369 8.55063C10.2121 9.37543 9.79973 9.78783 9.2832 10.0322C8.76667 10.2765 8.18627 10.3338 7.02549 10.4483L6.5 10.5002L6.55185 9.9747C6.66639 8.8139 6.72366 8.2335 6.96801 7.71696C7.21233 7.20043 7.62473 6.78805 8.44953 5.96326L11.7973 2.61553Z" stroke-linejoin="round"/>
+          <path d="M4.49998 10.5H2.99998C2.35565 10.5 1.83331 11.0223 1.83331 11.6667C1.83331 12.311 2.35565 12.8333 2.99998 12.8333H9.33331C9.97765 12.8333 10.5 13.3557 10.5 14C10.5 14.6443 9.97765 15.1667 9.33331 15.1667H7.83331" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="wrapper">
+          <span>Nome</span>
+          <h2 *ngIf="!loadingInfo">{{professor?.name}}</h2>
+          <h2 *ngIf="loadingInfo" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>Cognome</span>
+          <h2 *ngIf="!loadingInfo">{{professor?.surname}}</h2>
+          <h2 *ngIf="loadingInfo" class="skeleton-text"></h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="wrapper">
+          <span>Dipartimento</span>
+          <h2 *ngIf="!loadingInfo">{{professor?.department}}</h2>
+          <h2 *ngIf="loadingInfo" class="skeleton-text"></h2>
+        </div>
+
+        <div class="wrapper">
+          <span>Ruolo</span>
+          <h2 *ngIf="!loadingInfo">{{professor?.role}}</h2>
+          <h2 *ngIf="loadingInfo" class="skeleton-text"></h2>
+        </div>
+      </div>
+
+      <div class="wrapper">
+        <span>Matricola</span>
+        <h2 *ngIf="!loadingInfo">{{professor?.id}}</h2>
+        <h2 *ngIf="loadingInfo" class="skeleton-text"></h2>
+      </div>
+
+      <div class="wrapper">
+        <span>Email</span>
+        <h2 *ngIf="!loadingInfo">{{professor?.email}}</h2>
+        <h2 *ngIf="loadingInfo" class="skeleton-text"></h2>
+      </div>
+
+      <div class="wrapper">
+        <span>Dat!a di nascita</span>
+        <h2 *ngIf="!loadingInfo">{{professor?.birthDate}}</h2>
+        <h2 *ngIf="loadingInfo" class="skeleton-text"></h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="collaborations">
+    <div class="title">
+      <h1>Collaborazioni</h1>
+    </div>
+
+    <div class="content">
+      <div class="item" *ngFor="let p of projects">
+        <h2>{{p.projectName}}</h2>
+        <div>
+          <p class="show">{{p.workedHours}} / {{p.totalHours}} <span>ore</span></p>
+          <p class="hide">{{calc(p.remunerationRole, p.workedHours)}}€ <span>maturati</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="selection-date">
+      <div>
+        <select [ngModel]="months[currentMonth]">
+          <option *ngFor="let month of months" [value]="month">{{ month }}</option>
+        </select>
+        <select [ngModel]="currentYear">
+          <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+        </select>
+      </div>
+
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
+          <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
+          <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="calendar">
+      <div class="day-header"><h2>Lun</h2></div>
+      <div class="day-header"><h2>Mar</h2></div>
+      <div class="day-header"><h2>Mer</h2></div>
+      <div class="day-header"><h2>Gio</h2></div>
+      <div class="day-header"><h2>Ven</h2></div>
+      <div class="day-header"><h2>Sab</h2></div>
+      <div class="day-header"><h2>Dom</h2></div>
+
+      <div *ngFor="let day of prevDays" class="day-prev">
+        <span><p>{{ day }}</p></span>
+      </div>
+      <div class="day" *ngFor="let day of days" attr.data-hours="{{ daysWorked.get(day)?.hours }} ore" (click)="add(day)">
+        <span><p>{{ day }}</p></span>
+      </div>
+      <div *ngFor="let day of nextDays" class="day-next">
+        <span><p>{{ day }}</p></span>
+      </div>
+    </div>
+
+    <form [formGroup]="form">
+      <div class="selection-project">
+        <select>
+          <option *ngFor="let project of projects" [value]="project.projectId">{{ project.projectName }}</option>
+        </select>
+        <p><span>24</span> ore su <span>40</span> ore totali</p>
+      </div>
+
+      <div class="content" formArrayName="daysHours">
+        <div class="new-item" *ngFor="let day of daysWorked | keyvalue; let i = index" [formGroupName]="i">
+          <div class="header-new-item">
+            <h2>{{ day.value.date.toLocaleDateString() }}</h2>
+            <p>{{ findNameProject(day.value.project) }}</p>
+          </div>
+
+          <div class="input-wrapper">
+            <input [class.error]="checkInvalid(i)" type="text" placeholder="inserisci le ore" formControlName="hours">
+            <h2 class="end">Ore</h2>
+          </div>
+        </div>
+      </div>
+      <button type="submit">Salva</button>
+    </form>-->
+  </div>
+</div>

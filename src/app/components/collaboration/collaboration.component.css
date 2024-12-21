@@ -1,0 +1,147 @@
+.projects {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  gap: 50px;
+  padding: 20px 0 50px 0;
+}
+.projects h1{
+  color: var(--orange);
+}
+
+.project-info, .selection{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+}
+.project-info > h2{
+  color: var(--orange);
+}
+.project-info > p{
+  color: var(--black50);
+}
+.project-info > p > span{
+  color: var(--black);
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+form:last-child{
+   gap: 25px;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.content > p{
+  color: var(--black50);
+  text-align: end;
+  margin-right: 10px;
+}
+
+.selection > div {
+  display: flex;
+  gap: 10px;
+}
+.selection > div > svg {
+  height: 20px;
+  width: 20px;
+  stroke: var(--black50);
+  cursor: pointer;
+}
+.selection > div > svg:hover {
+  stroke: var(--black);
+}
+
+.item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--black5);
+  padding: 5px;
+  border: 1px dashed transparent;
+  border-radius: 10px;
+  transition: .3s ease-in-out;
+}
+.item.selected{
+  background: var(--orange20);
+  border: 1px dashed var(--orange);
+}
+
+.wrap{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid transparent;
+}
+.wrap:last-child{
+  border-radius: 5px;
+  gap: 5px;
+  padding: 5px 10px;
+  background: var(--black10);
+}
+.wrap.error{
+  border: 1px solid #FF0000;
+  background: #FF000033;
+}
+
+.wrap > span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: var(--black10);
+  padding: 0;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+.wrap > span > svg{
+  height: 15px;
+  width: 0;
+  stroke: var(--orange);
+  transition: .3s ease-in-out;
+}
+
+.item.valid > .wrap > span{
+  padding: 5px;
+}
+.item.valid > .wrap > span > svg{
+   width: 15px;
+ }
+
+.wrap > input{
+  background: none;
+  text-align: end;
+  width: 50px;
+  height: 20px;
+  padding: 0;
+  border-radius: 0;
+}
+.wrap > p{
+  color: var(--black50);
+  display: block;
+}
+
+button{
+  background: var(--orange50);
+  color: var(--black);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  border: none;
+  outline: none;
+  width: 100%;
+  z-index: 3;
+}
+button:hover{
+  background: var(--orange);
+}

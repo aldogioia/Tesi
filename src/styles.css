@@ -1,1 +1,136 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root{
+  --white: #FBFBFB;
+  --white50: #FBFBFB80;
+  --white20: #FBFBFB33;
+  --white10: #FBFBFB1A;
+  --white5: #FBFBFB0C;
+
+  --black: #333333;
+  --black50: #33333380;
+  --black20: #33333333;
+  --black10: #3333331A;
+  --black5: #3333330C;
+
+  --blu: #57B6FA;
+  --blu50: #57B6FA80;
+  --blu20: #57B6FA33;
+
+  --orange: #FAB657;
+  --orange50: #FAB65780;
+  --orange20: #FAB65733;
+
+  --purple: #6857FA;
+  --purple50: #6857FA80;
+  --purple20: #6857FA33;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,body{
+  overscroll-behavior: none;
+}
+
+main.dark{
+  --black: #FBFBFB;
+  --black50: #FBFBFB80;
+  --black20: #FBFBFB33;
+  --black10: #FBFBFB0E;
+  --black5: #FBFBFB0C;
+
+  --white: #333333;
+  --white50: #33333380;
+  --white20: #33333333;
+  --white10: #3333330E;
+  --white5: #3333330C;
+}
+
+main.helvetica{
+  font-family: "Helvetica", sans-serif;
+}
+main.atkinson{
+  font-family: "Atkinson Hyperlegible", sans-serif;
+}
+main.noto{
+  font-family: "Noto Sans", sans-serif;
+}
+main.comic{
+  font-family: "Comic Sans MS", sans-serif;
+}
+
+h1{
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+h2{
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+h3{
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+p{
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--black);
+}
+
+.title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.title > div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px;
+  background: var(--black10);
+  transition: .3s ease-in-out;
+}
+.title > div > svg{
+  height: 20px;
+  width: 20px;
+  transition: .3s ease-in-out;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 20px);
+  overflow-y: scroll;
+}
+
+/* WebKit browsers (Chrome, Safari) */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* Per Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+
+/* Per IE e Edge */
+body {
+  -ms-overflow-style: none;
+}

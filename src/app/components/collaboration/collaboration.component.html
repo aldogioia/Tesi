@@ -1,0 +1,68 @@
+<div class="projects">
+
+  <div class="title">
+    <h1>Collaborazioni</h1>
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+        <path d="M7.16667 5.1665L6.82277 6.09587C6.37183 7.3145 6.14635 7.92384 5.70185 8.36837C5.25735 8.81284 4.64803 9.0383 3.42937 9.4893L2.5 9.83317L3.42937 10.177C4.64803 10.628 5.25735 10.8535 5.70185 11.298C6.14635 11.7425 6.37183 12.3518 6.82277 13.5704L7.16667 14.4998L7.51053 13.5704C7.96153 12.3518 8.187 11.7425 8.63147 11.298C9.076 10.8535 9.68533 10.628 10.9039 10.177L11.8333 9.83317L10.9039 9.4893C9.68533 9.0383 9.076 8.81284 8.63147 8.36837C8.187 7.92384 7.96153 7.3145 7.51053 6.09587L7.16667 5.1665Z" stroke-linejoin="round"/>
+        <path d="M12.5 2.5L12.3526 2.8983C12.1593 3.42058 12.0627 3.68173 11.8722 3.87222C11.6817 4.06272 11.4206 4.15935 10.8983 4.35261L10.5 4.5L10.8983 4.64739C11.4206 4.84065 11.6817 4.93728 11.8722 5.12778C12.0627 5.31827 12.1593 5.57942 12.3526 6.1017L12.5 6.5L12.6474 6.1017C12.8407 5.57942 12.9373 5.31827 13.1278 5.12777C13.3183 4.93728 13.5794 4.84065 14.1017 4.64739L14.5 4.5L14.1017 4.35261C13.5794 4.15935 13.3183 4.06272 13.1278 3.87222C12.9373 3.68173 12.8407 3.42058 12.6474 2.8983L12.5 2.5Z" stroke-linejoin="round"/>
+      </svg>
+      <p>Genera</p>
+    </span>
+  </div>
+
+  <form [formGroup]="searchForm" (ngSubmit)="search()">
+    <div class="project-info">
+      <h2>{{projectName}}</h2>
+      <p>Budget: <span>{{projectBudget}}</span> €</p>
+    </div>
+
+    <div class="selection">
+      <h2>{{currentYear}}</h2>
+      <div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
+          <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
+          <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="search-bar">
+      <input class="search" formControlName="search" placeholder="Cerca per nome">
+      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+        <path d="M18 17.5L22.5 22" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20.5 11C20.5 6.02944 16.4706 2 11.5 2C6.52944 2 2.5 6.02944 2.5 11C2.5 15.9706 6.52944 20 11.5 20C16.4706 20 20.5 15.9706 20.5 11Z" stroke-width="1.5" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </form>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="content" formArrayName="professors">
+      <div class="project-info">
+        <p>Proiezione budget: <span>{{projectionBudget}}</span> €</p>
+        <p>assegnate/libere</p>
+      </div>
+      <div class="item" [class]="{'valid': !checkInvalid(i, false) , 'selected': professorToAdd.includes(i)}" *ngFor="let professor of professors; let i = index" [formGroupName]="i">
+        <div class="wrap">
+            <span (click)="toggleItem(i)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+                <path *ngIf="!professorToAdd.includes(i)" d="M8.5 2.6665V13.3332" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3.16667 8H13.8333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          <h2>{{professor.name}} {{professor.surname}}</h2>
+        </div>
+
+        <div class="wrap" [class.error]="checkInvalid(i, true)">
+          <input  type="number" formControlName="expectedHours" [readonly]="professorToAdd.includes(i)">
+          <p>/ {{1500 - professor.workedHours}} ore</p>
+        </div>
+
+      </div>
+    </div>
+    <button type="submit">Aggiungi {{ responsible ? 'Responsabili' : 'Collaboratori' }}</button>
+  </form>
+
+</div>
