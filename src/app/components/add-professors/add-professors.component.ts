@@ -4,6 +4,7 @@ import {Professor} from "../../model/Professor";
 import {ProfessorService} from "../../service/professor/professor.service";
 import {Router} from "@angular/router";
 import {ProfessorUpdateDto} from "../../model/dto/ProfessorUpdateDto";
+import { pastDateValidator } from '../../validators/PastDateValidators';
 
 @Component({
   selector: 'app-add-professors',
@@ -32,7 +33,7 @@ export class AddProfessorsComponent implements OnInit{
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       surname: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       email: ['', [Validators.required, Validators.email]],
-      birthDate: ['', [Validators.required]],
+      birthDate: ['', [Validators.required, pastDateValidator]],
       department: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
     })
 
@@ -78,6 +79,10 @@ export class AddProfessorsComponent implements OnInit{
           }
         }
       )
+
+      setTimeout(() => {
+        this.showToast = false;
+      }, 3000);
     }
   }
 
@@ -97,6 +102,10 @@ export class AddProfessorsComponent implements OnInit{
           }
         }
       )
+
+      setTimeout(() => {
+        this.showToast = false;
+      }, 3000);
     }
   }
 

@@ -118,6 +118,23 @@ p{
   overflow-y: scroll;
 }
 
+.toast{
+  position: fixed;
+  top: 20px;
+  display: flex;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px;
+  background: #00ff1533;
+  backdrop-filter: blur(10px);
+  color: var(--black);
+  border-radius: 10px;
+}
+
+.toast.error{
+  background: #ff000080;
+}
+
 /* WebKit browsers (Chrome, Safari) */
 ::-webkit-scrollbar {
   width: 0;

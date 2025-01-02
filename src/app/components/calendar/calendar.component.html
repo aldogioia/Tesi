@@ -36,7 +36,7 @@
   <form>
     <div class="box">
       <button type="submit">Salva</button>
-      <div class="projects">
+      <div class="rows">
         <div *ngFor="let p of pprojects">
           <p class="hover on">{{ p }}</p>
           <p class="hover off">{{ "24/50 ore" }}</p>
@@ -52,10 +52,10 @@
       </div>
     </div>
 
-    <div class="days">
-      <div class="day" *ngFor="let day of days">
+    <div class="cols">
+      <div class="col" *ngFor="let day of days">
         <p>{{ day }}</p>
-        <div class="hours">
+        <div>
           <input
             type="number"
             *ngFor="let p of pprojects"

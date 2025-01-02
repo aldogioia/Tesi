@@ -5,8 +5,8 @@ export class Project{
   name: string
   acronym: string
   startDate: Date
-  endDate: Date | null = null
-  duration: number
+  endDate: Date
+  duration: number | null = null
   overhead: number
   budget: number
   state: string

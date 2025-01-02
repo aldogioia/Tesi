@@ -4,7 +4,6 @@ import {CollaborationsService} from "../../service/collaborations/collaborations
 import {Router} from "@angular/router";
 import {ProjectsService} from "../../service/projects/projects.service";
 import {CollaborationsProjectSummaryDto} from "../../model/dto/CollaborationsSummaryDto";
-import {Remuneration} from "../../model/Remuneration";
 import {ProfessorService} from "../../service/professor/professor.service";
 
 @Component({
@@ -18,10 +17,6 @@ export class ProjectComponent implements OnInit {
 
   id: number | undefined;
   project: Project | null = null;
-
-  remunerationFull: Remuneration | undefined;
-  remunerationAssociate: Remuneration | undefined;
-  remunerationResearcher: Remuneration | undefined;
 
   responsibles: CollaborationsProjectSummaryDto[] = []
   collaborators: CollaborationsProjectSummaryDto[] = []
@@ -51,9 +46,6 @@ export class ProjectComponent implements OnInit {
     this.projectsService.getProject(id).subscribe({
       next: project => {
         this.project = project
-        this.remunerationFull = project.remunerations.find(r => r.roleType === 'Full');
-        this.remunerationAssociate = project.remunerations.find(r => r.roleType === 'Associate');
-        this.remunerationResearcher = project.remunerations.find(r => r.roleType === 'Researcher');
       }
     })
   }
@@ -71,16 +63,15 @@ export class ProjectComponent implements OnInit {
     })
   }
 
+  getAmount(s: string): number {
+    return this.project?.remunerations.find(r => r.roleType === s)?.amount || 0;
+  }
+
   goToCollaboration(b: boolean) {
     this.router.navigate(
       ['/collaboration'],
       { state: {
-          id: this.id,
-          name: this.project?.name,
-          budget: this.project?.budget,
-          full: this.remunerationFull?.amount,
-          associate: this.remunerationAssociate?.amount,
-          researcher: this.remunerationResearcher?.amount,
+          project: this.project,
           responsible: b
         }
       }

@@ -75,6 +75,7 @@
   background: var(--orange20);
   padding: 10px;
   border-radius: 20px;
+  cursor: pointer;
   transition: .3s ease-in-out;
 }
 .wizard-button:hover{
@@ -85,14 +86,18 @@
 }
 
 
+.wizard-content{
+  display: flex;
+  flex-direction: column;
+  gap:25px;
+  animation: dissolve .3s ease-in-out;
+}
+
 
 form{
   display: flex;
   flex-direction: column;
   gap: 10px;
-}
-form:last-child{
-   gap: 25px;
 }
 
 .content{
@@ -204,4 +209,16 @@ button{
 }
 button:hover{
   background: var(--orange);
+}
+
+
+@keyframes dissolve{
+  0%{
+    opacity: 0;
+    scale: 0.8;
+  }
+  100%{
+    opacity: 1;
+    scale: 1;
+  }
 }

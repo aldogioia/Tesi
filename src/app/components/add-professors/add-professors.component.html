@@ -60,4 +60,8 @@
 
     <button type="submit">{{ modify ? "Modifica" : "Aggiungi" }}</button>
   </form>
+
+  <div class="toast" *ngIf="showToast">
+    <p>{{message}}</p>
+  </div>
 </div>

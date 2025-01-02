@@ -38,7 +38,7 @@ export class AddProjectsComponent implements OnInit {
       overhead: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       budget: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
       startDate: ['', [Validators.required]],
-      duration: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
+      endDate: ['', [Validators.required]],
       amountFull: ['', [Validators.required, Validators.pattern("^\\d+(\\,\\d+)?$")]],
       amountAssociate: ['', [Validators.required, Validators.pattern("^\\d+(\\,\\d+)?$")]],
       amountResearcher: ['', [Validators.required, Validators.pattern("^\\d+(\\,\\d+)?$")]]
@@ -96,11 +96,16 @@ export class AddProjectsComponent implements OnInit {
             //this.router.navigate(['/projects'])
           },
           error: () => {
-            this.message = 'Project added successfully';
+            this.message = 'Project not added';
             this.showToast = true;
           }
         }
       )
+
+      setTimeout(() => {
+        this.showToast = false;
+      }, 3000);
+
     }
   }
 
@@ -142,6 +147,10 @@ export class AddProjectsComponent implements OnInit {
           this.showToast = true
         }
       })
+      
+      setTimeout(() => {
+        this.showToast = false;
+      }, 3000);
     }
   }
 

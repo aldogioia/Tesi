@@ -10,7 +10,7 @@ import {CalendarService} from "../../service/calendar/calendar.service";
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css', '../../../../public/css/input.css', '../../../../public/css/filter.css'],
+  styleUrls: ['./calendar.component.css', '../../../../public/css/input.css', '../../../../public/css/calendar.css'],
   host: { 'class': 'main' }
 })
 export class CalendarComponent implements OnInit {

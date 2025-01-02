@@ -79,19 +79,19 @@
       <div class="column">
         <div class="wrapper">
           <span>Professore Ordinario</span>
-          <h2 *ngIf="!loading">{{remunerationFull?.amount}} <span>€/h</span></h2>
+          <h2 *ngIf="!loading">{{getAmount("Full")}} <span>€/h</span></h2>
           <h2 *ngIf="loading" class="skeleton-text"></h2>
         </div>
 
         <div class="wrapper">
           <span>Professore Associato</span>
-          <h2 *ngIf="!loading">{{remunerationAssociate?.amount}} <span>€/h</span></h2>
+          <h2 *ngIf="!loading">{{getAmount("Associate")}} <span>€/h</span></h2>
           <h2 *ngIf="loading" class="skeleton-text"></h2>
         </div>
 
         <div class="wrapper">
           <span>Ricercatore</span>
-          <h2 *ngIf="!loading">{{remunerationResearcher?.amount}} <span>€/h</span></h2>
+          <h2 *ngIf="!loading">{{getAmount("Researcher")}} <span>€/h</span></h2>
           <h2 *ngIf="loading" class="skeleton-text"></h2>
         </div>
       </div>
