@@ -2,7 +2,6 @@ package org.aldo.api.data.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import org.aldo.api.data.entities.Remuneration;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -27,15 +26,15 @@ public class ProjectCreateDto {
     private BigDecimal budget;
 
     @NotNull
-    private Integer duration;
-
-    @NotNull
     @Min(0)
     @Max(100)
     private Integer overhead;
 
     @NotNull
     private LocalDate startDate;
+
+    @NotNull
+    private LocalDate endDate;
 
     @NotBlank
     @Size(min = 3, max = 40)

@@ -11,6 +11,8 @@ import org.aldo.api.service.interfaces.ProjectService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.temporal.ChronoUnit;
+
 @Service
 @RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
@@ -27,8 +29,8 @@ public class ProjectServiceImpl implements ProjectService {
         project.setAcronym(projectCreateDto.getAcronym());
         project.setBudget(projectCreateDto.getBudget());
         project.setStartDate(projectCreateDto.getStartDate());
-        project.setEndDate(projectCreateDto.getStartDate().plusMonths(projectCreateDto.getDuration()));
-        project.setDuration(projectCreateDto.getDuration());
+        project.setEndDate(projectCreateDto.getEndDate());
+        project.setDuration( (int) ChronoUnit.MONTHS.between(projectCreateDto.getStartDate(), projectCreateDto.getEndDate()));
         project.setState(projectCreateDto.getState());
         project.setOverhead(projectCreateDto.getOverhead());
         project.setPnrr(projectCreateDto.getPnrr());
