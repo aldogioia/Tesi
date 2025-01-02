@@ -29,6 +29,8 @@ export class CollaborationComponent implements OnInit{
 
   professors: ProfessorWorkedHoursDto[] = []
 
+  page = 1;
+
   professorToAdd: number[] = []
 
   constructor(
@@ -148,5 +150,9 @@ export class CollaborationComponent implements OnInit{
         //todo mostrare popup di errore
       }
     })
+  }
+
+  save() {
+    return 0;
   }
 }

@@ -26,6 +26,66 @@
   color: var(--black);
 }
 
+.wizard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.wizard .box {
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--black);
+  background: var(--black20);
+  border-radius: 13px;
+  transition: .3s ease-in-out;
+}
+.wizard .box.selected {
+  background: var(--orange20);
+}
+.wizard .box.completed {
+  color: var(--white);
+  background: var(--orange);
+}
+
+.wizard > .progress{
+  display: flex;
+  flex: 1 0 0;
+  height: 2px;
+  background: var(--black20);
+  border-radius: 1px;
+}
+.progress > span {
+  height: 100%;
+  background: var(--orange);
+  border-radius: 1px;
+  transition: .3s ease-in-out;
+}
+
+.wizard-actions{
+  display: flex;
+}
+
+.wizard-button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--orange20);
+  padding: 10px;
+  border-radius: 20px;
+  transition: .3s ease-in-out;
+}
+.wizard-button:hover{
+  background: var(--orange50);
+}
+.wizard-button>svg{
+  stroke: var(--black);
+}
+
+
+
 form{
   display: flex;
   flex-direction: column;

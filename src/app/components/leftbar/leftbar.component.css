@@ -183,25 +183,10 @@ svg{
   .left-bar:hover{
     transform: translateX(0);
   }
+}
 
-  .header > div{
-    transform: translateX(calc(50% + 20px));
-  }
-  .left-bar:hover .header > div{
-    transform: translateX(0);
-  }
-
-  .header > div > svg{
-    stroke: var(--black50);
-    transform: rotate(90deg);
-  }
-  .header > div > svg:hover{
-    stroke: var(--black);
-  }
-  .left-bar.close:hover > .header > div > svg {
-    transform: rotateX(180deg);
-  }
-  .left-bar:hover .header > div > svg{
-    transform: rotate(0);
+@media (min-width: 801px) {
+  .left-bar {
+    position: relative;
   }
 }
