@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.aldo.api.logging.Auditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -49,8 +50,10 @@ public class Project extends Auditable {
     private Boolean pnrr;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Collaboration> collaborations;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Remuneration> remunerations;
 }

@@ -7,6 +7,7 @@ import org.aldo.api.data.dto.CollaborationProfessorSummaryDto;
 import org.aldo.api.data.dto.CollaborationProjectSummaryDto;
 import org.aldo.api.data.dto.ProfessorWorkedHoursDto;
 import org.aldo.api.service.interfaces.CollaborationsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,8 +39,8 @@ public class CollaborationsController {
     }
 
     @PostMapping
-    public ResponseEntity<String> addCollaboration(@Valid @RequestBody List<CollaborationCreateDto> collaborationsDto) {
+    public ResponseEntity<Void> createCollaboration(@Valid @RequestBody List<CollaborationCreateDto> collaborationsDto) {
         collaborationsService.createCollaborations(collaborationsDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -1,11 +1,10 @@
 package org.aldo.api.config;
 
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dao.ProfessorDao;
-import org.aldo.api.data.dao.ProjectDao;
-import org.aldo.api.data.dto.CollaborationCreateDto;
+import org.aldo.api.data.dao.CollaborationHoursYearlyDao;
+import org.aldo.api.data.dto.CreateCollaborationHoursMonthlyDto;
 import org.aldo.api.data.dto.ProfessorDto;
-import org.aldo.api.data.entities.Collaboration;
+import org.aldo.api.data.entities.CollaborationHoursMonthly;
 import org.aldo.api.data.entities.Professor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -15,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class ModelMapperConfig {
-//    private final ProjectDao projectDao;
-//    private final ProfessorDao professorDao;
+//    private final CollaborationDao collaborationDao;
+    private final CollaborationHoursYearlyDao collaborationHoursYearlyDao;
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
@@ -29,14 +28,23 @@ public class ModelMapperConfig {
             }
         });
 
-        //Mapping for CollaborationCreateDto
-//        modelMapper.addMappings(new PropertyMap<CollaborationCreateDto, Collaboration>() {
+        //Mapping for CreateCollaborationHoursMonthlyDto
+        modelMapper.addMappings(new PropertyMap<CreateCollaborationHoursMonthlyDto, CollaborationHoursMonthly>() {
+            @Override
+            protected void configure() {
+                using(ctx -> collaborationHoursYearlyDao.findById((String) ctx.getSource()).orElse(null))
+                        .map(source.getCollaborationsHoursYearly(), destination.getCollaborationHoursYearly().getId());
+            }
+        });
+
+        //Mapping for CreateCollaborationHoursYearlyDto
+//        modelMapper.addMappings(new PropertyMap<CreateCollaborationHoursYearlyDto, CollaborationHoursYearly>() {
 //            @Override
 //            protected void configure() {
-//                using(ctx -> projectDao.findById((Long) ctx.getSource()).orElse(null))
-//                        .map(source.getProjectId(), destination.getProject());
-//                using(ctx -> professorDao.findById((Integer) ctx.getSource()).orElse(null))
-//                        .map(source.getProfessorId(), destination.getProfessor());
+//                map().setYear(source.getYear());
+//                map().setYearExpectedHours(source.getYearExpectedHours());
+//                using(ctx -> collaborationDao.findById((String) ctx.getSource()).orElse(null))
+//                        .map(source.getCollaboration(), destination.getCollaboration().getId());
 //            }
 //        });
 

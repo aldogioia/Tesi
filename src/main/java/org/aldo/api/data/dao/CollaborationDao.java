@@ -23,8 +23,8 @@ public interface CollaborationDao extends JpaRepository<Collaboration, String> {
         JOIN c.project p
         JOIN c.professor prof
         LEFT JOIN Remuneration r ON r.project.cup = p.cup AND r.role.id = prof.role.id
-        LEFT JOIN CollaborationHoursYearly cy ON cy.collaborations.id = c.id
-        LEFT JOIN CollaborationHoursMonthly cm ON cm.collaborationsHoursYearly.id = cy.id
+        LEFT JOIN CollaborationHoursYearly cy ON cy.collaboration.id = c.id
+        LEFT JOIN CollaborationHoursMonthly cm ON cm.collaborationHoursYearly.id = cy.id
         LEFT JOIN DailyHoursDistribution dh ON dh.collaborationsHoursMonthly.id = cm.id
         WHERE prof.id = :professorId
         GROUP BY p.cup, p.name, r.amount, c.expectedHours
@@ -39,8 +39,8 @@ public interface CollaborationDao extends JpaRepository<Collaboration, String> {
         FROM Collaboration c
         JOIN c.project p
         JOIN c.professor prof
-        LEFT JOIN CollaborationHoursYearly cy ON cy.collaborations.id = c.id
-        LEFT JOIN CollaborationHoursMonthly cm ON cm.collaborationsHoursYearly.id = cy.id
+        LEFT JOIN CollaborationHoursYearly cy ON cy.collaboration.id = c.id
+        LEFT JOIN CollaborationHoursMonthly cm ON cm.collaborationHoursYearly.id = cy.id
         LEFT JOIN DailyHoursDistribution dh ON dh.collaborationsHoursMonthly.id = cm.id
         WHERE p.cup = :projectId
         GROUP BY prof.id, prof.name, prof.surname, c.responsible, c.expectedHours
@@ -55,9 +55,6 @@ public interface CollaborationDao extends JpaRepository<Collaboration, String> {
     """)
     List<String> findProfessorNamesByProjectCup(@Param("projectId") Long projectId);
 
-
-
-
     @Query("""
         SELECT new org.aldo.api.data.dto.ProfessorWorkedHoursDto(
             prof.id, prof.name, prof.surname, prof.role.type,
@@ -65,12 +62,14 @@ public interface CollaborationDao extends JpaRepository<Collaboration, String> {
         )
         FROM Professor prof
         LEFT JOIN Collaboration c ON c.professor.id = prof.id
-        LEFT JOIN CollaborationHoursYearly chy ON chy.collaborations.id = c.id AND chy.year = :year
-        LEFT JOIN CollaborationHoursMonthly chm ON chm.collaborationsHoursYearly.id = chy.id
+        LEFT JOIN CollaborationHoursYearly chy ON chy.collaboration.id = c.id AND chy.year = :year
+        LEFT JOIN CollaborationHoursMonthly chm ON chm.collaborationHoursYearly.id = chy.id
         LEFT JOIN DailyHoursDistribution dh ON dh.collaborationsHoursMonthly.id = chm.id
         WHERE LOWER(prof.name) LIKE LOWER(CONCAT('%', :searchName, '%'))
                OR LOWER(prof.surname) LIKE LOWER(CONCAT('%', :searchName, '%'))
         GROUP BY prof.id, prof.name, prof.surname, prof.role.type
     """)
     List<ProfessorWorkedHoursDto> findProfessorWorkedHours(Year year, String searchName);
+
+    List<Collaboration> findByProjectCup(Long projectCup);
 }

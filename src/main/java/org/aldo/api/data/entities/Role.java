@@ -1,23 +1,23 @@
 package org.aldo.api.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.aldo.api.logging.Auditable;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.List;
-import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "role")
 @Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class Role {
+public class Role extends Auditable {
     @Id
     @UuidGenerator
     private String id;
@@ -26,5 +26,6 @@ public class Role {
     private String type;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Professor> professors;
 }

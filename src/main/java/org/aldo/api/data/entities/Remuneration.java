@@ -8,7 +8,6 @@ import org.aldo.api.logging.Auditable;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity

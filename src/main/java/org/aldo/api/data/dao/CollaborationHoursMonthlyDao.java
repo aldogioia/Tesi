@@ -14,8 +14,8 @@ import java.util.List;
 public interface CollaborationHoursMonthlyDao extends JpaRepository<CollaborationHoursMonthly, String> {
     @Query("""
         SELECT chm FROM CollaborationHoursMonthly chm
-        JOIN chm.collaborationsHoursYearly chy
-        JOIN chy.collaborations c
+        JOIN chm.collaborationHoursYearly chy
+        JOIN chy.collaboration c
         WHERE c.professor.id = :professorId
           AND chy.year = :year
           AND chm.month = :month
@@ -24,4 +24,7 @@ public interface CollaborationHoursMonthlyDao extends JpaRepository<Collaboratio
             @Param("professorId") String professorId,
             @Param("year") Year year,
             @Param("month") Month month);
+
+    List<CollaborationHoursMonthly> findByCollaborationHoursYearly_Collaboration_Project_CupAndCollaborationHoursYearly_Collaboration_Professor_Id(
+            Long projectCup, Integer professorId);
 }

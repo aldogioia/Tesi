@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.aldo.api.logging.Auditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -40,5 +41,6 @@ public class Professor extends Auditable {
     private Role role;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<Collaboration> collaborations;
 }

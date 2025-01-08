@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.aldo.api.logging.Auditable;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -30,8 +31,9 @@ public class CollaborationHoursMonthly extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "collaboration_hours_id", nullable = false)
-    private CollaborationHoursYearly collaborationsHoursYearly;
+    private CollaborationHoursYearly collaborationHoursYearly;
 
     @OneToMany(mappedBy = "collaborationsHoursMonthly", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @ToString.Exclude
     private List<DailyHoursDistribution> dailyHoursDistributions;
 }
