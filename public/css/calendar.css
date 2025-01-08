@@ -86,15 +86,14 @@ button:hover{
   align-items: center;
   gap: 10px;
   border-radius: 10px;
-  min-width: 100px;
 }
 .col > p{
   height: 33px;
+  width: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: var(--black10);
-  width: 100%;
 }
 
 .col:first-child > p{
@@ -109,6 +108,7 @@ button:hover{
   flex-direction: column;
   gap: 10px;
   padding: 0 5px;
+  width: 80px;
 }
 
 .col input{

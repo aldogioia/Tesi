@@ -91,14 +91,14 @@ export class CalendarComponent implements OnInit {
 
   onInputChange(event: Event): void {
     const input = event.target as HTMLInputElement;
-    input.style.color = 'var(--blu)';
+    input.classList.add("add")
   }
 
   onInputBlur(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.value || isNaN(Number(input.value))) {
       input.value = '0';
-      input.style.color = 'var(--black)';
+      input.classList.remove("add")
     }
   }
 

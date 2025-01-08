@@ -93,13 +93,14 @@
   animation: dissolve .3s ease-in-out;
 }
 
-
 form{
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
+.row {
+  flex-direction: row;
+}
 .content{
   display: flex;
   flex-direction: column;
