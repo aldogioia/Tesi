@@ -111,6 +111,10 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 
+input::placeholder{
+  color: var(--black50);
+}
+
 .input-wrapper svg {
   width: 16px;
   height: 16px;

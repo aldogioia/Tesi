@@ -1,10 +1,16 @@
+.main{
+  position: relative;
+}
+
 .projects {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 600px;
+  height: 100%;
   gap: 50px;
   padding: 20px 0 50px 0;
+  overflow-x: scroll;
 }
 .projects h1{
   color: var(--orange);
@@ -66,6 +72,12 @@
 
 .wizard-actions{
   display: flex;
+  width: 100%;
+  max-width: 600px;
+  padding: 5px 0;
+  background: var(--white);
+  position: absolute;
+  bottom: 5px;
 }
 
 .wizard-button{
