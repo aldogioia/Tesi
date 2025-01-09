@@ -3,11 +3,13 @@ package org.aldo.api.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dto.CreateCollaborationHoursMonthlyDto;
+import org.aldo.api.data.dto.MonthlyDetailDto;
 import org.aldo.api.service.interfaces.CollaborationsHoursMonthlyService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Year;
 import java.util.List;
 
 @RestController
@@ -23,6 +25,16 @@ public class CollaborationsHoursMonthlyController {
     ) {
         collaborationsHoursMonthlyService.createCollaborationsHoursMonthly(createCollaborationHoursMonthlyDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MonthlyDetailDto>> getCollaborationsHoursMonthly(
+            @RequestParam Long projectCup,
+            @RequestParam Year year
+    ) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(collaborationsHoursMonthlyService.getCollaborationsHoursMonthly(projectCup, year));
     }
 
 //    @GetMapping

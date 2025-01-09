@@ -12,7 +12,6 @@ import org.aldo.api.data.entities.Collaboration;
 import org.aldo.api.data.entities.Professor;
 import org.aldo.api.data.entities.Project;
 import org.aldo.api.service.interfaces.CollaborationsService;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
@@ -45,8 +44,10 @@ public class CollaborationsServiceImpl implements CollaborationsService {
     public void createCollaborations(List<CollaborationCreateDto> collaborationsCreateDto) {
         collaborationsCreateDto.stream()
                 .map(dto -> {
-                    Professor professor = findEntityById(dto.getProfessorId(), professorDao, "Professor");
-                    Project project = findEntityById(dto.getProjectId(), projectDao, "Project");
+                    Professor professor = professorDao.findById(dto.getProfessorId())
+                            .orElseThrow(() -> new RuntimeException("Professor not found"));
+                    Project project = projectDao.findById(dto.getProjectId())
+                            .orElseThrow(() -> new RuntimeException("Project not found"));
 
                     Collaboration collaboration = new Collaboration();
                     collaboration.setResponsible(dto.getResponsible());
@@ -57,12 +58,4 @@ public class CollaborationsServiceImpl implements CollaborationsService {
                 })
                 .forEach(collaborationDao::save);
     }
-
-
-    private <T, ID> T findEntityById(ID id, JpaRepository<T, ID> repository, String entityName) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException(entityName + " not found"));
-    }
-
-
 }
