@@ -57,6 +57,7 @@ export class CollaborationComponent implements OnInit{
   ngOnInit(): void {
     this.loadProfessors()
     this.initYearsAndMonths()
+    this.loadMonthlyDetail()
   }
 
   private loadProfessors(searchName: string | null = null) { //TODO: Modificare il metodo per avere le ore libere nell'arco della durata del progetto
@@ -76,6 +77,15 @@ export class CollaborationComponent implements OnInit{
             })
           );
         });
+      }
+    })
+  }
+
+  private loadMonthlyDetail(){
+    if (!this.project) return
+    this.collaborationService.getMonthlyDetailDto(this.project.cup, this.currentYear).subscribe({
+      next: data => {
+        console.log(data)
       }
     })
   }

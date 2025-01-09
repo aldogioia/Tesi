@@ -3,6 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import { CollaborationsProfessorSummaryDto, CollaborationsProjectSummaryDto } from "../../model/dto/CollaborationsSummaryDto";
 import {Collaboration} from "../../model/Collaboration";
 import {ProfessorWorkedHoursDto} from "../../model/dto/ProfessorWorkedHoursDto";
+import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,11 @@ export class CollaborationsService {
     return this.http.get<ProfessorWorkedHoursDto[]>(
       this.urlApi + 'professors-hours',
       { params: params });
+  }
+
+  getMonthlyDetailDto(projectCup: number, year: number){
+    return this.http.get<MonthlyDetailDto[]>(this.urlApi + "monthly",
+      {params: {projectCup: projectCup.toString(), year: year.toString()}});
   }
 
   addCollaboration(collaborations: Collaboration[]) {

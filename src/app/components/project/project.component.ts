@@ -64,7 +64,7 @@ export class ProjectComponent implements OnInit {
   }
 
   getAmount(s: string): number {
-    return this.project?.remunerations.find(r => r.roleType === s)?.amount || 0;
+    return this.project?.remunerations.find(r => r.roleType == s)?.amount || 0;
   }
 
   goToCollaboration(b: boolean) {
