@@ -10,7 +10,7 @@
   height: 100%;
   gap: 50px;
   padding: 20px 0 50px 0;
-  overflow-x: scroll;
+  overflow-y: scroll;
 }
 .projects h1{
   color: var(--orange);
@@ -74,10 +74,12 @@
   display: flex;
   width: 100%;
   max-width: 600px;
-  padding: 5px 0;
-  background: var(--white);
+  padding: 3px;
+  background: var(--black10);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
   position: absolute;
-  bottom: 5px;
+  bottom: 10px;
 }
 
 .wizard-button{
@@ -85,7 +87,7 @@
   align-items: center;
   justify-content: center;
   background: var(--orange20);
-  padding: 10px;
+  padding: 8px;
   border-radius: 20px;
   cursor: pointer;
   transition: .3s ease-in-out;
@@ -235,3 +237,73 @@ button:hover{
     scale: 1;
   }
 }
+
+
+.table{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-x: scroll;
+}
+
+.r,.c{
+  display: flex;
+}
+
+.r{
+  align-items: center;
+}
+
+.c{
+  flex-direction: column;
+  gap: 10px;
+}
+
+.first, .r > button{
+  width: 150px;
+  min-width: 150px;
+  margin-right: 10px;
+}
+
+.first{
+  border-radius:  10px;
+  padding: 10px;
+  background: var(--black10);
+}
+.first.br{
+  border-radius: 0;
+}
+.first.br:first-of-type{
+  border-radius: 10px 10px 0 0;
+}
+.first.br:last-of-type{
+  border-radius: 0 0 10px 10px;
+}
+
+.cell{
+  border-radius: 10px;
+  width: 70px;
+  min-width: 70px;
+  padding: 10px;
+  background: none;
+  text-align: center;
+}
+.cell.b{
+  border-radius: 0;
+  background: var(--black10);
+}
+ .cell:hover{
+  background: var(--black10);
+}
+
+ .cell.b:first-of-type{
+   border-radius: 10px 0 0 10px;
+ }
+.cell.b:last-of-type {
+  border-radius: 0 10px 10px 0;
+}
+
+
+
+
+

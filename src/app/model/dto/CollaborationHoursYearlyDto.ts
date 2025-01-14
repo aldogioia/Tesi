@@ -1,10 +1,10 @@
 export class CollaborationHoursYearlyDto {
     id : string;
     year: number;
-    expectedHours: number;
+  yearExpectedHours: number;
     constructor(data: any) {
       this.id = data.id;
       this.year = data.year;
-      this.expectedHours = data.expectedHours;
+      this.yearExpectedHours = data.yearExpectedHours;
     }
 }

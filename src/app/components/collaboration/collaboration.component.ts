@@ -5,6 +5,8 @@ import {CollaborationsService} from "../../service/collaborations/collaborations
 import {ProfessorWorkedHoursDto} from "../../model/dto/ProfessorWorkedHoursDto";
 import {Collaboration} from "../../model/Collaboration";
 import { Project } from '../../model/Project';
+import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
+import {YearlyDetailDto} from "../../model/dto/YearlyDetailDto";
 
 @Component({
   selector: 'app-collaboration',
@@ -20,15 +22,18 @@ export class CollaborationComponent implements OnInit{
   responsible: boolean = false;
 
   projectionBudget: number = 0;
-  page = 1;
+  page = 2;
 
-  currentYear = new Date().getFullYear();
+  currentYear = 0;
   months: string[] = [];
   years: string[] = [];
 
   professors: ProfessorWorkedHoursDto[] = []
   professorToAdd: number[] = []
   collaborations: Collaboration[] = []
+
+  yearlyDetail: YearlyDetailDto[] = []
+  monthlyDetail: MonthlyDetailDto[] = []
 
 
   constructor(
@@ -57,7 +62,9 @@ export class CollaborationComponent implements OnInit{
   ngOnInit(): void {
     this.loadProfessors()
     this.initYearsAndMonths()
+
     this.loadMonthlyDetail()
+    this.loadYearlyDetail()
   }
 
   private loadProfessors(searchName: string | null = null) { //TODO: Modificare il metodo per avere le ore libere nell'arco della durata del progetto
@@ -84,10 +91,26 @@ export class CollaborationComponent implements OnInit{
   private loadMonthlyDetail(){
     if (!this.project) return
     this.collaborationService.getMonthlyDetailDto(this.project.cup, this.currentYear).subscribe({
-      next: data => {
-        console.log(data)
-      }
+      next: data => { this.monthlyDetail = data }
     })
+  }
+
+  private loadYearlyDetail(){
+    if (!this.project) return
+    this.collaborationService.getYearlyDetailDto(this.project.cup).subscribe({
+      next: data => { this.yearlyDetail = data; console.log(data) }
+    })
+  }
+
+  getValue(s: string, detail: YearlyDetailDto | MonthlyDetailDto): number {
+    if (detail instanceof YearlyDetailDto) {
+      let b = detail.collaborationHoursYearly.find(c => c.year.toString() == s)
+      return b ? b.yearExpectedHours : 0
+    }
+    else {
+      let b = detail.collaborationHoursMonthly.find(c => c.month.toString() == s)
+      return b ? b.monthExpectedHours : 0
+    }
   }
 
   checkInvalid(i: number, b: boolean): boolean{
@@ -128,7 +151,7 @@ export class CollaborationComponent implements OnInit{
     for (let d = start; d <= end; d.setMonth(d.getMonth() + 1)) {
       this.months.push(
         String(d.getMonth() + 1).padStart(2, '0') +
-        " / " +
+        "/" +
         String(d.getFullYear()).slice(-2)
       );
 
@@ -148,18 +171,26 @@ export class CollaborationComponent implements OnInit{
     return 0
   }
 
+  next(){
+    if (this.currentYear < this.years.length) this.currentYear= this.currentYear + 1
+  }
+
+  prev(){
+    if (this.currentYear > this.years.length) this.currentYear= this.currentYear - 1
+  }
+
   search() {
     this.loadProfessors(this.searchForm.get('search')?.value)
   }
 
   save() {
-    this.collaborationService.addCollaboration(this.collaborations).subscribe({
+    /*this.collaborationService.addCollaboration(this.collaborations).subscribe({
       next: () => {
         //todo mostrare popup di successo
       },
       error: () => {
         //todo mostrare popup di errore
       }
-    })
+    })*/
   }
 }

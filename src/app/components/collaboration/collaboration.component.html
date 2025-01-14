@@ -57,10 +57,6 @@
             <p>/ {{1500 - professor.workedHours}} ore</p>
           </div>
         </div>
-
-        <div class="item" *ngFor="let p of months">
-          <h2>p</h2>
-        </div>
       </div>
     </form>
   </div>
@@ -90,38 +86,47 @@
     </div>
   </div>
 
+<ng-template #details  let-bool="bool">
+  <div class="selection date" *ngIf="!bool">
+    <div>
+      <select [ngModel]="years[currentYear]">
+        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+      </select>
+    </div>
 
-<ng-template #details let-bool="bool">
-  <form class="row">
-    <div class="box">
-      <button type="submit">Salva</button>
-      <div class="rows">
-        <div *ngFor="let p of professors">
-          <p class="hover on">{{ p.name }} {{ p.surname }}</p>
-          <p class="hover off">{{ "24/50 ore" }}</p>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12" fill="none">
-            <path d="M11.5 6C11.5 3.23857 9.2614 1 6.5 1C3.73857 1 1.5 3.23857 1.5 6C1.5 8.7614 3.73857 11 6.5 11C9.2614 11 11.5 8.7614 11.5 6Z"/>
-            <path d="M6.62109 8.5V6C6.62109 5.7643 6.62109 5.64645 6.54784 5.5732C6.47464 5.5 6.35679 5.5 6.12109 5.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.496 4H6.5005" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
-      <div class="total">
-        <p>Totale Anno</p>
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
+        <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
+        <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <form class="table">
+    <div class="r">
+      <button>Salva</button>
+      <p class="cell b"  [class]="{'b' :  bool ? years.length > 1 : months.length > 1}" *ngFor="let item of  bool ? years : months; let i = index">{{ item }}</p>
+    </div>
+
+    <div class="c" *ngIf="bool">
+      <div class="r" *ngFor="let d of yearlyDetail">
+        <p class="first" [class]="{'br' : yearlyDetail.length > 1}">{{ d.professor.name }} {{ d.professor.surname }}</p>
+        <input class="cell" type="number" *ngFor="let y of years" value="{{ getValue(y, d) }}">
       </div>
     </div>
 
-    <div class="cols">
-      <div class="col" *ngFor="let c of bool ? years : months">
-        <p>{{ c }}</p>
-        <div>
-          <input
-            type="number"
-            *ngFor="let p of professors"
-            value="{{ 0 }}">
-        </div>
-        <p>0</p>
+    <div class="c" *ngIf="!bool">
+      <div class="r" *ngFor="let d of monthlyDetail">
+        <p class="first" [class]="{'br' : monthlyDetail.length > 1}">{{ d.professor.name }} {{ d.professor.surname }}</p>
+        <input class="cell" type="number" *ngFor="let y of months" value="{{ getValue(y, d) }}">
       </div>
+    </div>
+
+    <div class="r">
+      <p class="first" style="text-align: center">Totale Anno</p>
+      <h2 class="cell b"  [class]="{'b' : bool ? years.length > 1 : months.length > 1}" *ngFor="let item of  bool ? years : months; let i = index">{{ 0 }} <!--TODO calcolare il totale--></h2>
     </div>
   </form>
 </ng-template>

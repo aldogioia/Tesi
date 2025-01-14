@@ -4,6 +4,7 @@ import { CollaborationsProfessorSummaryDto, CollaborationsProjectSummaryDto } fr
 import {Collaboration} from "../../model/Collaboration";
 import {ProfessorWorkedHoursDto} from "../../model/dto/ProfessorWorkedHoursDto";
 import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
+import {YearlyDetailDto} from "../../model/dto/YearlyDetailDto";
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,11 @@ export class CollaborationsService {
   getMonthlyDetailDto(projectCup: number, year: number){
     return this.http.get<MonthlyDetailDto[]>(this.urlApi + "monthly",
       {params: {projectCup: projectCup.toString(), year: year.toString()}});
+  }
+
+  getYearlyDetailDto(projectCup: number){
+    return this.http.get<YearlyDetailDto[]>(this.urlApi + "yearly",
+      {params: {projectCup: projectCup.toString()}});
   }
 
   addCollaboration(collaborations: Collaboration[]) {
