@@ -41,12 +41,9 @@ public class CollaborationsHoursMonthlyServiceImpl implements CollaborationsHour
                         modelMapper.map(chy.getCollaboration().getProfessor(), ProfessorSummaryDto.class),
                         modelMapper.map(chy, CollaborationHoursYearlyDto.class),
                         collaborationHoursMonthlyDao
-                                .findByCollaborationHoursYearly_Collaboration_Project_CupAndCollaborationHoursYearly_Collaboration_Professor_Id(projectCup, chy.getCollaboration().getProfessor().getId())
+                                .findByCollaborationHoursYearly_IdAndCollaborationHoursYearly_Collaboration_Project_CupAndCollaborationHoursYearly_Collaboration_Professor_Id(chy.getId() ,projectCup, chy.getCollaboration().getProfessor().getId())
                                 .stream()
                                 .map(chm -> modelMapper.map(chm, CollaborationHoursMonthlyDto.class)).toList()
                 )).toList();
-
     }
-
-
 }

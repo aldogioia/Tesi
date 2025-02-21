@@ -25,6 +25,6 @@ public interface CollaborationHoursMonthlyDao extends JpaRepository<Collaboratio
             @Param("year") Year year,
             @Param("month") Month month);
 
-    List<CollaborationHoursMonthly> findByCollaborationHoursYearly_Collaboration_Project_CupAndCollaborationHoursYearly_Collaboration_Professor_Id(
-            Long projectCup, Integer professorId);
+    List<CollaborationHoursMonthly> findByCollaborationHoursYearly_IdAndCollaborationHoursYearly_Collaboration_Project_CupAndCollaborationHoursYearly_Collaboration_Professor_Id(
+            String collaborationHoursYearlyId, Long projectCup, Integer professorId);
 }
