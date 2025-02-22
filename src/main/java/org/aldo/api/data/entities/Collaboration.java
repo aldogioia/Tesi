@@ -38,5 +38,5 @@ public class Collaboration extends Auditable {
 
     @OneToMany(mappedBy = "collaboration", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
-    private List<CollaborationHoursYearly> collaborationsHoursYearly;
+    private List<YearlyHours> yearlyHours;
 }

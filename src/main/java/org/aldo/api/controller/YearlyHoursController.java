@@ -2,7 +2,7 @@ package org.aldo.api.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dto.CreateCollaborationHoursYearlyDto;
+import org.aldo.api.data.dto.CreateYearlyHoursDto;
 import org.aldo.api.data.dto.YearlyDetailDto;
 import org.aldo.api.service.interfaces.CollaborationsHoursYearlyService;
 import org.springframework.http.HttpStatus;
@@ -15,11 +15,11 @@ import java.util.List;
 @RequestMapping("/api/v1/collaborations/yearly")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-public class CollaborationsHoursYearlyController {
+public class YearlyHoursController {
     private final CollaborationsHoursYearlyService collaborationsHoursYearlyService;
     @PostMapping
     public ResponseEntity<Void> createCollaborationsHoursYearly(
-        @Valid @RequestBody List<CreateCollaborationHoursYearlyDto> createCollaborationsHoursYearlyDto
+        @Valid @RequestBody List<CreateYearlyHoursDto> createCollaborationsHoursYearlyDto
     ) {
         collaborationsHoursYearlyService.createCollaborationsHoursYearly(createCollaborationsHoursYearlyDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();

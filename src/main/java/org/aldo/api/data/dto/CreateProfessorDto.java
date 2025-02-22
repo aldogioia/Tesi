@@ -7,7 +7,7 @@ import org.aldo.api.security.ValidRoleType;
 import java.time.LocalDate;
 
 @Data
-public class ProfessorCreateDto {
+public class CreateProfessorDto {
     @NotNull
     @Min(100000)
     @Max(999999)

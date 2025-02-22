@@ -1,10 +1,10 @@
 package org.aldo.api.config;
 
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dao.CollaborationHoursYearlyDao;
-import org.aldo.api.data.dto.CreateCollaborationHoursMonthlyDto;
+import org.aldo.api.data.dao.YearlyHoursDao;
+import org.aldo.api.data.dto.CreateMonthlyHoursDto;
 import org.aldo.api.data.dto.ProfessorDto;
-import org.aldo.api.data.entities.CollaborationHoursMonthly;
+import org.aldo.api.data.entities.MonthlyHours;
 import org.aldo.api.data.entities.Professor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -14,8 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class ModelMapperConfig {
-//    private final CollaborationDao collaborationDao;
-    private final CollaborationHoursYearlyDao collaborationHoursYearlyDao;
+    private final YearlyHoursDao yearlyHoursDao;
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
@@ -28,16 +27,33 @@ public class ModelMapperConfig {
             }
         });
 
-        //Mapping for CreateCollaborationHoursMonthlyDto
-        modelMapper.addMappings(new PropertyMap<CreateCollaborationHoursMonthlyDto, CollaborationHoursMonthly>() {
+        //Mapping for CreateMonthlyHoursDto
+        modelMapper.addMappings(new PropertyMap<CreateMonthlyHoursDto, MonthlyHours>() {
             @Override
             protected void configure() {
-                using(ctx -> collaborationHoursYearlyDao.findById((String) ctx.getSource()).orElse(null))
-                        .map(source.getCollaborationsHoursYearly(), destination.getCollaborationHoursYearly().getId());
+                using(ctx -> yearlyHoursDao.findById((String) ctx.getSource()).orElse(null))
+                        .map(source.getCollaborationsHoursYearly(), destination.getYearlyHours().getId());
             }
         });
 
-        //Mapping for CreateCollaborationHoursYearlyDto
+        modelMapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PUBLIC);
+
+        return modelMapper;
+    }
+}
+
+//        //Mapping for CreateDailyHoursDto
+//        modelMapper.addMappings(new PropertyMap<CreateDailyHoursDto, DailyHours>() {
+//            @Override
+//            protected void configure() {
+//                using(ctx -> monthlyHoursDao.findById((String) ctx.getSource()).orElse(null))
+//                        .map(source.getMonthlyHours(), destination.getMonthlyHours().getId());
+//            }
+//        });
+
+//Mapping for CreateCollaborationHoursYearlyDto
 //        modelMapper.addMappings(new PropertyMap<CreateCollaborationHoursYearlyDto, CollaborationHoursYearly>() {
 //            @Override
 //            protected void configure() {
@@ -47,11 +63,3 @@ public class ModelMapperConfig {
 //                        .map(source.getCollaboration(), destination.getCollaboration().getId());
 //            }
 //        });
-
-        modelMapper.getConfiguration()
-                .setFieldMatchingEnabled(true)
-                .setFieldAccessLevel(org.modelmapper.config.Configuration.AccessLevel.PUBLIC);
-
-        return modelMapper;
-    }
-}

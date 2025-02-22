@@ -6,7 +6,7 @@ import lombok.Data;
 import org.aldo.api.security.ValidRemunerationId;
 
 @Data
-public class RemunerationUpdateDto {
+public class UpdateRemunerationDto {
     @NotNull
     @ValidRemunerationId
     private String id;

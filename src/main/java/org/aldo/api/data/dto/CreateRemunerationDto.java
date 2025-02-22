@@ -7,7 +7,7 @@ import lombok.Data;
 import org.aldo.api.security.ValidRoleType;
 
 @Data
-public class RemunerationCreateDto {
+public class CreateRemunerationDto {
     @NotBlank
     @ValidRoleType
     private String roleType;

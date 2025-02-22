@@ -1,13 +1,13 @@
 package org.aldo.api.service.interfaces;
 
-import org.aldo.api.data.dto.ProjectCreateDto;
+import org.aldo.api.data.dto.CreateProjectDto;
 import org.aldo.api.data.dto.ProjectDto;
-import org.aldo.api.data.dto.ProjectUpdateDto;
+import org.aldo.api.data.dto.UpdateProjectDto;
 
 public interface ProjectService {
-    Long createProject(ProjectCreateDto projectCreateDto);
+    Long createProject(CreateProjectDto createProjectDto);
 
-    void updateProject(ProjectUpdateDto projectUpdateDto);
+    void updateProject(UpdateProjectDto updateProjectDto);
 
     ProjectDto getProject(Long cup);
 }

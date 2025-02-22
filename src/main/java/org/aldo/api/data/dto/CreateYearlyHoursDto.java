@@ -6,7 +6,7 @@ import lombok.Data;
 import java.time.Year;
 
 @Data
-public class CreateCollaborationHoursYearlyDto {
+public class CreateYearlyHoursDto {
     // @ValidCollaborationId
     private String collaboration;
     @NotNull

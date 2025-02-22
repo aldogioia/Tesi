@@ -2,9 +2,9 @@ package org.aldo.api.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dto.ProjectCreateDto;
+import org.aldo.api.data.dto.CreateProjectDto;
 import org.aldo.api.data.dto.ProjectDto;
-import org.aldo.api.data.dto.ProjectUpdateDto;
+import org.aldo.api.data.dto.UpdateProjectDto;
 import org.aldo.api.service.interfaces.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,15 +18,15 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectController {
     private final ProjectService projectService;
     @PostMapping
-    public ResponseEntity<Long> createProject(@Valid @RequestBody ProjectCreateDto projectCreateDto) {
+    public ResponseEntity<Long> createProject(@Valid @RequestBody CreateProjectDto createProjectDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(projectService.createProject(projectCreateDto));
+                .body(projectService.createProject(createProjectDto));
     }
 
     @PatchMapping
-    public ResponseEntity<Void> updateProject(@Valid @RequestBody ProjectUpdateDto projectUpdateDto) {
-        projectService.updateProject(projectUpdateDto);
+    public ResponseEntity<Void> updateProject(@Valid @RequestBody UpdateProjectDto updateProjectDto) {
+        projectService.updateProject(updateProjectDto);
         return ResponseEntity.ok().build();
     }
 

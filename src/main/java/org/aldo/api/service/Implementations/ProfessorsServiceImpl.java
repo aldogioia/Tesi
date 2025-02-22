@@ -2,7 +2,7 @@ package org.aldo.api.service.Implementations;
 
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.ProfessorDao;
-import org.aldo.api.data.dto.ProfessorSummaryDto;
+import org.aldo.api.data.dto.SummaryProfessorDto;
 import org.aldo.api.data.entities.Professor;
 import org.aldo.api.data.specificatons.ProfessorSpecifications;
 import org.aldo.api.service.interfaces.ProfessorsService;
@@ -24,7 +24,7 @@ public class ProfessorsServiceImpl implements ProfessorsService {
     private final ModelMapper modelMapper;
 
     @Override
-    public Page<ProfessorSummaryDto> getProfessors(Map<String, String> sorting, Map<String, String> filtering, Pageable pageable) {
+    public Page<SummaryProfessorDto> getProfessors(Map<String, String> sorting, Map<String, String> filtering, Pageable pageable) {
         Sort sort = Sort.by(
                 Sort.Direction.fromString(sorting.getOrDefault("direction", "ASC")),
                 sorting.getOrDefault("sortBy", "name"));
@@ -37,13 +37,13 @@ public class ProfessorsServiceImpl implements ProfessorsService {
         Specification<Professor> specification = Specification.where(
                 ProfessorSpecifications.hasRole(role).and(ProfessorSpecifications.hasNameContaining(name)));
 
-        return professorDao.findAll(specification, pageable).map(professor -> modelMapper.map(professor, ProfessorSummaryDto.class));
+        return professorDao.findAll(specification, pageable).map(professor -> modelMapper.map(professor, SummaryProfessorDto.class));
     }
 
     @Override
-    public List<ProfessorSummaryDto> getAllProfessor() {
+    public List<SummaryProfessorDto> getAllProfessor() {
         return professorDao.findAll().stream()
-                .map(professor -> modelMapper.map(professor, ProfessorSummaryDto.class))
+                .map(professor -> modelMapper.map(professor, SummaryProfessorDto.class))
                 .toList();
     }
 }

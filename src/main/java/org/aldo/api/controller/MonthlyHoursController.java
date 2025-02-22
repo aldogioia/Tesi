@@ -2,7 +2,7 @@ package org.aldo.api.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dto.CreateCollaborationHoursMonthlyDto;
+import org.aldo.api.data.dto.CreateMonthlyHoursDto;
 import org.aldo.api.data.dto.MonthlyDetailDto;
 import org.aldo.api.service.interfaces.CollaborationsHoursMonthlyService;
 import org.springframework.http.HttpStatus;
@@ -16,14 +16,14 @@ import java.util.List;
 @RequestMapping("/api/v1/collaborations/monthly")
 @CrossOrigin(origins = "*")
 @RequiredArgsConstructor
-public class CollaborationsHoursMonthlyController {
+public class MonthlyHoursController {
     private final CollaborationsHoursMonthlyService collaborationsHoursMonthlyService;
 
     @PostMapping
     public ResponseEntity<Void> createCollaborationsHoursMonthly(
-            @Valid @RequestBody List<CreateCollaborationHoursMonthlyDto> createCollaborationHoursMonthlyDto
+            @Valid @RequestBody List<CreateMonthlyHoursDto> createMonthlyHoursDto
     ) {
-        collaborationsHoursMonthlyService.createCollaborationsHoursMonthly(createCollaborationHoursMonthlyDto);
+        collaborationsHoursMonthlyService.createCollaborationsHoursMonthly(createMonthlyHoursDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -36,15 +36,4 @@ public class CollaborationsHoursMonthlyController {
                 .status(HttpStatus.OK)
                 .body(collaborationsHoursMonthlyService.getCollaborationsHoursMonthly(projectCup, year));
     }
-
-//    @GetMapping
-//    public ResponseEntity<List<CollaborationHoursMonthlyDto>> getCollaborationsHoursMonthly(
-//            @RequestParam String professorId,
-//            @RequestParam Integer month,
-//            @RequestParam Integer year
-//    ) {
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(collaborationsHoursMonthlyService.getCollaborationsHoursMonthly(professorId, Month.of(month), Year.of(year)));
-//    }
 }

@@ -2,9 +2,9 @@ package org.aldo.api.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dto.CollaborationCreateDto;
-import org.aldo.api.data.dto.CollaborationProfessorSummaryDto;
-import org.aldo.api.data.dto.CollaborationProjectSummaryDto;
+import org.aldo.api.data.dto.CreateCollaborationDto;
+import org.aldo.api.data.dto.SummaryCollaborationProfessorDto;
+import org.aldo.api.data.dto.SummaryCollaborationProjectDto;
 import org.aldo.api.data.dto.ProfessorWorkedHoursDto;
 import org.aldo.api.service.interfaces.CollaborationsService;
 import org.springframework.http.HttpStatus;
@@ -21,12 +21,12 @@ import java.util.List;
 public class CollaborationsController {
     private final CollaborationsService collaborationsService;
     @GetMapping(value = "/{id}/professor", produces = "application/json")
-    public ResponseEntity<List<CollaborationProfessorSummaryDto>> getCollaborationsByProfessor(@PathVariable Integer id) {
+    public ResponseEntity<List<SummaryCollaborationProfessorDto>> getCollaborationsByProfessor(@PathVariable Integer id) {
         return ResponseEntity.ok(collaborationsService.getCollaborationsByProfessorId(id));
     }
 
     @GetMapping(value = "/{id}/project", produces = "application/json")
-    public ResponseEntity<List<CollaborationProjectSummaryDto>> getCollaborationsByProject(@PathVariable Long id) {
+    public ResponseEntity<List<SummaryCollaborationProjectDto>> getCollaborationsByProject(@PathVariable Long id) {
         return ResponseEntity.ok(collaborationsService.getCollaborationsByProjectId(id));
     }
 
@@ -39,7 +39,7 @@ public class CollaborationsController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createCollaboration(@Valid @RequestBody List<CollaborationCreateDto> collaborationsDto) {
+    public ResponseEntity<Void> createCollaboration(@Valid @RequestBody List<CreateCollaborationDto> collaborationsDto) {
         collaborationsService.createCollaborations(collaborationsDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

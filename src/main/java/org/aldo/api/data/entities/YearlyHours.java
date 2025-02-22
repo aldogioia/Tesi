@@ -18,7 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class CollaborationHoursYearly extends Auditable {
+public class YearlyHours extends Auditable {
     @Id
     @UuidGenerator
     private String id;
@@ -33,7 +33,7 @@ public class CollaborationHoursYearly extends Auditable {
     @JoinColumn(name = "collaboration_id", nullable = false)
     private Collaboration collaboration;
 
-    @OneToMany(mappedBy = "collaborationHoursYearly", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "yearlyHours", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
-    private List<CollaborationHoursMonthly> collaborationHoursMonthly;
+    private List<MonthlyHours> monthlyHours;
 }

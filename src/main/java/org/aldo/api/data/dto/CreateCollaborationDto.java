@@ -7,7 +7,7 @@ import org.aldo.api.security.ValidProfessorId;
 import org.aldo.api.security.ValidProjectId;
 
 @Data
-public class CollaborationCreateDto {
+public class CreateCollaborationDto {
     @NotNull
     @ValidProjectId
     private Long projectId;

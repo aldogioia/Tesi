@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Data
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-public class DailyHoursDistribution extends Auditable {
+public class DailyHours extends Auditable {
     @Id
     @UuidGenerator
     private String id;
@@ -27,5 +27,5 @@ public class DailyHoursDistribution extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "collaboration_hours_monthly_id", nullable = false)
-    private CollaborationHoursMonthly collaborationsHoursMonthly;
+    private MonthlyHours monthlyHours;
 }

@@ -9,7 +9,7 @@ import org.aldo.api.security.ValidProfessorId;
 import org.aldo.api.security.ValidRoleType;
 
 @Data
-public class ProfessorUpdateDto {
+public class UpdateProfessorDto {
     @NotNull
     @ValidProfessorId
     private Integer id;

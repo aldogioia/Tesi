@@ -1,9 +1,9 @@
 package org.aldo.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dto.ProfessorCreateDto;
+import org.aldo.api.data.dto.CreateProfessorDto;
 import org.aldo.api.data.dto.ProfessorDto;
-import org.aldo.api.data.dto.ProfessorUpdateDto;
+import org.aldo.api.data.dto.UpdateProfessorDto;
 import org.aldo.api.service.interfaces.ProfessorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,14 +20,14 @@ public class ProfessorController {
     private final ProfessorService professorService;
 
     @PostMapping
-    public ResponseEntity<Integer> createProfessor(@Valid @RequestBody ProfessorCreateDto professorCreateDto) {
-        Integer professorDto = professorService.createProfessor(professorCreateDto);
+    public ResponseEntity<Integer> createProfessor(@Valid @RequestBody CreateProfessorDto createProfessorDto) {
+        Integer professorDto = professorService.createProfessor(createProfessorDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(professorDto);
     }
 
     @PatchMapping
-    public ResponseEntity<Void> updateProfessor(@Valid @RequestBody ProfessorUpdateDto professorUpdateDto) {
-        professorService.updateProfessor(professorUpdateDto);
+    public ResponseEntity<Void> updateProfessor(@Valid @RequestBody UpdateProfessorDto updateProfessorDto) {
+        professorService.updateProfessor(updateProfessorDto);
         return ResponseEntity.ok().build();
     }
 

@@ -1,7 +1,7 @@
 package org.aldo.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dto.ProjectSummaryDto;
+import org.aldo.api.data.dto.SummaryProjectDto;
 import org.aldo.api.service.interfaces.ProjectsService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectsController {
     private final ProjectsService projectsService;
     @GetMapping
-    public ResponseEntity<Page<ProjectSummaryDto>> getAllProjects(
+    public ResponseEntity<Page<SummaryProjectDto>> getAllProjects(
             @RequestParam String direction,
             @RequestParam String criteria,
             @RequestParam(required = false) String name,

@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class YearlyDetailDto {
-    private ProfessorSummaryDto professor;
+    private SummaryProfessorDto professor;
     private Integer totalExpectedHours;
-    private List<CollaborationHoursYearlyDto> collaborationHoursYearly;
+    private List<YearlyHoursDto> collaborationHoursYearly;
 }

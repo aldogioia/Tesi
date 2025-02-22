@@ -21,26 +21,26 @@ public class ProjectServiceImpl implements ProjectService {
     private final RemunerationDao remunerationDao;
     private final ModelMapper modelMapper;
     @Override
-    public Long createProject(ProjectCreateDto projectCreateDto) {
+    public Long createProject(CreateProjectDto createProjectDto) {
         Project project = new Project();
 
-        project.setCup(projectCreateDto.getCup());
-        project.setName(projectCreateDto.getName());
-        project.setAcronym(projectCreateDto.getAcronym());
-        project.setBudget(projectCreateDto.getBudget());
-        project.setStartDate(projectCreateDto.getStartDate());
-        project.setEndDate(projectCreateDto.getEndDate());
-        project.setDuration( (int) ChronoUnit.MONTHS.between(projectCreateDto.getStartDate(), projectCreateDto.getEndDate()));
-        project.setState(projectCreateDto.getState());
-        project.setOverhead(projectCreateDto.getOverhead());
-        project.setPnrr(projectCreateDto.getPnrr());
+        project.setCup(createProjectDto.getCup());
+        project.setName(createProjectDto.getName());
+        project.setAcronym(createProjectDto.getAcronym());
+        project.setBudget(createProjectDto.getBudget());
+        project.setStartDate(createProjectDto.getStartDate());
+        project.setEndDate(createProjectDto.getEndDate());
+        project.setDuration( (int) ChronoUnit.MONTHS.between(createProjectDto.getStartDate(), createProjectDto.getEndDate()));
+        project.setState(createProjectDto.getState());
+        project.setOverhead(createProjectDto.getOverhead());
+        project.setPnrr(createProjectDto.getPnrr());
 
         Project projectCreated = projectDao.save(project);
 
-        for(RemunerationCreateDto remunerationCreateDto : projectCreateDto.getRemunerations()) {
+        for(CreateRemunerationDto createRemunerationDto : createProjectDto.getRemunerations()) {
             Remuneration remuneration = new Remuneration();
-            remuneration.setAmount(remunerationCreateDto.getAmount());
-            remuneration.setRole(roleDao.findByType(remunerationCreateDto.getRoleType()));
+            remuneration.setAmount(createRemunerationDto.getAmount());
+            remuneration.setRole(roleDao.findByType(createRemunerationDto.getRoleType()));
             remuneration.setProject(projectCreated);
             remunerationDao.save(remuneration);
         }
@@ -49,25 +49,25 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void updateProject(ProjectUpdateDto projectUpdateDto) {
+    public void updateProject(UpdateProjectDto updateProjectDto) {
         Project project = projectDao.findById(
-                projectUpdateDto.getCup()).orElseThrow(
+                updateProjectDto.getCup()).orElseThrow(
                         () -> new RuntimeException("Project not found"));
 
-        project.setBudget(projectUpdateDto.getBudget());
-        project.setState(projectUpdateDto.getState());
-        project.setOverhead(projectUpdateDto.getOverhead());
-        project.setPnrr(projectUpdateDto.getPnrr());
+        project.setBudget(updateProjectDto.getBudget());
+        project.setState(updateProjectDto.getState());
+        project.setOverhead(updateProjectDto.getOverhead());
+        project.setPnrr(updateProjectDto.getPnrr());
 
         projectDao.save(project);
 
-        for(RemunerationUpdateDto remunerationUpdateDto : projectUpdateDto.getRemunerations()) {
+        for(UpdateRemunerationDto updateRemunerationDto : updateProjectDto.getRemunerations()) {
             Remuneration remuneration = remunerationDao.findById(
-                    remunerationUpdateDto.getId()).orElseThrow(
+                    updateRemunerationDto.getId()).orElseThrow(
                             () -> new RuntimeException("Remuneration not found")
             );
 
-            remuneration.setAmount(remunerationUpdateDto.getAmount());
+            remuneration.setAmount(updateRemunerationDto.getAmount());
 
             remunerationDao.save(remuneration);
         }

@@ -3,7 +3,7 @@ package org.aldo.api.service.Implementations;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.CollaborationDao;
 import org.aldo.api.data.dao.ProjectDao;
-import org.aldo.api.data.dto.ProjectSummaryDto;
+import org.aldo.api.data.dto.SummaryProjectDto;
 import org.aldo.api.data.entities.Project;
 import org.aldo.api.data.specificatons.ProjectSpecification;
 import org.aldo.api.service.interfaces.ProjectsService;
@@ -22,7 +22,7 @@ public class ProjectsServiceImpl implements ProjectsService {
     private final ProjectDao projectDao;
     private final CollaborationDao collaborationDao;
     @Override
-    public Page<ProjectSummaryDto> getAllProjects(String direction, String criteria, Integer duration, Boolean pnrr, String name, Pageable pageable) {
+    public Page<SummaryProjectDto> getAllProjects(String direction, String criteria, Integer duration, Boolean pnrr, String name, Pageable pageable) {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), criteria);
 
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
@@ -34,14 +34,16 @@ public class ProjectsServiceImpl implements ProjectsService {
         );
 
         return projectDao.findAll(specification, pageable).map(project -> {
-            ProjectSummaryDto projectSummaryDto = new ProjectSummaryDto();
-            projectSummaryDto.setCup(project.getCup());
-            projectSummaryDto.setName(project.getName());
-            projectSummaryDto.setBudget(project.getBudget());
-            List<String> responsibles = collaborationDao.findProfessorNamesByProjectCup(project.getCup());
-            projectSummaryDto.setResponsible(responsibles.isEmpty() ? "" : responsibles.get(0));
-            projectSummaryDto.setNumberOfResponsible(responsibles.size());
-            return projectSummaryDto;
+            List<String> professors = collaborationDao.findByResponsibleIsTrueAndProjectCup(project.getCup()).
+                    stream().map(collaboration -> collaboration.getProfessor().getName() + collaboration.getProfessor().getSurname()).toList();
+            SummaryProjectDto summaryProjectDto = new SummaryProjectDto();
+
+            summaryProjectDto.setCup(project.getCup());
+            summaryProjectDto.setName(project.getName());
+            summaryProjectDto.setBudget(project.getBudget());
+            summaryProjectDto.setResponsible(professors.isEmpty() ? "" : professors.getFirst());
+            summaryProjectDto.setNumberOfResponsible(professors.size());
+            return summaryProjectDto;
         });
     }
 }

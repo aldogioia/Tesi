@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.Month;
 
 @Data
-public class CollaborationHoursMonthlyDto {
+public class MonthlyHoursDto {
     private String id;
     private Month month;
     private Integer monthExpectedHours;

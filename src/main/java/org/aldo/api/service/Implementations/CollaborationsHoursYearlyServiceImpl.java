@@ -2,12 +2,9 @@ package org.aldo.api.service.Implementations;
 
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.CollaborationDao;
-import org.aldo.api.data.dao.CollaborationHoursYearlyDao;
-import org.aldo.api.data.dto.CollaborationHoursYearlyDto;
-import org.aldo.api.data.dto.CreateCollaborationHoursYearlyDto;
-import org.aldo.api.data.dto.YearlyDetailDto;
-import org.aldo.api.data.dto.ProfessorSummaryDto;
-import org.aldo.api.data.entities.CollaborationHoursYearly;
+import org.aldo.api.data.dao.YearlyHoursDao;
+import org.aldo.api.data.dto.*;
+import org.aldo.api.data.entities.YearlyHours;
 import org.aldo.api.service.interfaces.CollaborationsHoursYearlyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,17 +14,17 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CollaborationsHoursYearlyServiceImpl implements CollaborationsHoursYearlyService {
-    private final CollaborationHoursYearlyDao collaborationHoursYearlyDao;
+    private final YearlyHoursDao yearlyHoursDao;
     private final CollaborationDao collaborationDao;
     private final ModelMapper modelMapper;
     @Override
     public void createCollaborationsHoursYearly(
-        List<CreateCollaborationHoursYearlyDto> createCollaborationHoursYearlyDto
+        List<CreateYearlyHoursDto> createYearlyHoursDto
     ) {
-        collaborationHoursYearlyDao.saveAll(
-                createCollaborationHoursYearlyDto.stream()
+        yearlyHoursDao.saveAll(
+                createYearlyHoursDto.stream()
                         .map(dto -> {
-                            CollaborationHoursYearly c = new CollaborationHoursYearly();
+                            YearlyHours c = new YearlyHours();
                             c.setCollaboration(collaborationDao.findById(dto.getCollaboration()).orElseThrow());
                             c.setYear(dto.getYear());
                             c.setYearExpectedHours(dto.getYearExpectedHours());
@@ -43,11 +40,11 @@ public class CollaborationsHoursYearlyServiceImpl implements CollaborationsHours
                 .stream()
                 .map(c -> {
                     YearlyDetailDto dto = new YearlyDetailDto();
-                    dto.setProfessor(modelMapper.map(c.getProfessor(), ProfessorSummaryDto.class));
+                    dto.setProfessor(modelMapper.map(c.getProfessor(), SummaryProfessorDto.class));
                     dto.setTotalExpectedHours(c.getExpectedHours());
-                    dto.setCollaborationHoursYearly(collaborationHoursYearlyDao
+                    dto.setCollaborationHoursYearly(yearlyHoursDao
                             .findByCollaboration_Project_CupAndCollaboration_Professor_Id(c.getProject().getCup(), c.getProfessor().getId())
-                            .stream().map(chy -> modelMapper.map(chy, CollaborationHoursYearlyDto.class)).toList()
+                            .stream().map(chy -> modelMapper.map(chy, YearlyHoursDto.class)).toList()
                     );
                     return dto;
                 }).toList();

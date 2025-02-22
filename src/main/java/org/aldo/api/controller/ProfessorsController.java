@@ -1,7 +1,7 @@
 package org.aldo.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dto.ProfessorSummaryDto;
+import org.aldo.api.data.dto.SummaryProfessorDto;
 import org.aldo.api.service.interfaces.ProfessorsService;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -20,14 +20,14 @@ public class ProfessorsController {
     private final ProfessorsService professorsService;
 
     @GetMapping
-    public ResponseEntity<Page<ProfessorSummaryDto>> getProfessors(@RequestParam Map<String, String> sorting, @RequestParam Map<String, String> filtering, Pageable pageable) {
+    public ResponseEntity<Page<SummaryProfessorDto>> getProfessors(@RequestParam Map<String, String> sorting, @RequestParam Map<String, String> filtering, Pageable pageable) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(professorsService.getProfessors(sorting, filtering, pageable));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<ProfessorSummaryDto>> getAllProfessors() {
+    public ResponseEntity<List<SummaryProfessorDto>> getAllProfessors() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(professorsService.getAllProfessor());

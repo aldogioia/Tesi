@@ -5,7 +5,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class ProjectSummaryDto {
+public class SummaryProjectDto {
     private Long cup;
     private String name;
     private BigDecimal budget;

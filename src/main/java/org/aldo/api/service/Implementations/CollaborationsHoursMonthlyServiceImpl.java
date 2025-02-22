@@ -1,10 +1,10 @@
 package org.aldo.api.service.Implementations;
 
 import lombok.RequiredArgsConstructor;
-import org.aldo.api.data.dao.CollaborationHoursMonthlyDao;
-import org.aldo.api.data.dao.CollaborationHoursYearlyDao;
+import org.aldo.api.data.dao.MonthlyHoursDao;
+import org.aldo.api.data.dao.YearlyHoursDao;
 import org.aldo.api.data.dto.*;
-import org.aldo.api.data.entities.CollaborationHoursMonthly;
+import org.aldo.api.data.entities.MonthlyHours;
 import org.aldo.api.service.interfaces.CollaborationsHoursMonthlyService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -15,19 +15,19 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CollaborationsHoursMonthlyServiceImpl implements CollaborationsHoursMonthlyService {
-    private final CollaborationHoursMonthlyDao collaborationHoursMonthlyDao;
-    private final CollaborationHoursYearlyDao collaborationHoursYearlyDao;
+    private final MonthlyHoursDao monthlyHoursDao;
+    private final YearlyHoursDao yearlyHoursDao;
     private final ModelMapper modelMapper;
 
     @Override
-    public void createCollaborationsHoursMonthly(List<CreateCollaborationHoursMonthlyDto> createCollaborationHoursMonthlyDto) {
-        collaborationHoursMonthlyDao.saveAll(
-            createCollaborationHoursMonthlyDto.stream()
+    public void createCollaborationsHoursMonthly(List<CreateMonthlyHoursDto> createMonthlyHoursDto) {
+        monthlyHoursDao.saveAll(
+            createMonthlyHoursDto.stream()
                     .map(dto -> {
-                        CollaborationHoursMonthly c = new CollaborationHoursMonthly();
+                        MonthlyHours c = new MonthlyHours();
                         c.setMonth(dto.getMonth());
                         c.setMonthExpectedHours(dto.getMonthExpectedHours());
-                        c.setCollaborationHoursYearly(collaborationHoursYearlyDao.findById(dto.getCollaborationsHoursYearly()).orElseThrow());
+                        c.setYearlyHours(yearlyHoursDao.findById(dto.getCollaborationsHoursYearly()).orElseThrow());
                         return c;
                     }
         ).toList());
@@ -35,15 +35,15 @@ public class CollaborationsHoursMonthlyServiceImpl implements CollaborationsHour
 
     @Override
     public List<MonthlyDetailDto> getCollaborationsHoursMonthly(Long projectCup, Year year) {
-        return collaborationHoursYearlyDao.findByCollaboration_Project_CupAndYear(projectCup,year)
+        return yearlyHoursDao.findByCollaboration_Project_CupAndYear(projectCup,year)
                 .stream()
                 .map(chy -> new MonthlyDetailDto(
-                        modelMapper.map(chy.getCollaboration().getProfessor(), ProfessorSummaryDto.class),
-                        modelMapper.map(chy, CollaborationHoursYearlyDto.class),
-                        collaborationHoursMonthlyDao
-                                .findByCollaborationHoursYearly_IdAndCollaborationHoursYearly_Collaboration_Project_CupAndCollaborationHoursYearly_Collaboration_Professor_Id(chy.getId() ,projectCup, chy.getCollaboration().getProfessor().getId())
+                        modelMapper.map(chy.getCollaboration().getProfessor(), SummaryProfessorDto.class),
+                        modelMapper.map(chy, YearlyHoursDto.class),
+                        monthlyHoursDao
+                                .findByYearlyHours_IdAndYearlyHours_Collaboration_Project_CupAndYearlyHours_Collaboration_Professor_Id(chy.getId() ,projectCup, chy.getCollaboration().getProfessor().getId())
                                 .stream()
-                                .map(chm -> modelMapper.map(chm, CollaborationHoursMonthlyDto.class)).toList()
+                                .map(chm -> modelMapper.map(chm, MonthlyHoursDto.class)).toList()
                 )).toList();
     }
 }

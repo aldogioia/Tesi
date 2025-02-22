@@ -3,9 +3,9 @@ package org.aldo.api.service.Implementations;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.ProfessorDao;
 import org.aldo.api.data.dao.RoleDao;
-import org.aldo.api.data.dto.ProfessorCreateDto;
+import org.aldo.api.data.dto.CreateProfessorDto;
 import org.aldo.api.data.dto.ProfessorDto;
-import org.aldo.api.data.dto.ProfessorUpdateDto;
+import org.aldo.api.data.dto.UpdateProfessorDto;
 import org.aldo.api.data.entities.Professor;
 import org.aldo.api.service.interfaces.ProfessorService;
 import org.modelmapper.ModelMapper;
@@ -20,19 +20,19 @@ public class ProfessorServiceImpl implements ProfessorService {
     private final ModelMapper modelMapper;
 
     @Override
-    public Integer createProfessor(ProfessorCreateDto professorCreateDto) {
-        if (professorDao.existsByEmail(professorCreateDto.getEmail())) {
+    public Integer createProfessor(CreateProfessorDto createProfessorDto) {
+        if (professorDao.existsByEmail(createProfessorDto.getEmail())) {
             throw new RuntimeException("Email already exists");
         }
 
         Professor professor = new Professor();
-        professor.setId(professorCreateDto.getId());
-        professor.setName(professorCreateDto.getName());
-        professor.setSurname(professorCreateDto.getSurname());
-        professor.setEmail(professorCreateDto.getEmail());
-        professor.setBirthDate(professorCreateDto.getBirthDate());
-        professor.setDepartment(professorCreateDto.getDepartment());
-        professor.setRole(roleDao.findByType(professorCreateDto.getRole()));
+        professor.setId(createProfessorDto.getId());
+        professor.setName(createProfessorDto.getName());
+        professor.setSurname(createProfessorDto.getSurname());
+        professor.setEmail(createProfessorDto.getEmail());
+        professor.setBirthDate(createProfessorDto.getBirthDate());
+        professor.setDepartment(createProfessorDto.getDepartment());
+        professor.setRole(roleDao.findByType(createProfessorDto.getRole()));
 
         professor = professorDao.save(professor);
 
@@ -40,13 +40,13 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
-    public void updateProfessor(ProfessorUpdateDto professorUpdateDto) {
-        Professor professor = professorDao.findById(professorUpdateDto.getId())
+    public void updateProfessor(UpdateProfessorDto updateProfessorDto) {
+        Professor professor = professorDao.findById(updateProfessorDto.getId())
                 .orElseThrow(() -> new RuntimeException("Professor not found"));
 
-        professor.setEmail(professorUpdateDto.getEmail());
-        professor.setDepartment(professorUpdateDto.getDepartment());
-        professor.setRole(roleDao.findByType(professorUpdateDto.getRole()));
+        professor.setEmail(updateProfessorDto.getEmail());
+        professor.setDepartment(updateProfessorDto.getDepartment());
+        professor.setRole(roleDao.findByType(updateProfessorDto.getRole()));
 
         professorDao.save(professor);
     }

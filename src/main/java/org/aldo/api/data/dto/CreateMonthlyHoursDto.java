@@ -6,8 +6,8 @@ import lombok.Data;
 import java.time.Month;
 
 @Data
-public class CreateCollaborationHoursMonthlyDto {
-    //@ValidCollaborationHoursYearlyId
+public class CreateMonthlyHoursDto {
+    //TODO @ValidCollaborationHoursYearlyId
     private String collaborationsHoursYearly;
     @NotNull
     private Month month;

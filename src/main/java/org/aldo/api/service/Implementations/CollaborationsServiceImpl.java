@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.CollaborationDao;
 import org.aldo.api.data.dao.ProfessorDao;
 import org.aldo.api.data.dao.ProjectDao;
-import org.aldo.api.data.dto.CollaborationCreateDto;
-import org.aldo.api.data.dto.CollaborationProfessorSummaryDto;
-import org.aldo.api.data.dto.CollaborationProjectSummaryDto;
+import org.aldo.api.data.dto.CreateCollaborationDto;
+import org.aldo.api.data.dto.SummaryCollaborationProfessorDto;
+import org.aldo.api.data.dto.SummaryCollaborationProjectDto;
 import org.aldo.api.data.dto.ProfessorWorkedHoursDto;
 import org.aldo.api.data.entities.Collaboration;
 import org.aldo.api.data.entities.Professor;
@@ -25,12 +25,12 @@ public class CollaborationsServiceImpl implements CollaborationsService {
     private final ProjectDao projectDao;
 
     @Override
-    public List<CollaborationProfessorSummaryDto> getCollaborationsByProfessorId(Integer id) {
+    public List<SummaryCollaborationProfessorDto> getCollaborationsByProfessorId(Integer id) {
         return collaborationDao.findCollaborationSummaryByProfessorId(id);
     }
 
     @Override
-    public List<CollaborationProjectSummaryDto> getCollaborationsByProjectId(Long id) {
+    public List<SummaryCollaborationProjectDto> getCollaborationsByProjectId(Long id) {
         return collaborationDao.findCollaborationSummaryByProjectId(id);
     }
 
@@ -41,7 +41,7 @@ public class CollaborationsServiceImpl implements CollaborationsService {
     }
 
     @Override
-    public void createCollaborations(List<CollaborationCreateDto> collaborationsCreateDto) {
+    public void createCollaborations(List<CreateCollaborationDto> collaborationsCreateDto) {
         collaborationsCreateDto.stream()
                 .map(dto -> {
                     Professor professor = professorDao.findById(dto.getProfessorId())

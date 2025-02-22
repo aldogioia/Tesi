@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MonthlyDetailDto {
-    private ProfessorSummaryDto professor;
-    private CollaborationHoursYearlyDto collaborationHoursYearly;
-    private List<CollaborationHoursMonthlyDto> collaborationHoursMonthly;
+    private SummaryProfessorDto professor;
+    private YearlyHoursDto collaborationHoursYearly;
+    private List<MonthlyHoursDto> collaborationHoursMonthly;
 }
