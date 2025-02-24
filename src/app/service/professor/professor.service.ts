@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import {Professor} from "../../model/Professor";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Page} from "../../model/Page";
-import {ProfessorSummaryDto} from "../../model/dto/ProfessorSummaryDto";
-import {ProfessorUpdateDto} from "../../model/dto/ProfessorUpdateDto";
+import {SummaryProfessorDto} from "../../model/dto/SummaryProfessorDto";
+import {UpdateProfessorDto} from "../../model/dto/UpdateProfessorDto";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ProfessorService {
     return this.http.post(this.apiUrl + 'professor', professor, { headers: this.headers });
   }
 
-  updateProfessor(professor: ProfessorUpdateDto) {
+  updateProfessor(professor: UpdateProfessorDto) {
     return this.http.patch(this.apiUrl + 'professor', professor, { headers: this.headers });
   }
 
@@ -38,10 +38,10 @@ export class ProfessorService {
     for (const [key, value] of Object.entries(filtering))
       params = params.set(key, value);
 
-    return this.http.get<Page<ProfessorSummaryDto>>(this.apiUrl + 'professors', { params, headers: this.headers });
+    return this.http.get<Page<SummaryProfessorDto>>(this.apiUrl + 'professors', { params, headers: this.headers });
   }
 
   getAllProfessors() {
-    return this.http.get<ProfessorSummaryDto[]>(this.apiUrl + 'professors/all', { headers: this.headers });
+    return this.http.get<SummaryProfessorDto[]>(this.apiUrl + 'professors/all', { headers: this.headers });
   }
 }

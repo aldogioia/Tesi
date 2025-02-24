@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Page} from "../../model/Page";
-import {ProfessorSummaryDto} from "../../model/dto/ProfessorSummaryDto";
+import {SummaryProfessorDto} from "../../model/dto/SummaryProfessorDto";
 import {ProfessorService} from "../../service/professor/professor.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Router} from "@angular/router";
@@ -23,8 +23,8 @@ export class ProfessorsComponent implements OnInit {
 
   loading: boolean = true
 
-  page = new Page<ProfessorSummaryDto>()
-  professors: ProfessorSummaryDto[] = []
+  page = new Page<SummaryProfessorDto>()
+  professors: SummaryProfessorDto[] = []
 
   constructor(
     private professorService: ProfessorService,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import { CollaborationsProfessorSummaryDto, CollaborationsProjectSummaryDto } from "../../model/dto/CollaborationsSummaryDto";
 import {Collaboration} from "../../model/Collaboration";
-import {ProfessorWorkedHoursDto} from "../../model/dto/ProfessorWorkedHoursDto";
+import {ProfessorAssignedHoursDto} from "../../model/dto/ProfessorAssignedHoursDto";
 import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
 import {YearlyDetailDto} from "../../model/dto/YearlyDetailDto";
 
@@ -26,7 +26,7 @@ export class CollaborationsService {
     let params = new HttpParams().set("year", year.toString());
     if(searchName != null) params = params.set("searchName", searchName);
 
-    return this.http.get<ProfessorWorkedHoursDto[]>(
+    return this.http.get<ProfessorAssignedHoursDto[]>(
       this.urlApi + 'professors-hours',
       { params: params });
   }

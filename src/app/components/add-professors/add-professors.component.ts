@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Professor} from "../../model/Professor";
 import {ProfessorService} from "../../service/professor/professor.service";
 import {Router} from "@angular/router";
-import {ProfessorUpdateDto} from "../../model/dto/ProfessorUpdateDto";
+import {UpdateProfessorDto} from "../../model/dto/UpdateProfessorDto";
 import { pastDateValidator } from '../../validators/PastDateValidators';
 
 @Component({
@@ -88,7 +88,7 @@ export class AddProfessorsComponent implements OnInit{
 
   updateProfessor() {
     if (this.professorForm.valid) {
-      let professor = new ProfessorUpdateDto(this.professorForm.value);
+      let professor = new UpdateProfessorDto(this.professorForm.value);
       professor.role = this.role;
 
       this.professorService.updateProfessor(professor).subscribe(

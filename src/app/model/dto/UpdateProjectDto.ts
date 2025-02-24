@@ -1,12 +1,12 @@
-import {RemunerationUpdateDto} from "./RemunerationUpdateDto";
+import {UpdateRemunerationDto} from "./UpdateRemunerationDto";
 
-export class ProjectUpdateDto {
+export class UpdateProjectDto {
   cup: number;
   budget: number;
   overhead: number;
   state: string;
   pnrr: boolean;
-  remunerations: RemunerationUpdateDto[];
+  remunerations: UpdateRemunerationDto[];
 
   constructor(data: any) {
     this.cup = data.cup;

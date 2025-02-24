@@ -1,4 +1,4 @@
-export class CollaborationsProfessorSummaryDto {
+export class SummaryCollaborationsProfessorDto {
   projectId: number
   projectName: string
   remunerationRole: number
@@ -13,7 +13,7 @@ export class CollaborationsProfessorSummaryDto {
   }
 }
 
-export class CollaborationsProjectSummaryDto {
+export class SummaryCollaborationsProjectDto {
   professorId: number
   professorName: string
   professorSurname: string

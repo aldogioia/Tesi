@@ -1,4 +1,4 @@
-export class CollaborationHoursYearlyDto {
+export class YearlyHoursDto {
     id : string;
     year: number;
     yearExpectedHours: number;

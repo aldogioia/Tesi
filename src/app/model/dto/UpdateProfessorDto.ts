@@ -1,4 +1,4 @@
-export class ProfessorUpdateDto {
+export class UpdateProfessorDto {
   id: number;
   email: string;
   department: string;

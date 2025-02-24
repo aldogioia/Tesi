@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProjectsService} from "../../service/projects/projects.service";
-import {ProjectSummaryDto} from "../../model/dto/ProjectSummaryDto";
+import {SummaryProjectDto} from "../../model/dto/SummaryProjectDto";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {Page} from "../../model/Page";
 import {Router} from "@angular/router";
@@ -23,8 +23,8 @@ export class ProjectsComponent implements OnInit{
   pnrr: boolean | string = "";
 
   loading = true;
-  page = new Page<ProjectSummaryDto>()
-  projects: ProjectSummaryDto[] = []
+  page = new Page<SummaryProjectDto>()
+  projects: SummaryProjectDto[] = []
 
   constructor(
     private projectsService: ProjectsService,

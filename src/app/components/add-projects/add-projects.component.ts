@@ -4,8 +4,8 @@ import {Router} from "@angular/router";
 import {ProjectsService} from "../../service/projects/projects.service";
 import {Project} from "../../model/Project";
 import {Remuneration} from "../../model/Remuneration";
-import {ProjectUpdateDto} from "../../model/dto/ProjectUpdateDto";
-import {RemunerationUpdateDto} from "../../model/dto/RemunerationUpdateDto";
+import {UpdateProjectDto} from "../../model/dto/UpdateProjectDto";
+import {UpdateRemunerationDto} from "../../model/dto/UpdateRemunerationDto";
 
 @Component({
   selector: 'app-add-projects',
@@ -111,7 +111,7 @@ export class AddProjectsComponent implements OnInit {
 
   private updateProject() {
     if (this.projectForm.valid) {
-      let project = new ProjectUpdateDto(this.projectForm.value);
+      let project = new UpdateProjectDto(this.projectForm.value);
 
       console.log(project);
 
@@ -120,15 +120,15 @@ export class AddProjectsComponent implements OnInit {
 
       if (this.project !== null) {
         project.remunerations = [
-          new RemunerationUpdateDto({
+          new UpdateRemunerationDto({
             id: this.project.remunerations.find(r => r.roleType === 'Full')?.id,
             amount: this.projectForm.get('amountFull')?.value
           }),
-          new RemunerationUpdateDto({
+          new UpdateRemunerationDto({
             id: this.project.remunerations.find(r => r.roleType === 'Associate')?.id,
             amount: this.projectForm.get('amountAssociate')?.value
           }),
-          new RemunerationUpdateDto({
+          new UpdateRemunerationDto({
             id: this.project.remunerations.find(r => r.roleType === 'Researcher')?.id,
             amount: this.projectForm.get('amountResearcher')?.value
           }),
@@ -147,7 +147,7 @@ export class AddProjectsComponent implements OnInit {
           this.showToast = true
         }
       })
-      
+
       setTimeout(() => {
         this.showToast = false;
       }, 3000);

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {CollaborationsService} from "../../service/collaborations/collaborations.service";
-import {ProfessorWorkedHoursDto} from "../../model/dto/ProfessorWorkedHoursDto";
+import {ProfessorAssignedHoursDto} from "../../model/dto/ProfessorAssignedHoursDto";
 import {Collaboration} from "../../model/Collaboration";
 import { Project } from '../../model/Project';
 import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
@@ -55,7 +55,7 @@ export class CollaborationComponent implements OnInit{
   currentYear = 0;
   yearMonths: YearMonth[] = [];
 
-  professors: ProfessorWorkedHoursDto[] = []
+  professors: ProfessorAssignedHoursDto[] = []
   professorToAdd: number[] = []
   collaborations: Collaboration[] = []
 

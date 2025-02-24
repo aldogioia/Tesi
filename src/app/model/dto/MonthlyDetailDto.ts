@@ -1,14 +1,14 @@
-import {ProfessorSummaryDto} from "./ProfessorSummaryDto";
-import {CollaborationHoursYearlyDto} from "./CollaborationHoursYearlyDto";
-import {CollaborationHoursMonthlyDto} from "./CollaborationHoursMonthlyDto";
+import {SummaryProfessorDto} from "./SummaryProfessorDto";
+import {YearlyHoursDto} from "./YearlyHoursDto";
+import {MonthlyHoursDto} from "./MonthlyHoursDto";
 
 export class MonthlyDetailDto {
-  professor: ProfessorSummaryDto;
-  collaborationHoursYearly: CollaborationHoursYearlyDto;
-  collaborationHoursMonthly: CollaborationHoursMonthlyDto[];
+  professor: SummaryProfessorDto;
+  collaborationHoursYearly: YearlyHoursDto;
+  collaborationHoursMonthly: MonthlyHoursDto[];
 
   constructor(data: any) {
-    this.professor = new ProfessorSummaryDto(data.professor);
+    this.professor = new SummaryProfessorDto(data.professor);
     this.collaborationHoursYearly = data.collaborationHoursYearly;
     this.collaborationHoursMonthly = data.collaborationHoursMonthly;
   }

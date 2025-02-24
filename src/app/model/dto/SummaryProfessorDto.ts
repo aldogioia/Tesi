@@ -1,4 +1,4 @@
-export class ProfessorSummaryDto{
+export class SummaryProfessorDto {
   id: number
   name: string
   surname: string

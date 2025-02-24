@@ -4,7 +4,7 @@ import {CollaborationsProfessorSummaryDto} from "../../model/dto/CollaborationsS
 import {DayWorked} from "../../model/DayWorked";
 import {ProfessorService} from "../../service/professor/professor.service";
 import {CollaborationsService} from "../../service/collaborations/collaborations.service";
-import {ProfessorSummaryDto} from "../../model/dto/ProfessorSummaryDto";
+import {SummaryProfessorDto} from "../../model/dto/SummaryProfessorDto";
 import {CalendarService} from "../../service/calendar/calendar.service";
 
 @Component({
@@ -19,7 +19,7 @@ export class CalendarComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  professors: ProfessorSummaryDto[] = [];
+  professors: SummaryProfessorDto[] = [];
   pprojects: string[] = ["Progetto 1", "Progetto 2", "Progetto 3"];
   projects: CollaborationsProfessorSummaryDto[] = [];
 

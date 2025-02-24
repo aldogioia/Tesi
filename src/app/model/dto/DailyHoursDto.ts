@@ -1,4 +1,4 @@
-export class DailyHoursDistributionDto {
+export class DailyHoursDto {
   id: string;
   day: number;
   workedHours: number;

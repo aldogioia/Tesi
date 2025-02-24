@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-//import {CollaborationHoursMonthlyDto} from "../../model/dto/CollaborationHoursMonthlyDto";
+//import {MonthlyHoursDto} from "../../model/dto/MonthlyHoursDto";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class CalendarService {
   constructor(private http: HttpClient) { }
 
   /*getCollaborationHoursMonthly(professorId: number, month: number, year: number) {
-    return this.http.get<CollaborationHoursMonthlyDto>(
+    return this.http.get<MonthlyHoursDto>(
       this.apiUrl + `collaborations/monthly`,
       {
         headers: this.headers,

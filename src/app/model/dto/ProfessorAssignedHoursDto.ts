@@ -1,4 +1,4 @@
-export class ProfessorWorkedHoursDto {
+export class ProfessorAssignedHoursDto {
   id: number;
   name: string;
   surname: string;

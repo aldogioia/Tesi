@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Project} from "../../model/Project";
-import {ProjectSummaryDto} from "../../model/dto/ProjectSummaryDto";
+import {SummaryProjectDto} from "../../model/dto/SummaryProjectDto";
 import {Page} from "../../model/Page";
-import {ProjectUpdateDto} from "../../model/dto/ProjectUpdateDto";
+import {UpdateProjectDto} from "../../model/dto/UpdateProjectDto";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class ProjectsService {
   }
 
   getProjects(direction: string, criteria: string, name: string, duration: number, pnrr: boolean | string) {
-    return this.http.get<Page<ProjectSummaryDto>>(
+    return this.http.get<Page<SummaryProjectDto>>(
       this.urlApi + 'projects',
       {params: {direction, criteria, duration: duration.toString(), pnrr: pnrr.toString(), name}})
   }
@@ -27,7 +27,7 @@ export class ProjectsService {
     return this.http.post(this.urlApi + 'project', project)
   }
 
-  updateProject(project: ProjectUpdateDto) {
+  updateProject(project: UpdateProjectDto) {
     return this.http.patch(this.urlApi + 'project', project)
   }
 }

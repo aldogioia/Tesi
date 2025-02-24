@@ -1,4 +1,4 @@
-export class RemunerationUpdateDto {
+export class UpdateRemunerationDto {
   id: string;
   amount: number;
 

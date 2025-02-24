@@ -1,4 +1,4 @@
-export class ProjectSummaryDto{
+export class SummaryProjectDto {
   cup: number
   name: string
   budget: number
