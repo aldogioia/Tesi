@@ -11,7 +11,7 @@ public class CreateYearlyHoursDto {
     @ValidCollaborationId
     private String collaboration;
     @NotNull
-    private Integer yearExpectedHours;
-    @NotNull
     private Year year;
+    @NotNull
+    private Integer yearExpectedHours;
 }

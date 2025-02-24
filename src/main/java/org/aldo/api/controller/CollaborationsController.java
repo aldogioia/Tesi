@@ -36,12 +36,12 @@ public class CollaborationsController {
     }
 
     @GetMapping(value = "/project")
-    public ResponseEntity<List<SummaryCollaborationProjectDto>> getCollaborationsByProject(@ValidProjectId @RequestParam Long id) {
-        return ResponseEntity.ok(collaborationsService.getCollaborationsByProjectCup(id));
+    public ResponseEntity<List<SummaryCollaborationProjectDto>> getCollaborationsByProject(@ValidProjectId @RequestParam Long cup) {
+        return ResponseEntity.ok(collaborationsService.getCollaborationsByProjectCup(cup));
     }
 
     @GetMapping(value = "/professors-hours")
-    public ResponseEntity<List<ProfessorAssignedHoursDto>> getProfessorAssignedHours(@ValidProjectId @RequestParam Long projectCup) {
-        return ResponseEntity.ok(collaborationsService.getProfessorAssignedHours(projectCup));
+    public ResponseEntity<List<ProfessorAssignedHoursDto>> getProfessorAssignedHours(@ValidProjectId @RequestParam Long cup) {
+        return ResponseEntity.ok(collaborationsService.getProfessorAssignedHours(cup));
     }
 }

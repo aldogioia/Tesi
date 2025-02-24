@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class YearlyHoursController {
     private final YearlyHoursService yearlyHoursService;
+
     @PostMapping
     public ResponseEntity<Void> createCollaborationsHoursYearly(
         @Valid @RequestBody List<CreateYearlyHoursDto> createCollaborationsHoursYearlyDto
