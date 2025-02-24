@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
-import { CollaborationsProfessorSummaryDto, CollaborationsProjectSummaryDto } from "../../model/dto/CollaborationsSummaryDto";
 import {Collaboration} from "../../model/Collaboration";
 import {ProfessorAssignedHoursDto} from "../../model/dto/ProfessorAssignedHoursDto";
-import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
-import {YearlyDetailDto} from "../../model/dto/YearlyDetailDto";
+import { SummaryCollaborationsProfessorDto, SummaryCollaborationsProjectDto } from '../../model/dto/SummaryCollaborationsDto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,34 +12,28 @@ export class CollaborationsService {
 
   constructor(private http: HttpClient) { }
 
-  getProfessorCollaborations(id: number) {
-    return this.http.get<CollaborationsProfessorSummaryDto[]>(this.urlApi + `${id}/professor`);
-  }
-
-  getProjectCollaborations(id: number) {
-    return this.http.get<CollaborationsProjectSummaryDto[]>(this.urlApi + `${id}/project`);
-  }
-
-  getProfessorWorkedHours(year: number, searchName: string | null) {
-    let params = new HttpParams().set("year", year.toString());
-    if(searchName != null) params = params.set("searchName", searchName);
-
-    return this.http.get<ProfessorAssignedHoursDto[]>(
-      this.urlApi + 'professors-hours',
-      { params: params });
-  }
-
-  getMonthlyDetailDto(projectCup: number, year: number){
-    return this.http.get<MonthlyDetailDto[]>(this.urlApi + "monthly",
-      {params: {projectCup: projectCup.toString(), year: year.toString()}});
-  }
-
-  getYearlyDetailDto(projectCup: number){
-    return this.http.get<YearlyDetailDto[]>(this.urlApi + "yearly",
-      {params: {projectCup: projectCup.toString()}});
-  }
-
   addCollaboration(collaborations: Collaboration[]) {
     return this.http.post(this.urlApi, collaborations);
+  }
+
+  getProfessorCollaborations(id: number) {
+    return this.http.get<SummaryCollaborationsProfessorDto[]>(
+      this.urlApi + "professor",
+      { params: { id: id.toString() } }
+    );
+  }
+
+  getProjectCollaborations(cup: number) {
+    return this.http.get<SummaryCollaborationsProjectDto[]>(
+      this.urlApi + "project",
+      { params: { cup: cup.toString() } }
+    );
+  }
+
+  getProfessorAssignedHours(cup: number) {
+    return this.http.get<ProfessorAssignedHoursDto[]>(
+      this.urlApi + 'professors-hours',
+      { params: { cup: cup.toString() } }
+    );
   }
 }

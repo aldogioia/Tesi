@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CollaborationsProfessorSummaryDto} from "../../model/dto/CollaborationsSummaryDto";
 import {DayWorked} from "../../model/DayWorked";
 import {ProfessorService} from "../../service/professor/professor.service";
 import {CollaborationsService} from "../../service/collaborations/collaborations.service";
 import {SummaryProfessorDto} from "../../model/dto/SummaryProfessorDto";
 import {CalendarService} from "../../service/calendar/calendar.service";
+import { SummaryCollaborationsProfessorDto } from '../../model/dto/SummaryCollaborationsDto';
 
 @Component({
   selector: 'app-calendar',
@@ -21,7 +21,7 @@ export class CalendarComponent implements OnInit {
 
   professors: SummaryProfessorDto[] = [];
   pprojects: string[] = ["Progetto 1", "Progetto 2", "Progetto 3"];
-  projects: CollaborationsProfessorSummaryDto[] = [];
+  projects: SummaryCollaborationsProfessorDto[] = [];
 
   currentMonth = new Date().getMonth();
   currentYear = new Date().getFullYear();

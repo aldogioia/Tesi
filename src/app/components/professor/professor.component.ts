@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Professor} from "../../model/Professor";
 import {Router} from "@angular/router";
 import {ProfessorService} from "../../service/professor/professor.service";
-import {CollaborationsProfessorSummaryDto} from "../../model/dto/CollaborationsSummaryDto";
 import {CollaborationsService} from "../../service/collaborations/collaborations.service";
+import { SummaryCollaborationsProfessorDto } from '../../model/dto/SummaryCollaborationsDto';
 
 @Component({
   selector: 'app-professor',
@@ -20,7 +20,7 @@ export class ProfessorComponent implements OnInit {
   id: number | undefined;
 
   professor: Professor | null = null;
-  projects: CollaborationsProfessorSummaryDto[] = [];
+  projects: SummaryCollaborationsProfessorDto[] = [];
 
   /*currentMonth = new Date().getMonth();
   currentYear = new Date().getFullYear();

@@ -3,8 +3,8 @@ import {Project} from "../../model/Project";
 import {CollaborationsService} from "../../service/collaborations/collaborations.service";
 import {Router} from "@angular/router";
 import {ProjectsService} from "../../service/projects/projects.service";
-import {CollaborationsProjectSummaryDto} from "../../model/dto/CollaborationsSummaryDto";
 import {ProfessorService} from "../../service/professor/professor.service";
+import { SummaryCollaborationsProjectDto } from '../../model/dto/SummaryCollaborationsDto';
 
 @Component({
   selector: 'app-project',
@@ -18,8 +18,8 @@ export class ProjectComponent implements OnInit {
   id: number | undefined;
   project: Project | null = null;
 
-  responsibles: CollaborationsProjectSummaryDto[] = []
-  collaborators: CollaborationsProjectSummaryDto[] = []
+  responsibles: SummaryCollaborationsProjectDto[] = []
+  collaborators: SummaryCollaborationsProjectDto[] = []
 
   constructor(
     private projectsService: ProjectsService,

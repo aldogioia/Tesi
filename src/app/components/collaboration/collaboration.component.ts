@@ -7,6 +7,8 @@ import {Collaboration} from "../../model/Collaboration";
 import { Project } from '../../model/Project';
 import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
 import {YearlyDetailDto} from "../../model/dto/YearlyDetailDto";
+import { YearlyHoursService } from '../../service/yearly-hours/yearly-hours.service';
+import { MonthlyHoursService } from '../../service/monthly-hours/monthly-hours.service';
 
 class YearMonth{
   year: string;
@@ -65,6 +67,8 @@ export class CollaborationComponent implements OnInit{
 
   constructor(
     private collaborationService: CollaborationsService,
+    private yearlyHoursService: YearlyHoursService,
+    private monthlyHoursService: MonthlyHoursService,
     private formBuilder: FormBuilder,
     private router: Router
   ) {
@@ -94,10 +98,10 @@ export class CollaborationComponent implements OnInit{
     this.loadYearlyDetail()
   }
 
-  private loadProfessors(searchName: string | null = null) { //TODO: Modificare il metodo per avere le ore libere nell'arco della durata del progetto
+  private loadProfessors() {
     this.professors = [];
     (this.form.get('professors') as FormArray).clear();
-    this.collaborationService.getProfessorWorkedHours(this.currentYear, searchName).subscribe({
+    this.collaborationService.getProfessorAssignedHours(this.project!.cup).subscribe({
       next: data => {
         data.forEach(professor => {
           this.professors.push(professor);
@@ -117,14 +121,14 @@ export class CollaborationComponent implements OnInit{
 
   private loadMonthlyDetail(){
     if (!this.project) return
-    this.collaborationService.getMonthlyDetailDto(this.project.cup, Number(this.yearMonths[this.currentYear].year)).subscribe({
+    this.monthlyHoursService.getMonthlyDetailDto(this.project.cup, Number(this.yearMonths[this.currentYear].year)).subscribe({
       next: data => { this.monthlyDetail = data; }
     })
   }
 
   private loadYearlyDetail(){
     if (!this.project) return
-    this.collaborationService.getYearlyDetailDto(this.project.cup).subscribe({
+    this.yearlyHoursService.getYearlyDetailDto(this.project.cup).subscribe({
       next: data => { this.yearlyDetail = data; }
     })
   }
@@ -218,7 +222,7 @@ export class CollaborationComponent implements OnInit{
   }
 
   search() {
-    this.loadProfessors(this.searchForm.get('search')?.value)
+    //todo implementare ricerca
   }
 
   save() {
