@@ -5,8 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.aldo.api.security.ValidProfessorId;
-import org.aldo.api.security.ValidRoleType;
+import org.aldo.api.security.Annotation.ValidProfessorId;
+import org.aldo.api.security.Annotation.ValidRoleType;
 
 @Data
 public class UpdateProfessorDto {

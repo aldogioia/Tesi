@@ -38,20 +38,20 @@ public class DailyHoursServiceImpl implements DailyHoursService {
         );
     }
 
-    @Override
-    public List<DailyHoursDto> getWorkedHoursByProfessorIdAndYear(Year year, Integer professorId) {
-        return dailyHoursDao
-                .findDailyHoursByMonthlyHours_YearlyHours_YearAndMonthlyHours_YearlyHours_Collaboration_Professor_Id(year, professorId)
-                .stream().map(dto -> modelMapper.map(dto, DailyHoursDto.class)).toList();
-    }
+//    @Override
+//    public List<DailyHoursDto> getWorkedHoursByProfessorIdAndYear(Year year, Integer professorId) {
+//        return dailyHoursDao
+//                .findDailyHoursByMonthlyHours_YearlyHours_YearAndMonthlyHours_YearlyHours_Collaboration_Professor_Id(year, professorId)
+//                .stream().map(dto -> modelMapper.map(dto, DailyHoursDto.class)).toList();
+//    }
 
-    @Override
-    public Integer getWorkedHoursByProfessorIdAndMonth(Month month, Year year, Integer professorId) {
-        return dailyHoursDao.findDailyHoursByMonthlyHours_MonthAndMonthlyHours_YearlyHours_YearAndMonthlyHours_YearlyHours_Collaboration_Professor_Id(month, year, professorId)
-                .stream()
-                .mapToInt(DailyHours::getWorkedHours)
-                .sum();
-    }
+//    @Override
+//    public Integer getWorkedHoursByProfessorIdAndMonth(Month month, Year year, Integer professorId) {
+//        return dailyHoursDao.findDailyHoursByMonthlyHours_MonthAndMonthlyHours_YearlyHours_YearAndMonthlyHours_YearlyHours_Collaboration_Professor_Id(month, year, professorId)
+//                .stream()
+//                .mapToInt(DailyHours::getWorkedHours)
+//                .sum();
+//    }
 
     @Override
     public List<ProfessorDailyHoursDto> getWorkedHoursByProfessorIdAndMonthAndProjectCup(Month month, Year year, Long projectCup) {

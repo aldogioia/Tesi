@@ -5,7 +5,7 @@ import org.aldo.api.data.dao.CollaborationDao;
 import org.aldo.api.data.dao.YearlyHoursDao;
 import org.aldo.api.data.dto.*;
 import org.aldo.api.data.entities.YearlyHours;
-import org.aldo.api.service.interfaces.CollaborationsHoursYearlyService;
+import org.aldo.api.service.interfaces.YearlyHoursService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CollaborationsHoursYearlyServiceImpl implements CollaborationsHoursYearlyService {
+public class YearlyHoursServiceImpl implements YearlyHoursService {
     private final YearlyHoursDao yearlyHoursDao;
     private final CollaborationDao collaborationDao;
     private final ModelMapper modelMapper;

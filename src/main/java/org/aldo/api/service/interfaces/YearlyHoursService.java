@@ -5,7 +5,7 @@ import org.aldo.api.data.dto.YearlyDetailDto;
 
 import java.util.List;
 
-public interface CollaborationsHoursYearlyService {
+public interface YearlyHoursService {
     void createCollaborationsHoursYearly(List<CreateYearlyHoursDto> createYearlyHoursDto);
 
     List<YearlyDetailDto> getCollaborationsHoursYearly(Long projectCup);

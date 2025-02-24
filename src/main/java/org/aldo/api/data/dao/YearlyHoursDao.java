@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface YearlyHoursDao extends JpaRepository<YearlyHours, String> {
     List<YearlyHours> findByCollaboration_Project_CupAndCollaboration_Professor_Id(Long projectCup, Integer professorId);
-
+//    List<YearlyHours> findByCollaboration_Professor_Id(Integer professorId);
     List<YearlyHours> findByCollaboration_Project_CupAndYear(Long projectCup, Year year);
 }

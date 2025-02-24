@@ -41,7 +41,7 @@ public class ProjectsServiceImpl implements ProjectsService {
             summaryProjectDto.setCup(project.getCup());
             summaryProjectDto.setName(project.getName());
             summaryProjectDto.setBudget(project.getBudget());
-            summaryProjectDto.setResponsible(professors.isEmpty() ? "" : professors.getFirst());
+            summaryProjectDto.setResponsible(professors.isEmpty() ? "" : professors.get(0));
             summaryProjectDto.setNumberOfResponsible(professors.size());
             return summaryProjectDto;
         });

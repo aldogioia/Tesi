@@ -2,7 +2,7 @@ package org.aldo.api.data.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import org.aldo.api.security.ValidProjectId;
+import org.aldo.api.security.Annotation.ValidProjectId;
 
 import java.math.BigDecimal;
 import java.util.List;

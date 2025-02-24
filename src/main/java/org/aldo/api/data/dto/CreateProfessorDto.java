@@ -2,7 +2,7 @@ package org.aldo.api.data.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import org.aldo.api.security.ValidRoleType;
+import org.aldo.api.security.Annotation.ValidRoleType;
 
 import java.time.LocalDate;
 

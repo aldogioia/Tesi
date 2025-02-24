@@ -1,9 +1,10 @@
-package org.aldo.api.security;
+package org.aldo.api.security.Validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.RemunerationDao;
+import org.aldo.api.security.Annotation.ValidRemunerationId;
 
 @RequiredArgsConstructor
 public class RemunerationIdValidator implements ConstraintValidator<ValidRemunerationId, String> {

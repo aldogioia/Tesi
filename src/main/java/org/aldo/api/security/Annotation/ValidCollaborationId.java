@@ -1,7 +1,8 @@
-package org.aldo.api.security;
+package org.aldo.api.security.Annotation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
+import org.aldo.api.security.Validator.MonthlyHoursValidator;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -11,8 +12,8 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = MonthlyHoursValidator.class)
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ValidMonthlyHoursId {
-    String message() default "Invalid MonthlyHours Id";
+public @interface ValidCollaborationId {
+    String message() default "Invalid YearlyHours Id";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }
