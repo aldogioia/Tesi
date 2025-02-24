@@ -89,8 +89,8 @@
 <ng-template #details  let-bool="bool">
   <div class="selection date" *ngIf="!bool">
     <div>
-      <select [ngModel]="years[currentYear]">
-        <option *ngFor="let year of years" [value]="year">{{year}}</option>
+      <select [ngModel]="yearMonths[currentYear]">
+        <option *ngFor="let y of yearMonths" [value]="y">{{y.year}}</option>
       </select>
     </div>
 
@@ -105,28 +105,36 @@
   </div>
 
   <form class="table">
-    <div class="r">
+    <div class="r" *ngIf="bool">
       <button>Salva</button>
-      <p class="cell b"  [class]="{'b' :  bool ? years.length > 1 : months.length > 1}" *ngFor="let item of  bool ? years : months; let i = index">{{ item }}</p>
+      <p class="cell b"  [class]="{'b' : yearMonths.length > 1}" *ngFor="let y of yearMonths; let i = index">{{ y.year }}</p>
+    </div>
+    <div class="r" *ngIf="!bool">
+      <button>Salva</button>
+      <p class="cell b"  [class]="{'b' :  yearMonths[currentYear].months.length > 1}" *ngFor="let m of yearMonths[currentYear].months; let i = index">{{ m }}</p>
     </div>
 
     <div class="c" *ngIf="bool">
       <div class="r" *ngFor="let d of yearlyDetail">
         <p class="first" [class]="{'br' : yearlyDetail.length > 1}">{{ d.professor.name }} {{ d.professor.surname }}</p>
-        <input class="cell" type="number" *ngFor="let y of years" value="{{ getValue(y, d) }}">
+        <input class="cell" type="number" *ngFor="let y of yearMonths" value="{{ getHoursYear(y.year, d) }}">
       </div>
     </div>
 
     <div class="c" *ngIf="!bool">
       <div class="r" *ngFor="let d of monthlyDetail">
         <p class="first" [class]="{'br' : monthlyDetail.length > 1}">{{ d.professor.name }} {{ d.professor.surname }}</p>
-        <input class="cell" type="number" *ngFor="let y of months" value="{{ getValue(y, d) }}">
+        <input class="cell" type="number" *ngFor="let m of yearMonths[currentYear].months" value="{{ getHoursMonth(m, d) }}">
       </div>
     </div>
 
-    <div class="r">
+    <div class="r"  *ngIf="bool">
       <p class="first" style="text-align: center">Totale Anno</p>
-      <h2 class="cell b"  [class]="{'b' : bool ? years.length > 1 : months.length > 1}" *ngFor="let item of  bool ? years : months; let i = index">{{ 0 }} <!--TODO calcolare il totale--></h2>
+      <h2 class="cell b"  [class]="{'b' : yearMonths.length > 1 }" *ngFor="let y of yearMonths; let i = index">{{ 0 }} <!--TODO calcolare il totale--></h2>
+    </div>
+    <div class="r" *ngIf="!bool">
+      <p class="first" style="text-align: center">Totale Anno</p>
+      <h2 class="cell b"  [class]="{'b' :  yearMonths[currentYear].months.length > 1}" *ngFor="let m of  yearMonths[currentYear].months; let i = index">{{ 0 }} <!--TODO calcolare il totale--></h2>
     </div>
   </form>
 </ng-template>

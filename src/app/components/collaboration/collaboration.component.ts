@@ -8,6 +8,34 @@ import { Project } from '../../model/Project';
 import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
 import {YearlyDetailDto} from "../../model/dto/YearlyDetailDto";
 
+class YearMonth{
+  year: string;
+  months: string[];
+
+  constructor(y: string, m: string[]){
+    this.year = y;
+    this.months = m;
+  }
+
+  convertMonth(month: number): string {
+    switch (month) {
+      case 0: return 'JANUARY';
+      case 1: return 'FEBRUARY';
+      case 2: return 'MARCH';
+      case 3: return 'APRIL';
+      case 4: return 'MAY';
+      case 5: return 'JUNE';
+      case 6: return 'JULY';
+      case 7: return 'AUGUST';
+      case 8: return 'SEPTEMBER';
+      case 9: return 'OCTOBER';
+      case 10: return 'NOVEMBER';
+      case 11: return 'DECEMBER';
+      default: return '';
+    }
+  }
+}
+
 @Component({
   selector: 'app-collaboration',
   templateUrl: './collaboration.component.html',
@@ -25,8 +53,7 @@ export class CollaborationComponent implements OnInit{
   page = 2;
 
   currentYear = 0;
-  months: string[] = [];
-  years: string[] = [];
+  yearMonths: YearMonth[] = [];
 
   professors: ProfessorWorkedHoursDto[] = []
   professorToAdd: number[] = []
@@ -90,27 +117,32 @@ export class CollaborationComponent implements OnInit{
 
   private loadMonthlyDetail(){
     if (!this.project) return
-    this.collaborationService.getMonthlyDetailDto(this.project.cup, this.currentYear).subscribe({
-      next: data => { this.monthlyDetail = data }
+    this.collaborationService.getMonthlyDetailDto(this.project.cup, Number(this.yearMonths[this.currentYear].year)).subscribe({
+      next: data => { this.monthlyDetail = data; }
     })
   }
 
   private loadYearlyDetail(){
     if (!this.project) return
     this.collaborationService.getYearlyDetailDto(this.project.cup).subscribe({
-      next: data => { this.yearlyDetail = data; console.log(data) }
+      next: data => { this.yearlyDetail = data; }
     })
   }
 
-  getValue(s: string, detail: YearlyDetailDto | MonthlyDetailDto): number {
-    if (detail instanceof YearlyDetailDto) {
-      let b = detail.collaborationHoursYearly.find(c => c.year.toString() == s)
-      return b ? b.yearExpectedHours : 0
-    }
-    else {
-      let b = detail.collaborationHoursMonthly.find(c => c.month.toString() == s)
-      return b ? b.monthExpectedHours : 0
-    }
+  getHoursYear(s: string, detail: YearlyDetailDto): number {
+    let value = 0
+    detail.collaborationHoursYearly.forEach(c => {
+      if (c.year.toString() == s) value = c.yearExpectedHours
+    })
+    return value
+  }
+
+  getHoursMonth(s: string, detail: MonthlyDetailDto): number {
+    let value = 0
+    detail.collaborationHoursMonthly.forEach(c => {
+      if (c.month.toString() == s) value = c.monthExpectedHours
+    })
+    return value
   }
 
   checkInvalid(i: number, b: boolean): boolean{
@@ -148,15 +180,19 @@ export class CollaborationComponent implements OnInit{
     const start = new Date(this.project!.startDate);
     const end = new Date(this.project!.endDate);
 
-    for (let d = start; d <= end; d.setMonth(d.getMonth() + 1)) {
-      this.months.push(
-        String(d.getMonth() + 1).padStart(2, '0') +
-        "/" +
-        String(d.getFullYear()).slice(-2)
-      );
+    for (let d = new Date(start); d.getFullYear() <= end.getFullYear(); d.setFullYear(d.getFullYear() + 1)) {
+      let year = d.getFullYear().toString();
+      let months: string[] = [];
 
-      const year = d.getFullYear().toString();
-      if (!this.years.includes(year)) this.years.push(year);
+      for (let month = 0; month < 12; month++) {
+        const currentMonthDate = new Date(d.getFullYear(), month, 1);
+
+        if (currentMonthDate >= start && currentMonthDate <= end) {
+          months.push(YearMonth.prototype.convertMonth(month));
+        }
+      }
+
+      this.yearMonths.push(new YearMonth(year, months));
     }
   }
 
@@ -172,11 +208,13 @@ export class CollaborationComponent implements OnInit{
   }
 
   next(){
-    if (this.currentYear < this.years.length) this.currentYear= this.currentYear + 1
+    if (this.currentYear < this.yearMonths.length-1) this.currentYear= this.currentYear + 1;
+    this.loadMonthlyDetail()
   }
 
   prev(){
-    if (this.currentYear > this.years.length) this.currentYear= this.currentYear - 1
+    if (this.currentYear > this.yearMonths.length-1) this.currentYear= this.currentYear - 1
+    this.loadMonthlyDetail()
   }
 
   search() {
