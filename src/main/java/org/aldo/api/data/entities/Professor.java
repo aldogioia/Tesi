@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.aldo.api.data.enumerator.AccessRole;
 import org.aldo.api.logging.Auditable;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -36,6 +37,13 @@ public class Professor extends Auditable {
     @Column(name = "department", nullable = false)
     private String department;
 
+    @Column(name = "access_role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccessRole accessRole;
+
+    @Column(name = "password")
+    private String password;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
@@ -43,4 +51,8 @@ public class Professor extends Auditable {
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Collaboration> collaborations;
+
+//    @OneToMany(mappedBy = "invalid_token", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @ToString.Exclude
+//    private List<InvalidToken> invalidTokens;
 }

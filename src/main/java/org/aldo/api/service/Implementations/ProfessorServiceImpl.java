@@ -55,4 +55,19 @@ public class ProfessorServiceImpl implements ProfessorService {
     public ProfessorDto getProfessor(Integer id) {
         return modelMapper.map(professorDao.findById(id).orElseThrow(() -> new RuntimeException("Professor not found")), ProfessorDto.class);
     }
+
+    @Override
+    public Professor getProfessorByEmail(String email) {
+        return professorDao.findByEmail(email);
+    }
+
+    @Override
+    public ProfessorDto getProfessorDtoByEmail(String email) {
+        return modelMapper.map(professorDao.findByEmail(email), ProfessorDto.class);
+    }
+
+    @Override
+    public void saveProfessor(Professor professor) {
+        professorDao.save(professor);
+    }
 }

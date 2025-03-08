@@ -43,23 +43,3 @@ public class ModelMapperConfig {
         return modelMapper;
     }
 }
-
-//        //Mapping for CreateDailyHoursDto
-//        modelMapper.addMappings(new PropertyMap<CreateDailyHoursDto, DailyHours>() {
-//            @Override
-//            protected void configure() {
-//                using(ctx -> monthlyHoursDao.findById((String) ctx.getSource()).orElse(null))
-//                        .map(source.getMonthlyHours(), destination.getMonthlyHours().getId());
-//            }
-//        });
-
-//Mapping for CreateCollaborationHoursYearlyDto
-//        modelMapper.addMappings(new PropertyMap<CreateCollaborationHoursYearlyDto, CollaborationHoursYearly>() {
-//            @Override
-//            protected void configure() {
-//                map().setYear(source.getYear());
-//                map().setYearExpectedHours(source.getYearExpectedHours());
-//                using(ctx -> collaborationDao.findById((String) ctx.getSource()).orElse(null))
-//                        .map(source.getCollaboration(), destination.getCollaboration().getId());
-//            }
-//        });

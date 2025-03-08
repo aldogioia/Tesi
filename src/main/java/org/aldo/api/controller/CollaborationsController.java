@@ -11,6 +11,7 @@ import org.aldo.api.security.Annotation.ValidProjectId;
 import org.aldo.api.service.interfaces.CollaborationsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +25,8 @@ import java.util.List;
 public class CollaborationsController {
     private final CollaborationsService collaborationsService;
 
-    @PostMapping
+    @PostMapping(value = "/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> createCollaboration(@Valid @RequestBody List<CreateCollaborationDto> collaborationsDto) {
         collaborationsService.createCollaborations(collaborationsDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -41,6 +43,7 @@ public class CollaborationsController {
     }
 
     @GetMapping(value = "/professors-hours")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<ProfessorAssignedHoursDto>> getProfessorAssignedHours(@ValidProjectId @RequestParam Long cup) {
         return ResponseEntity.ok(collaborationsService.getProfessorAssignedHours(cup));
     }

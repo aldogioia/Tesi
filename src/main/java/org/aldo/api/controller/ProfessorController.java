@@ -6,8 +6,8 @@ import org.aldo.api.data.dto.ProfessorDto;
 import org.aldo.api.data.dto.UpdateProfessorDto;
 import org.aldo.api.service.interfaces.ProfessorService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -20,18 +20,20 @@ public class ProfessorController {
     private final ProfessorService professorService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Integer> createProfessor(@Valid @RequestBody CreateProfessorDto createProfessorDto) {
         Integer professorDto = professorService.createProfessor(createProfessorDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(professorDto);
     }
 
     @PatchMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> updateProfessor(@Valid @RequestBody UpdateProfessorDto updateProfessorDto) {
         professorService.updateProfessor(updateProfessorDto);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}")
     public ResponseEntity<ProfessorDto> getProfessor(@PathVariable Integer id) {
         return ResponseEntity.ok(professorService.getProfessor(id));
     }

@@ -4,11 +4,13 @@ import org.aldo.api.data.entities.DailyHours;
 import org.aldo.api.data.entities.Professor;
 import org.aldo.api.data.entities.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.Month;
 import java.time.Year;
 import java.util.List;
 
+@Repository
 public interface DailyHoursDao extends JpaRepository<DailyHours, String> {
 //    List<DailyHours> findDailyHoursByMonthlyHours_YearlyHours_YearAndMonthlyHours_YearlyHours_Collaboration_Professor_Id(Year year, Integer professorId);
 //

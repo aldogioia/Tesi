@@ -7,7 +7,7 @@ import org.aldo.api.data.dao.MonthlyHoursDao;
 import org.aldo.api.security.Annotation.ValidMonthlyHoursId;
 
 @RequiredArgsConstructor
-public class MonthlyHoursValidator implements ConstraintValidator<ValidMonthlyHoursId, String> {
+public class MonthlyHoursIdValidator implements ConstraintValidator<ValidMonthlyHoursId, String> {
     private final MonthlyHoursDao monthlyHoursDao;
     @Override
     public boolean isValid(String monthlyHoursId, ConstraintValidatorContext constraintValidatorContext) {

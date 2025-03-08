@@ -18,7 +18,7 @@ public class YearlyHoursServiceImpl implements YearlyHoursService {
     private final CollaborationDao collaborationDao;
     private final ModelMapper modelMapper;
     @Override
-    public void createCollaborationsHoursYearly(
+    public void createHoursYearly(
         List<CreateYearlyHoursDto> createYearlyHoursDto
     ) {
         yearlyHoursDao.saveAll(
@@ -35,11 +35,25 @@ public class YearlyHoursServiceImpl implements YearlyHoursService {
     }
 
     @Override
-    public List<YearlyDetailDto> getCollaborationsHoursYearly(Long projectCup) {
+    public void updateHoursYearly(List<UpdateYearlyHoursDto> updateYearlyHoursDto) {
+        yearlyHoursDao.saveAll(
+                updateYearlyHoursDto.stream()
+                        .map(dto -> {
+                            YearlyHours c = yearlyHoursDao.findById(dto.getId()).orElseThrow();
+                            c.setYearExpectedHours(dto.getYearExpectedHours());
+
+                            return c;
+                        }).toList()
+        );
+    }
+
+    @Override
+    public List<YearlyDetailDto> getHoursYearly(Long projectCup) {
         return collaborationDao.findByProjectCup(projectCup)
                 .stream()
                 .map(c -> {
                     YearlyDetailDto dto = new YearlyDetailDto();
+                    dto.setCollaborationId(c.getId());
                     dto.setProfessor(modelMapper.map(c.getProfessor(), SummaryProfessorDto.class));
                     dto.setTotalExpectedHours(c.getExpectedHours());
                     dto.setCollaborationHoursYearly(yearlyHoursDao

@@ -7,6 +7,7 @@ import org.aldo.api.data.dto.MonthlyDetailDto;
 import org.aldo.api.service.interfaces.MonthlyHoursService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Year;
@@ -20,6 +21,7 @@ public class MonthlyHoursController {
     private final MonthlyHoursService monthlyHoursService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> createCollaborationsHoursMonthly(
             @Valid @RequestBody List<CreateMonthlyHoursDto> createMonthlyHoursDto
     ) {

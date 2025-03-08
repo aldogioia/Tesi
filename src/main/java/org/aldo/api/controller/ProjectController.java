@@ -7,8 +7,8 @@ import org.aldo.api.data.dto.ProjectDto;
 import org.aldo.api.data.dto.UpdateProjectDto;
 import org.aldo.api.service.interfaces.ProjectService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProjectController {
     private final ProjectService projectService;
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Long> createProject(@Valid @RequestBody CreateProjectDto createProjectDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -25,13 +26,14 @@ public class ProjectController {
     }
 
     @PatchMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> updateProject(@Valid @RequestBody UpdateProjectDto updateProjectDto) {
         projectService.updateProject(updateProjectDto);
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<ProjectDto> getProject(@PathVariable Long id) {
-        return ResponseEntity.ok(projectService.getProject(id));
+    @GetMapping
+    public ResponseEntity<ProjectDto> getProject(@RequestParam Long cup) {
+        return ResponseEntity.ok(projectService.getProject(cup));
     }
 }

@@ -1,6 +1,7 @@
 package org.aldo.api.data.dto;
 
 import lombok.Data;
+import org.aldo.api.data.enumerator.AccessRole;
 
 import java.time.LocalDate;
 
@@ -13,4 +14,5 @@ public class ProfessorDto {
     private LocalDate birthDate;
     private String department;
     private String role;
+    private AccessRole accessRole;
 }

@@ -3,10 +3,12 @@ package org.aldo.api.service.Implementations;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.CollaborationDao;
 import org.aldo.api.data.dao.ProjectDao;
+import org.aldo.api.data.dto.ProjectDto;
 import org.aldo.api.data.dto.SummaryProjectDto;
 import org.aldo.api.data.entities.Project;
 import org.aldo.api.data.specificatons.ProjectSpecification;
 import org.aldo.api.service.interfaces.ProjectsService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,8 +23,9 @@ import java.util.List;
 public class ProjectsServiceImpl implements ProjectsService {
     private final ProjectDao projectDao;
     private final CollaborationDao collaborationDao;
+    private final ModelMapper modelMapper;
     @Override
-    public Page<SummaryProjectDto> getAllProjects(String direction, String criteria, Integer duration, Boolean pnrr, String name, Pageable pageable) {
+    public Page<SummaryProjectDto> getAllProjectsCriteria(String direction, String criteria, Integer duration, Boolean pnrr, String name, Pageable pageable) {
         Sort sort = Sort.by(Sort.Direction.fromString(direction), criteria);
 
         pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
@@ -45,5 +48,12 @@ public class ProjectsServiceImpl implements ProjectsService {
             summaryProjectDto.setNumberOfResponsible(professors.size());
             return summaryProjectDto;
         });
+    }
+
+    @Override
+    public List<ProjectDto> getAllProjects() {
+        return projectDao.findAll().stream().map(
+                project -> modelMapper.map(project, ProjectDto.class)
+        ).toList();
     }
 }
