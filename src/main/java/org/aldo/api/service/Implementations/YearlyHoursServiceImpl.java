@@ -49,7 +49,7 @@ public class YearlyHoursServiceImpl implements YearlyHoursService {
 
     @Override
     public List<YearlyDetailDto> getHoursYearly(Long projectCup) {
-        return collaborationDao.findByProjectCup(projectCup)
+        return collaborationDao.findAllByProject_Cup(projectCup)
                 .stream()
                 .map(c -> {
                     YearlyDetailDto dto = new YearlyDetailDto();

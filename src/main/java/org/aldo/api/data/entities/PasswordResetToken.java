@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.UuidGenerator;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.util.Date;
 
@@ -12,7 +11,6 @@ import java.util.Date;
 @Table(name = "password_reset_token")
 @Data
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 public class PasswordResetToken {
     @Id
     @UuidGenerator

@@ -51,8 +51,4 @@ public class Professor extends Auditable {
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Collaboration> collaborations;
-
-//    @OneToMany(mappedBy = "invalid_token", cascade = CascadeType.ALL, orphanRemoval = true)
-//    @ToString.Exclude
-//    private List<InvalidToken> invalidTokens;
 }

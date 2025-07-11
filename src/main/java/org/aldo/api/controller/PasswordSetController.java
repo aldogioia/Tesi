@@ -1,5 +1,6 @@
 package org.aldo.api.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dto.RequestSetPasswordDto;
 import org.aldo.api.service.interfaces.PasswordSetService;
@@ -23,7 +24,7 @@ public class PasswordSetController {
     }
 
     @PostMapping("/set-password")
-    public ResponseEntity<HttpStatus> setPassword(@RequestBody RequestSetPasswordDto requestSetPasswordDto) {
+    public ResponseEntity<HttpStatus> setPassword(@Valid @RequestBody RequestSetPasswordDto requestSetPasswordDto) {
         passwordSetService.setPassword(requestSetPasswordDto);
         return ResponseEntity
                 .status(HttpStatus.OK)

@@ -5,12 +5,11 @@ import org.aldo.api.data.dao.PasswordResetTokenDao;
 import org.aldo.api.data.dto.RequestSetPasswordDto;
 import org.aldo.api.data.entities.PasswordResetToken;
 import org.aldo.api.data.entities.Professor;
-import org.aldo.api.data.enumerator.AccessRole;
 import org.aldo.api.service.interfaces.EmailService;
 import org.aldo.api.service.interfaces.PasswordSetService;
 import org.aldo.api.service.interfaces.ProfessorService;
 import org.aldo.api.utils.PasswordResetTokenGenerator;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -21,6 +20,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class PasswordSetServiceImpl implements PasswordSetService {
     private final PasswordResetTokenDao passwordResetTokenDao;
+    private final PasswordEncoder passwordEncoder;
     private final ProfessorService professorService;
     private final EmailService emailService;
     private static final String BASE_URL = "http://localhost:4200";
@@ -29,14 +29,9 @@ public class PasswordSetServiceImpl implements PasswordSetService {
     public void initiateSetPassword(String email) {
         Professor professor = professorService
                 .getProfessorByEmail(email);
-
-        AccessRole accessRole = professor.getAccessRole();
-        if (accessRole.equals(AccessRole.ROLE_PROFESSOR)){
-            if (professor.getPassword() == null || professor.getPassword().isEmpty())
-                sendResetPasswordEmail(professor);
-            else throw new RuntimeException("Password already set");
-        }
-        else throw new RuntimeException("Invalid access role");
+        if (professor.getPassword() == null || professor.getPassword().isEmpty())
+            sendResetPasswordEmail(professor);
+        else throw new RuntimeException("Password already set");
     }
 
     @Override
@@ -44,15 +39,11 @@ public class PasswordSetServiceImpl implements PasswordSetService {
         PasswordResetToken passwordResetToken = passwordResetTokenDao
                 .findByToken(requestSetPasswordDto.getToken());
 
-        if (passwordResetToken.getExpirationDate().before(new Date())) {
+        if (passwordResetToken.getExpirationDate().before(new Date()))
             throw new RuntimeException("Token expired");
-        }
-
-        String hashedPassword = BCrypt.hashpw(
-                requestSetPasswordDto.getNewPassword(), BCrypt.gensalt());
 
         Professor professor = passwordResetToken.getProfessor();
-        professor.setPassword(hashedPassword);
+        professor.setPassword(passwordEncoder.encode(requestSetPasswordDto.getNewPassword()));
 
         professorService.saveProfessor(professor);
         passwordResetTokenDao.delete(passwordResetToken);

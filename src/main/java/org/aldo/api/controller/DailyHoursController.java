@@ -3,10 +3,12 @@ package org.aldo.api.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dto.CreateDailyHoursDto;
-import org.aldo.api.data.dto.ProfessorDailyHoursDto;
+import org.aldo.api.data.dto.DailyDetailDto;
+import org.aldo.api.data.dto.UpdateDailyHoursDto;
 import org.aldo.api.service.interfaces.DailyHoursService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Month;
@@ -20,39 +22,32 @@ import java.util.List;
 public class DailyHoursController {
     private final DailyHoursService dailyHoursService;
 
-    @PostMapping
-    public ResponseEntity<Void> createDailyHours(@Valid @RequestBody List<CreateDailyHoursDto> createDailyHoursDtos) {
-        dailyHoursService.createDailyHours(createDailyHoursDtos);
+    @PostMapping("/create")
+    public ResponseEntity<Void> createDailyHours(
+            @Valid @RequestBody List<CreateDailyHoursDto> createDailyHoursDto,
+            Authentication authentication
+    ) {
+        dailyHoursService.createDailyHours(createDailyHoursDto, authentication);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @PatchMapping("/update")
+    public ResponseEntity<Void> updateDailyHours(
+            @Valid @RequestBody List<UpdateDailyHoursDto> updateDailyHoursDto,
+            Authentication authentication
+    ) {
+        dailyHoursService.updateDailyHours(updateDailyHoursDto, authentication);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     @GetMapping
-    public ResponseEntity<List<ProfessorDailyHoursDto>> getWorkedHoursByProfessorIdAndYear(
-        Month month,
-        Year year,
-        Long projectCup
+    public ResponseEntity<List<DailyDetailDto>> getWorkedHoursByProfessorIdAndYear(
+        @RequestParam Month month,
+        @RequestParam Year year,
+        @RequestParam Integer professor
     ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(dailyHoursService.getWorkedHoursByProfessorIdAndMonthAndProjectCup(month, year, projectCup));
+                .body(dailyHoursService.getWorkedHoursByProfessorIdAndMonthAndProjectCup(month, year, professor));
     }
-//    @GetMapping("/year")
-//    public ResponseEntity<List<DailyHoursDto>> getWorkedHoursByProfessorIdAndYear(
-//        Year year,
-//        Integer professorId
-//    ) {
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(dailyHoursService.getWorkedHoursByProfessorIdAndYear(year, professorId));
-//    }
-//    @GetMapping("/month")
-//    public ResponseEntity<Integer> getWorkedHoursByProfessorIdAndMonth(
-//        Month month,
-//        Year year,
-//        Integer professorId
-//    ) {
-//        return ResponseEntity
-//                .status(HttpStatus.OK)
-//                .body(dailyHoursService.getWorkedHoursByProfessorIdAndMonth(month, year, professorId));
-//    }
-
 }

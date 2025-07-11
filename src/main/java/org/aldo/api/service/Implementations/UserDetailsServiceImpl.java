@@ -3,7 +3,9 @@ package org.aldo.api.service.Implementations;
 import lombok.RequiredArgsConstructor;
 import org.aldo.api.data.dao.ProfessorDao;
 import org.aldo.api.data.entities.Professor;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -24,5 +26,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 professor.getPassword(),
                 List.of(new SimpleGrantedAuthority(professor.getAccessRole().name()))
         );
+    }
+    public String getCurrentUserEmail(){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails.getUsername();
     }
 }

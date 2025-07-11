@@ -11,5 +11,4 @@ public interface CollaborationDao extends JpaRepository<Collaboration, String> {
     List<Collaboration> findAllByProfessor_Id(Integer professorId);
     List<Collaboration> findAllByProject_Cup(Long projectCup);
     List<Collaboration> findByResponsibleIsTrueAndProjectCup(Long projectCup);
-    List<Collaboration> findByProjectCup(Long projectCup);
 }

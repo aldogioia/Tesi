@@ -22,8 +22,10 @@ public class ProfessorsController {
     private final ProfessorsService professorsService;
 
     @GetMapping
-    // TODO potrei togliere la paginazione e gestire il resto su frontend, dunque rimuovere questo endpoint
-    public ResponseEntity<Page<SummaryProfessorDto>> getProfessors(@RequestParam Map<String, String> sorting, @RequestParam Map<String, String> filtering, Pageable pageable) {
+    public ResponseEntity<Page<SummaryProfessorDto>> getProfessors(
+            @RequestParam Map<String, String> sorting,
+            @RequestParam Map<String, String> filtering, Pageable pageable
+    ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(professorsService.getProfessors(sorting, filtering, pageable));

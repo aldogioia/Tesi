@@ -23,6 +23,7 @@ public class CreateProjectDto {
     private String acronym;
 
     @NotNull
+    @Min(0)
     private BigDecimal budget;
 
     @NotNull

@@ -30,7 +30,6 @@ public class JwtHandler {
                 .subject(professor.getEmail())
                 .claim("accessRole", professor.getAccessRole().name())
                 .issueTime(Date.from(issuedAt))
-                .notBeforeTime(Date.from(issuedAt.plus(5, ChronoUnit.SECONDS)))
                 .expirationTime(Date.from(issuedAt.plus(24, ChronoUnit.HOURS)))
                 .build();
         Payload payload = new Payload(claims.toJSONObject());
@@ -41,8 +40,6 @@ public class JwtHandler {
         } catch (JOSEException e){
             throw new RuntimeException("Error while generating token", e);
         }
-
-        System.out.println("Generating new access token at: " + new Date() + "with expiration at: " + claims.getExpirationTime());
 
         return jwsObject.serialize();
     }

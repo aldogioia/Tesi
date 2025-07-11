@@ -7,6 +7,7 @@ import org.aldo.api.data.dto.CreateProfessorDto;
 import org.aldo.api.data.dto.ProfessorDto;
 import org.aldo.api.data.dto.UpdateProfessorDto;
 import org.aldo.api.data.entities.Professor;
+import org.aldo.api.data.enumerator.AccessRole;
 import org.aldo.api.service.interfaces.ProfessorService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -33,10 +34,9 @@ public class ProfessorServiceImpl implements ProfessorService {
         professor.setBirthDate(createProfessorDto.getBirthDate());
         professor.setDepartment(createProfessorDto.getDepartment());
         professor.setRole(roleDao.findByType(createProfessorDto.getRole()));
+        professor.setAccessRole(AccessRole.ROLE_PROFESSOR);
 
-        professor = professorDao.save(professor);
-
-        return professor.getId();
+        return professorDao.save(professor).getId();
     }
 
     @Override

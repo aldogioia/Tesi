@@ -5,7 +5,8 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class ProfessorDailyHoursDto {
-    private SummaryProfessorDto professor;
+public class DailyDetailDto {
+    private SummaryProjectDto project;
+    private MonthlyHoursDto monthlyHours;
     private List<DailyHoursDto> dailyHours;
 }

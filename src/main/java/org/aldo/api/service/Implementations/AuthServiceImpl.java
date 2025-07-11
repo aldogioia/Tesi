@@ -42,5 +42,4 @@ public class AuthServiceImpl implements AuthService {
     public void logout(HttpServletRequest request) {
         invalidTokenService.invalidationToken(jwtHandler.getJwtFromRequest(request));
     }
-
 }

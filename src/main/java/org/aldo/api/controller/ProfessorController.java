@@ -22,8 +22,8 @@ public class ProfessorController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Integer> createProfessor(@Valid @RequestBody CreateProfessorDto createProfessorDto) {
-        Integer professorDto = professorService.createProfessor(createProfessorDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(professorDto);
+        Integer professorId = professorService.createProfessor(createProfessorDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(professorId);
     }
 
     @PatchMapping

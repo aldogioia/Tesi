@@ -5,12 +5,16 @@ import org.aldo.api.data.dao.MonthlyHoursDao;
 import org.aldo.api.data.dao.YearlyHoursDao;
 import org.aldo.api.data.dto.*;
 import org.aldo.api.data.entities.MonthlyHours;
+import org.aldo.api.data.entities.YearlyHours;
 import org.aldo.api.service.interfaces.MonthlyHoursService;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.Year;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,17 +24,64 @@ public class MonthlyHoursServiceImpl implements MonthlyHoursService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void createCollaborationsHoursMonthly(List<CreateMonthlyHoursDto> createMonthlyHoursDto) {
+    public void createCollaborationsHoursMonthly(List<CreateMonthlyHoursDto> createMonthlyHoursDto, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!isAdmin) {
+            boolean isTryingToModifyOthers = createMonthlyHoursDto.stream()
+                    .anyMatch(dto -> {
+                        Optional<YearlyHours> yearlyHours = yearlyHoursDao.findById(dto.getCollaborationsHoursYearly());
+                        return yearlyHours
+                                .map(hours -> !hours.getCollaboration().getProfessor().getEmail().equals(userDetails.getUsername()))
+                                .orElse(true);
+                    });
+
+            if (isTryingToModifyOthers) {
+                throw new RuntimeException("Forbidden");
+            }
+        }
+
         monthlyHoursDao.saveAll(
-            createMonthlyHoursDto.stream()
-                    .map(dto -> {
-                        MonthlyHours c = new MonthlyHours();
-                        c.setMonth(dto.getMonth());
-                        c.setMonthExpectedHours(dto.getMonthExpectedHours());
-                        c.setYearlyHours(yearlyHoursDao.findById(dto.getCollaborationsHoursYearly()).orElseThrow());
-                        return c;
-                    }
+                createMonthlyHoursDto.stream()
+                        .map(dto -> {
+                            MonthlyHours c = new MonthlyHours();
+                            c.setMonth(dto.getMonth());
+                            c.setMonthExpectedHours(dto.getMonthExpectedHours());
+                            c.setYearlyHours(yearlyHoursDao.findById(dto.getCollaborationsHoursYearly()).orElseThrow());
+                            return c;
+                        }
         ).toList());
+    }
+
+    @Override
+    public void updateCollaborationsHoursMonthly(List<UpdateMonthlyHoursDto> updateMonthlyHoursDto, Authentication authentication) {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!isAdmin) {
+            boolean isTryingToModifyOthers = updateMonthlyHoursDto.stream()
+                    .anyMatch(dto -> {
+                        Optional<MonthlyHours> monthlyHours = monthlyHoursDao.findById(dto.getId());
+                        return monthlyHours
+                                .map(hours -> !hours.getYearlyHours().getCollaboration().getProfessor().getEmail().equals(userDetails.getUsername()))
+                                .orElse(true);
+                    });
+
+            if (isTryingToModifyOthers) {
+                throw new RuntimeException("Forbidden");
+            }
+        }
+
+        monthlyHoursDao.saveAll(
+                updateMonthlyHoursDto.stream()
+                        .map(dto -> {
+                            MonthlyHours monthlyHours = monthlyHoursDao.findById(dto.getId()).orElseThrow();
+                            monthlyHours.setMonthExpectedHours(dto.getMonthExpectedHours());
+
+                            return monthlyHours;
+                        }).toList()
+        );
     }
 
     @Override
