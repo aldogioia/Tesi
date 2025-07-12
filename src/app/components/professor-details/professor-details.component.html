@@ -1,0 +1,52 @@
+<div class="details">
+  <div class="title">
+    <h1>Dettagli</h1>
+    <div (click)="goToUpdate()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+        <path d="M11.7973 2.61553C12.1888 2.22402 12.3845 2.02826 12.6014 1.93465C12.9139 1.79978 13.2681 1.79978 13.5805 1.93465C13.7973 2.02826 13.9931 2.22402 14.3846 2.61553C14.7761 3.00704 14.9719 3.2028 15.0655 3.41966C15.2004 3.7321 15.2004 4.08632 15.0655 4.39876C14.9719 4.61562 14.7761 4.81138 14.3846 5.20289L11.0369 8.55063C10.2121 9.37543 9.79973 9.78783 9.2832 10.0322C8.76667 10.2765 8.18627 10.3338 7.02549 10.4483L6.5 10.5002L6.55185 9.9747C6.66639 8.8139 6.72366 8.2335 6.96801 7.71696C7.21233 7.20043 7.62473 6.78805 8.44953 5.96326L11.7973 2.61553Z" stroke-linejoin="round"/>
+        <path d="M4.49998 10.5H2.99998C2.35565 10.5 1.83331 11.0223 1.83331 11.6667C1.83331 12.311 2.35565 12.8333 2.99998 12.8333H9.33331C9.97765 12.8333 10.5 13.3557 10.5 14C10.5 14.6443 9.97765 15.1667 9.33331 15.1667H7.83331" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="wrapper">
+        <span>Nome</span>
+        <h2>{{professor.name}}</h2>
+      </div>
+
+      <div class="wrapper">
+        <span>Cognome</span>
+        <h2>{{professor.surname}}</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="wrapper">
+        <span>Dipartimento</span>
+        <h2>{{professor.department}}</h2>
+      </div>
+
+      <div class="wrapper">
+        <span>Ruolo</span>
+        <h2>{{professor.role}}</h2>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <span>Matricola</span>
+      <h2>{{professor.id}}</h2>
+    </div>
+
+    <div class="wrapper">
+      <span>Email</span>
+      <h2>{{professor.email}}</h2>
+    </div>
+
+    <div class="wrapper">
+      <span>Dat!a di nascita</span>
+      <h2>{{professor.birthDate}}</h2>
+    </div>
+  </div>
+</div>

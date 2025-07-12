@@ -1,17 +1,3 @@
-.professors{
-  position: relative;
-  display: flex;
-  width: 100%;
-  max-width: 600px;
-  padding-top: 20px;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.professors > h1 {
-  color: var(--blu);
-}
-
 form{
   display: flex;
   flex-direction: column;
@@ -26,7 +12,6 @@ form{
 }
 
 .input-wrapper.fixed > input{
-  border-radius: 5px;
   background: var(--black20);
 }
 .input-wrapper.fixed > input[type="date"]{
@@ -50,7 +35,7 @@ form{
   width: 100%;
   padding: 10px;
   background: var(--black10);
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: .3s ease-in-out;
 }
@@ -66,12 +51,7 @@ form{
 }
 
 button{
-  padding: 10px;
   background: var(--blu50);
-  color: var(--black);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
 }
 button:hover{
   background: var(--blu);

@@ -1,8 +1,21 @@
+main{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+  background: var(--white);
+  gap: 10px;
+}
+
 .left-bar{
   display: flex;
   flex-direction: column;
-  width: 250px;
-  padding: 20px;
+  height: fit-content;
+  width: 220px;
+  min-width: 220px;
+  padding: 10px;
   border-radius: 20px;
   background: var(--black10);
   gap: 50px;
@@ -10,13 +23,14 @@
   backdrop-filter: blur(20px);
   z-index: 99;
 }
-.left-bar.extended,
-.left-bar.mixed-sx{
+.left-bar.close{
+  height: fit-content;
+}
+.left-bar.extended{
   height: 100%;
 }
-.left-bar.close.extended,
-.left-bar.close.mixed-sx{
-  height: auto;
+.left-bar.close.extended{
+  height: fit-content;
 }
 
 svg{
@@ -59,8 +73,7 @@ svg{
 .left-bar.close > .content{
   display: none;
 }
-.left-bar.extended .content,
-.left-bar.mixed-sx .content{
+.left-bar.extended .content{
   justify-content: space-between;
 }
 
@@ -83,6 +96,10 @@ svg{
 
 .section.orange h2{
   color: var(--orange);
+}
+
+.section.purple h2{
+  color: var(--purple);
 }
 
 .header-section{
@@ -116,7 +133,6 @@ svg{
 .content-section{
   display: flex;
   flex-direction: column;
-  height: 65px;
   gap: 15px;
 }
 .section.close .content-section{
@@ -131,8 +147,13 @@ svg{
   opacity: .5;
   transition: .3s ease-in-out;
 }
+.item.account{
+  border-radius: 10px;
+  padding: 5px;
+  background: var(--black20);
+}
 .item > a{
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   color: var(--black);
 }
@@ -145,6 +166,9 @@ svg{
 
 .item.active{
   opacity: 1;
+}
+.item.account.active{
+  background: var(--purple20);
 }
 .section.blu .item.active > svg{
   stroke: var(--blu);
@@ -174,7 +198,7 @@ svg{
 @media (max-width: 800px){
   .left-bar{
     position: absolute;
-    transform: translateX(calc(-95% - 10px));
+    transform: translateX(calc(-95% - 15px));
   }
   .left-bar.extended,
   .left-bar.mixed-sx{

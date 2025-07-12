@@ -11,20 +11,19 @@ import {UpdateProfessorDto} from "../../model/dto/UpdateProfessorDto";
 export class ProfessorService {
 
   apiUrl = 'http://localhost:8080/api/v1/';
-  headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json' });
 
   constructor(private http: HttpClient) { }
 
   addProfessor(professor: Professor) {
-    return this.http.post(this.apiUrl + 'professor', professor, { headers: this.headers });
+    return this.http.post(this.apiUrl + 'professor', professor);
   }
 
   updateProfessor(professor: UpdateProfessorDto) {
-    return this.http.patch(this.apiUrl + 'professor', professor, { headers: this.headers });
+    return this.http.patch(this.apiUrl + 'professor', professor);
   }
 
   getProfessor(id: number) {
-    return this.http.get<Professor>(this.apiUrl + `professor/${id}`, { headers: this.headers });
+    return this.http.get<Professor>(this.apiUrl + `professor/${id}`);
   }
 
   getProfessors(sorting: { [key: string]: string }, filtering: { [key: string]: string }, page: number, size: number) {
@@ -38,10 +37,10 @@ export class ProfessorService {
     for (const [key, value] of Object.entries(filtering))
       params = params.set(key, value);
 
-    return this.http.get<Page<SummaryProfessorDto>>(this.apiUrl + 'professors', { params, headers: this.headers });
+    return this.http.get<Page<SummaryProfessorDto>>(this.apiUrl + 'professors');
   }
 
   getAllProfessors() {
-    return this.http.get<SummaryProfessorDto[]>(this.apiUrl + 'professors/all', { headers: this.headers });
+    return this.http.get<SummaryProfessorDto[]>(this.apiUrl + 'professors/all');
   }
 }

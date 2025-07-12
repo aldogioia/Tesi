@@ -4,7 +4,7 @@ import {Professor} from "../../model/Professor";
 import {ProfessorService} from "../../service/professor/professor.service";
 import {Router} from "@angular/router";
 import {UpdateProfessorDto} from "../../model/dto/UpdateProfessorDto";
-import { pastDateValidator } from '../../validators/PastDateValidators';
+import { pastDateValidator } from '../../security/validators/PastDateValidators';
 
 @Component({
   selector: 'app-add-professors',
@@ -18,6 +18,7 @@ export class AddProfessorsComponent implements OnInit{
 
   message = '';
   showToast = false;
+  isError = false;
 
   id: number | undefined;
   professor: Professor | null = null;
@@ -61,12 +62,15 @@ export class AddProfessorsComponent implements OnInit{
   }
 
   addProfessor() {
+    console.log(this.professorForm.value);
     if (this.professorForm.valid) {
+      console.log("valid");
       let professor = new Professor(this.professorForm.value);
       professor.role = this.role;
 
       this.professorService.addProfessor(professor).subscribe(
         { next: () => {
+            this.isError = false;
             this.showToast = true;
             this.message = 'Professor added successfully';
             this.professorForm.reset();
@@ -74,6 +78,7 @@ export class AddProfessorsComponent implements OnInit{
             //this.router.navigate(['/professor'])
           },
           error: () => {
+            this.isError = true;
             this.showToast = true;
             this.message = 'An error occurred'
           }
@@ -91,12 +96,14 @@ export class AddProfessorsComponent implements OnInit{
       let professor = new UpdateProfessorDto(this.professorForm.value);
       professor.role = this.role;
 
-      this.professorService.updateProfessor(professor).subscribe(
-        { next: () => {
+      this.professorService.updateProfessor(professor).subscribe({
+          next: () => {
+            this.isError = false;
             this.showToast = true;
             this.message = 'Professor updated successfully';
           },
           error: () => {
+            this.isError = true;
             this.showToast = true;
             this.message = 'An error occurred'
           }

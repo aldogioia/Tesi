@@ -32,6 +32,8 @@
   min-width: 125px;
   width: 100%;
   flex: 1 0 0;
+  border-radius: 10px;
+  height: 50px;
 }
 
 .start{
@@ -80,7 +82,7 @@ input{
   padding: 10px;
   border-radius: 10px;
   color: var(--black);
-  height: 40px;
+  height: 50px;
   font-size: 12px;
   font-weight: 200;
 }
@@ -128,19 +130,20 @@ input::placeholder{
 }
 
 select{
-  padding: 5px 10px;
+  padding: 10px;
+  width: 150px;
   appearance: none;
-  background: none;
+  background: var(--purple20);
   outline: none;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   color: var(--black);
-  font-size: 16px;
+  font-size: 12px;
   cursor: pointer;
   transition: .3s ease-in-out;
 }
 select:hover{
-  background: var(--black20);
+  background: var(--purple50);
 }
 
 

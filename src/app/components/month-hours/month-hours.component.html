@@ -1,0 +1,76 @@
+<div class="calendar">
+
+  <div class="title">
+    <h1>Dettaglio Mensile</h1>
+  </div>
+
+  <div class="selection" *ngIf="yearsMonths.length > 0">
+    <div>
+      <select [ngModel]="yearsMonths[currentYear].year" (ngModelChange)="onChangeYear($event)" >
+        <option *ngFor="let y of yearsMonths" [ngValue]="y.year">{{ y.year }}</option>
+      </select>
+    </div>
+
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
+        <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
+        <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="selection" *ngIf="selectedProject">
+    <select [ngModel]="selectedProject.cup" (ngModelChange)="onChangeProject($event)">
+      <option *ngFor="let p of projects" [ngValue]="p.cup">{{ p.acronym }}</option>
+    </select>
+
+    <div>
+      <p><span>Data di fine: </span>{{selectedProject.endDate}}</p>
+    </div>
+  </div>
+
+  <form class="table" [formGroup]="form" (submit)="save()" *ngIf="!loading">
+    <div class="r">
+      <div class="first">
+        <button type="submit">Salva</button>
+      </div>
+      <p class="cell"
+         [class]="{'left' : yearsMonths[currentYear].months[0] === m, 'right' :  yearsMonths[currentYear].months[yearsMonths[currentYear].months.length-1] === m}"
+         *ngFor="let m of yearsMonths[currentYear].months; let i = index">
+        {{ m }}
+      </p>
+    </div>
+
+    <div class="c" formArrayName="rows">
+      <div class="r" *ngFor="let d of monthlyDetail, let i = index" [formGroupName]="i">
+        <div class="first">
+          <p [class]="{'top' : monthlyDetail[0] === d, 'bottom' : monthlyDetail[monthlyDetail.length-1] === d}">{{ d.professor.name }} {{ d.professor.surname }}</p>
+        </div>
+        <div class="values" formArrayName="values">
+          <input class="cell" type="number"
+                 [style]="{'cursor': d.professor.id === professorId ? 'initial' : 'not-allowed'}"
+                 [readonly]="professorId !== d.professor.id"
+                 *ngFor="let m of yearsMonths[currentYear].months; let j = index" [formControlName]="j"
+                 [class]="{'error': checkInvalid(i,j), 'to-add': toAdd.includes(i*this.yearsMonths[this.currentYear].months.length + j)}"
+                 (focusout)="add(i,j, m, d)">
+        </div>
+      </div>
+    </div>
+
+    <div class="r">
+      <div class="first">
+        <p style="text-align: center; border-radius: 10px">Totale Mese</p>
+      </div>
+      <p class="cell"
+         [class]="{'left' : yearsMonths[currentYear].months[0] === m, 'right' :  yearsMonths[currentYear].months[yearsMonths[currentYear].months.length-1] === m}"
+         *ngFor="let m of yearsMonths[currentYear].months let k = index">
+        {{ monthlyTotals[k] || 0 }}</p>
+    </div>
+  </form>
+
+  <div class="toast" [class.error]="isError" *ngIf="isError">
+    <p>{{ message }}</p>
+  </div>
+</div>

@@ -44,13 +44,13 @@ export class ProjectsComponent implements OnInit{
   private loadData(pageNumber: number = 0, pageSize: number = 10) {
     this.loading = true
 
-    this.projectsService.getProjects(
+    this.projectsService.getProjectsCriteria(
       this.ordinamento,
       this.criterio,
       this.form.get('name')?.value,
       this.form.get('duration')?.value,
       this.pnrr
-    ).subscribe({ //todo, vedere l'incremento di pagina
+    ).subscribe({
       next: page => {
         this.page = page
 

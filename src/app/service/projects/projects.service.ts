@@ -13,14 +13,11 @@ export class ProjectsService {
 
   constructor(private http: HttpClient) { }
 
-  getProject(id: number) {
-    return this.http.get<Project>(this.urlApi + `project/${id}`)
-  }
-
-  getProjects(direction: string, criteria: string, name: string, duration: number, pnrr: boolean | string) {
-    return this.http.get<Page<SummaryProjectDto>>(
-      this.urlApi + 'projects',
-      {params: {direction, criteria, duration: duration.toString(), pnrr: pnrr.toString(), name}})
+  getProject(cup: number) {
+    return this.http.get<Project>(
+      this.urlApi + "project",
+      { params: {cup: cup.toString() }
+      });
   }
 
   addProject(project: Project) {
@@ -29,5 +26,15 @@ export class ProjectsService {
 
   updateProject(project: UpdateProjectDto) {
     return this.http.patch(this.urlApi + 'project', project)
+  }
+
+  getProjectsCriteria(direction: string, criteria: string, name: string, duration: number, pnrr: boolean | string) {
+    return this.http.get<Page<SummaryProjectDto>>(
+      this.urlApi + 'projects/criteria',
+      {params: {direction, criteria, duration: duration.toString(), pnrr: pnrr.toString(), name}})
+  }
+
+  getProjects(){
+    return this.http.get<Project[]>(this.urlApi + 'projects/all')
   }
 }

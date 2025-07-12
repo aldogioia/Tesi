@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {Collaboration} from "../../model/Collaboration";
 import {ProfessorAssignedHoursDto} from "../../model/dto/ProfessorAssignedHoursDto";
 import { SummaryCollaborationsProfessorDto, SummaryCollaborationsProjectDto } from '../../model/dto/SummaryCollaborationsDto';
@@ -13,7 +13,7 @@ export class CollaborationsService {
   constructor(private http: HttpClient) { }
 
   addCollaboration(collaborations: Collaboration[]) {
-    return this.http.post(this.urlApi, collaborations);
+    return this.http.post(this.urlApi + "create", collaborations);
   }
 
   getProfessorCollaborations(id: number) {

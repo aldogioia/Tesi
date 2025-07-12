@@ -1,0 +1,15 @@
+.calendar{
+  max-width: 800px;
+}
+
+button{
+  background: var(--purple50);
+}
+button:hover{
+  background: var(--purple);
+}
+
+.cell{
+  width: 80px;
+  min-width: 80px;
+}

@@ -1,29 +1,22 @@
-<div class="projects">
+<div class="calendar">
 
   <div class="title">
-    <h1>Collaborazioni</h1>
-    <span>
+    <h1>Assegnamenti</h1>
+    <!--<span>
       <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
         <path d="M7.16667 5.1665L6.82277 6.09587C6.37183 7.3145 6.14635 7.92384 5.70185 8.36837C5.25735 8.81284 4.64803 9.0383 3.42937 9.4893L2.5 9.83317L3.42937 10.177C4.64803 10.628 5.25735 10.8535 5.70185 11.298C6.14635 11.7425 6.37183 12.3518 6.82277 13.5704L7.16667 14.4998L7.51053 13.5704C7.96153 12.3518 8.187 11.7425 8.63147 11.298C9.076 10.8535 9.68533 10.628 10.9039 10.177L11.8333 9.83317L10.9039 9.4893C9.68533 9.0383 9.076 8.81284 8.63147 8.36837C8.187 7.92384 7.96153 7.3145 7.51053 6.09587L7.16667 5.1665Z" stroke-linejoin="round"/>
         <path d="M12.5 2.5L12.3526 2.8983C12.1593 3.42058 12.0627 3.68173 11.8722 3.87222C11.6817 4.06272 11.4206 4.15935 10.8983 4.35261L10.5 4.5L10.8983 4.64739C11.4206 4.84065 11.6817 4.93728 11.8722 5.12778C12.0627 5.31827 12.1593 5.57942 12.3526 6.1017L12.5 6.5L12.6474 6.1017C12.8407 5.57942 12.9373 5.31827 13.1278 5.12777C13.3183 4.93728 13.5794 4.84065 14.1017 4.64739L14.5 4.5L14.1017 4.35261C13.5794 4.15935 13.3183 4.06272 13.1278 3.87222C12.9373 3.68173 12.8407 3.42058 12.6474 2.8983L12.5 2.5Z" stroke-linejoin="round"/>
       </svg>
       <p>Genera</p>
-    </span>
+    </span>-->
   </div>
 
-  <div class="wizard">
-    <div class="box" [ngClass]="{'selected': page == 1, 'completed': page > 1}">1</div>
-    <span class="progress"><span [style.width]="page > 1 ? '100%' : '0%'"></span></span>
-    <div class="box" [ngClass]="{'selected': page == 2, 'completed': page > 2}">2</div>
-    <span class="progress"><span [style.width]="page > 2 ? '100%' : '0%'"></span></span>
-    <div class="box" [ngClass]="{'selected': page == 3}">3</div>
-  </div>
-
-  <div class="wizard-content" *ngIf="page == 1">
-    <form [formGroup]="searchForm" (ngSubmit)="search()">
+    <form [formGroup]="searchForm">
       <div class="project-info">
-        <h2>{{project?.name}}</h2>
-        <p>Budget: <span>{{project?.budget}}</span> €</p>
+        <select formControlName="select">
+          <option *ngFor="let project of projects" [ngValue]="project">{{ project.name }}</option>
+        </select>
+        <p>Budget: <span>{{selectedProject?.budget}}</span> €</p>
       </div>
 
       <div class="search-bar">
@@ -35,13 +28,14 @@
       </div>
     </form>
 
-    <form [formGroup]="form">
+    <form [formGroup]="form" (submit)="save()">
+      <button type="submit">salva</button>
       <div class="content" formArrayName="professors">
         <div class="project-info">
           <p>Proiezione budget: <span>{{projectionBudget}}</span> €</p>
           <p>assegnate/libere</p>
         </div>
-        <div class="item" [class]="{'valid': !checkInvalid(i, false) , 'selected': professorToAdd.includes(i)}" *ngFor="let professor of professors; let i = index" [formGroupName]="i">
+        <div class="item" [class]="{'valid': !checkInvalid(i, false) , 'selected': professorToAdd.includes(i)}" *ngFor="let professor of searchedProfessors; let i = index" [formGroupName]="i">
           <div class="wrap">
             <span (click)="toggleItem(i)">
               <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
@@ -49,92 +43,18 @@
                 <path d="M3.16667 8H13.8333" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
-            <h2>{{professor.name}} {{professor.surname}}</h2>
+            <h2>{{professor.professor.name}} {{professor.professor.surname}}</h2>
           </div>
 
           <div class="wrap" [class.error]="checkInvalid(i, true)">
-            <input  type="number" formControlName="expectedHours" [readonly]="professorToAdd.includes(i)">
-            <p>/ {{1500 - professor.workedHours}} ore</p>
+            <input  type="number" formControlName="expectedHours" (focusout)="resetValue(i)" [readonly]="professorToAdd.includes(i)">
+            <p>/ {{totalHoursInDuration - professor.assignedHours}} ore</p>
           </div>
         </div>
       </div>
     </form>
-  </div>
 
-  <div class="wizard-content" *ngIf="page == 2">
-    <ng-container *ngTemplateOutlet="details; context: { bool: true }"></ng-container>
-  </div>
-
-  <div class="wizard-content" *ngIf="page == 3">
-    <ng-container *ngTemplateOutlet="details; context: { bool: false }"></ng-container>
+  <div class="toast" [class]="{'error': isError}" *ngIf="showToast">
+    <p>{{message}}</p>
   </div>
 </div>
-
-<div class="wizard-actions" [style.justify-content]="page == 1 ? 'end' : 'space-between'">
-    <div *ngIf="page != 1" class="wizard-button" (click)="page = page - 1">
-      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
-        <path d="M3.1665 8H13.8332" stroke="#FBFBFB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M6.4997 11.3337C6.4997 11.3337 3.1664 8.87873 3.16638 8.00033C3.16638 7.12193 6.49971 4.66699 6.49971 4.66699" stroke="#FBFBFB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-
-    <div class="wizard-button" (click)="page <= 3 ? page = page + 1 : save()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
-        <path d="M13.6667 8.33301H3" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M10.3336 11.6667C10.3336 11.6667 13.6668 9.21173 13.6668 8.33333C13.6668 7.45493 10.3335 5 10.3335 5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
-
-<ng-template #details  let-bool="bool">
-  <div class="selection date" *ngIf="!bool">
-    <div>
-      <select [ngModel]="yearMonths[currentYear]">
-        <option *ngFor="let y of yearMonths" [value]="y">{{y.year}}</option>
-      </select>
-    </div>
-
-    <div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
-        <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
-        <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-  </div>
-
-  <form class="table">
-    <div class="r" *ngIf="bool">
-      <button>Salva</button>
-      <p class="cell b"  [class]="{'b' : yearMonths.length > 1}" *ngFor="let y of yearMonths; let i = index">{{ y.year }}</p>
-    </div>
-    <div class="r" *ngIf="!bool">
-      <button>Salva</button>
-      <p class="cell b"  [class]="{'b' :  yearMonths[currentYear].months.length > 1}" *ngFor="let m of yearMonths[currentYear].months; let i = index">{{ m }}</p>
-    </div>
-
-    <div class="c" *ngIf="bool">
-      <div class="r" *ngFor="let d of yearlyDetail">
-        <p class="first" [class]="{'br' : yearlyDetail.length > 1}">{{ d.professor.name }} {{ d.professor.surname }}</p>
-        <input class="cell" type="number" *ngFor="let y of yearMonths" value="{{ getHoursYear(y.year, d) }}">
-      </div>
-    </div>
-
-    <div class="c" *ngIf="!bool">
-      <div class="r" *ngFor="let d of monthlyDetail">
-        <p class="first" [class]="{'br' : monthlyDetail.length > 1}">{{ d.professor.name }} {{ d.professor.surname }}</p>
-        <input class="cell" type="number" *ngFor="let m of yearMonths[currentYear].months" value="{{ getHoursMonth(m, d) }}">
-      </div>
-    </div>
-
-    <div class="r"  *ngIf="bool">
-      <p class="first" style="text-align: center">Totale Anno</p>
-      <h2 class="cell b"  [class]="{'b' : yearMonths.length > 1 }" *ngFor="let y of yearMonths; let i = index">{{ 0 }} <!--TODO calcolare il totale--></h2>
-    </div>
-    <div class="r" *ngIf="!bool">
-      <p class="first" style="text-align: center">Totale Anno</p>
-      <h2 class="cell b"  [class]="{'b' :  yearMonths[currentYear].months.length > 1}" *ngFor="let m of  yearMonths[currentYear].months; let i = index">{{ 0 }} <!--TODO calcolare il totale--></h2>
-    </div>
-  </form>
-</ng-template>

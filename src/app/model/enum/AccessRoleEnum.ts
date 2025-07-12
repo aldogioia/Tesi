@@ -1,0 +1,4 @@
+export enum AccessRole{
+  ROLE_ADMIN = 'ROLE_ADMIN',
+  ROLE_PROFESSOR = 'ROLE_PROFESSOR'
+}

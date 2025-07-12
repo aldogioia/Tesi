@@ -6,6 +6,7 @@ export class Professor {
   birthDate: Date
   department: string
   role: string
+  accessRole: string
 
   constructor(data: any) {
     this.id = data.id
@@ -15,5 +16,6 @@ export class Professor {
     this.birthDate = data.birthDate
     this.department = data.department
     this.role = data.role
+    this.accessRole = data.accessRole
   }
 }

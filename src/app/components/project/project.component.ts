@@ -18,8 +18,7 @@ export class ProjectComponent implements OnInit {
   id: number | undefined;
   project: Project | null = null;
 
-  responsibles: SummaryCollaborationsProjectDto[] = []
-  collaborators: SummaryCollaborationsProjectDto[] = []
+  professors: SummaryCollaborationsProjectDto[] = []
 
   constructor(
     private projectsService: ProjectsService,
@@ -44,42 +43,27 @@ export class ProjectComponent implements OnInit {
 
   loadProject(id: number) {
     this.projectsService.getProject(id).subscribe({
-      next: project => {
-        this.project = project
-      }
+      next: project => { this.project = project }
     })
   }
 
   loadCollaborations(id: number) {
     this.collaborationsService.getProjectCollaborations(id).subscribe({
-      next: collaborations => {
-        for (let c of collaborations) {
-          c.responsible ? this.responsibles.push(c) : this.collaborators.push(c);
-        }
-      },
-      error: error => {
-        console.log('Error loading collaborations', error);
-      }
+      next: professors => { this.professors = professors }
     })
   }
 
   getAmount(s: string): number {
-    return this.project?.remunerations.find(r => r.roleType == s)?.amount || 0;
+    if (this.project == null ) return 0;
+    return this.project.remunerations.find(remuneration => remuneration.roleType == s)?.amount || 0;
   }
 
-  goToCollaboration(b: boolean) {
-    this.router.navigate(
-      ['/collaboration'],
-      { state: {
-          project: this.project,
-          responsible: b
-        }
-      }
-    );
+  goToCollaboration() {
+    this.router.navigate(['/collaboration']).then();
   }
 
   goToUpdate() {
-    this.router.navigate(['/add-project'], { state: { id: this.id } });
+    this.router.navigate(['/add-project'], { state: { id: this.id } }).then();
   }
 
 }

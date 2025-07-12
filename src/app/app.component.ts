@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SettingsService} from "./service/settings/settings.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -9,5 +10,4 @@ import {SettingsService} from "./service/settings/settings.service";
 export class AppComponent {
   title = 'tesi';
   constructor(protected settingsService: SettingsService) {}
-
 }

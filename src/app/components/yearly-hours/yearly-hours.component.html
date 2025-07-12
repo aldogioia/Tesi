@@ -1,0 +1,52 @@
+<div class="calendar">
+
+  <div class="title">
+    <h1>Dettaglio Annuale</h1>
+  </div>
+
+  <div class="selection" *ngIf="selectedProject">
+    <select [ngModel]="selectedProject.cup" (ngModelChange)="onChangeProject($event)">
+      <option *ngFor="let p of projects" [ngValue]="p.cup">{{ p.acronym }}</option>
+    </select>
+
+    <div>
+      <p><span>Data di fine: </span>{{selectedProject.endDate}}</p>
+    </div>
+  </div>
+
+  <form class="table" [formGroup]="form" (submit)="save()">
+    <div class="r">
+      <div class="first">
+        <button type="submit" [disabled]="!isAdmin">Salva</button>
+      </div>
+      <p class="cell"  [class]="{'left': years[0] === y, 'right': years[years.length-1] === y}" *ngFor="let y of years">{{ y }}</p>
+    </div>
+
+    <div class="c" formArrayName="rows">
+      <div class="r" *ngFor="let d of yearlyDetail; let i = index" [formGroupName]="i">
+        <div class="first">
+          <p [class]="{'top': yearlyDetail[0] === d, 'bottom' : yearlyDetail[yearlyDetail.length-1] === d}">{{ d.professor.name }} {{ d.professor.surname }}</p>
+        </div>
+        <div class="values" formArrayName="values">
+          <input class="cell" type="number"
+                 [style]="{'cursor': isAdmin ? 'initial' : 'not-allowed'}"
+                 [readonly]="!isAdmin"
+                 *ngFor="let y of years; let j = index" [formControlName]="j"
+                 [class]="{'error': checkInvalid(i,j), 'to-add': toAdd.includes(i*this.years.length + j)}"
+                 (focusout)="add(i,j, y, d)">
+        </div>
+      </div>
+    </div>
+
+    <div class="r">
+      <div class="first">
+        <p style="text-align: center; border-radius: 10px">Totale Anno</p>
+      </div>
+      <p class="cell"  [class]="{'left': years[0] === y, 'right': years[years.length-1] === y}" *ngFor="let y of years; let i = index">{{ yearlyTotals[i] }}</p>
+    </div>
+  </form>
+
+  <div class="toast" [class]="{'error': isError}" *ngIf="showToast">
+    <p>{{message}}</p>
+  </div>
+</div>

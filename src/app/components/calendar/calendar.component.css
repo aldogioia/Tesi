@@ -1,52 +1,41 @@
-.calendar{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 800px;
-  gap: 50px;
-  padding: 20px 0 50px 0;
+.cell-mod {
+  width: 35px;
+  min-width: 35px;
+  padding: 3px 0;
+  background: var(--black10);
+  text-align: center;
+}
+.cell-mod.left{
+  border-radius: 10px 0  0 10px;
+}
+.cell-mod.right{
+  border-radius: 0 10px 10px 0;
+}
+.cell-mod.left.right{
+  border-radius: 10px;
 }
 
-.calendar h1{
-  color: var(--blu);
+input.cell-mod{
+  height: 37px;
+  background: none;
+  outline: 2px solid transparent;
+  padding: 10px;
+  outline-offset: -3px;
 }
-
-.select-box{
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+input.cell-mod:hover{
+  background: var(--black10);
+  background-clip: padding-box;
 }
-
-.selection{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+input.cell-mod:focus{
+  background: var(--purple20);
+  background-clip: padding-box;
 }
-.selection.date > div{
-  display: flex;
-  align-items: center;
-  gap: 10px;
+input.cell-mod.to-add{
+  background: var(--purple20);
+  outline: 2px dashed var(--purple);
+  background-clip: padding-box;
 }
-.selection.date > div > svg{
-  stroke: var(--black50);
-  height: 20px;
-  width: 20px;
-  cursor: pointer;
-  transition: .3s ease-in-out;
-}
-.selection.date > div > svg:hover{
-  stroke: var(--black);
-}
-.selection.date > div > p{
-  stroke: var(--black);
-}
-
-.selection.professor > select {
-  width: 250px;
-}
-.selection.professor > p{
-  font-size: 14px;
-}
-.selection.professor > p > span{
-  opacity: .5;
+input.cell-mod.error{
+  border: none;
+  outline-color: red;
 }

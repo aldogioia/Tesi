@@ -1,152 +1,114 @@
 import {Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Router} from "@angular/router";
 import {CollaborationsService} from "../../service/collaborations/collaborations.service";
 import {ProfessorAssignedHoursDto} from "../../model/dto/ProfessorAssignedHoursDto";
 import {Collaboration} from "../../model/Collaboration";
 import { Project } from '../../model/Project';
-import {MonthlyDetailDto} from "../../model/dto/MonthlyDetailDto";
-import {YearlyDetailDto} from "../../model/dto/YearlyDetailDto";
-import { YearlyHoursService } from '../../service/yearly-hours/yearly-hours.service';
 import { MonthlyHoursService } from '../../service/monthly-hours/monthly-hours.service';
-
-class YearMonth{
-  year: string;
-  months: string[];
-
-  constructor(y: string, m: string[]){
-    this.year = y;
-    this.months = m;
-  }
-
-  convertMonth(month: number): string {
-    switch (month) {
-      case 0: return 'JANUARY';
-      case 1: return 'FEBRUARY';
-      case 2: return 'MARCH';
-      case 3: return 'APRIL';
-      case 4: return 'MAY';
-      case 5: return 'JUNE';
-      case 6: return 'JULY';
-      case 7: return 'AUGUST';
-      case 8: return 'SEPTEMBER';
-      case 9: return 'OCTOBER';
-      case 10: return 'NOVEMBER';
-      case 11: return 'DECEMBER';
-      default: return '';
-    }
-  }
-}
+import {ProjectsService} from "../../service/projects/projects.service";
 
 @Component({
   selector: 'app-collaboration',
   templateUrl: './collaboration.component.html',
-  styleUrls: ['./collaboration.component.css', '../../../../public/css/input.css', '../../../../public/css/calendar.css'],
+  styleUrls: ['./collaboration.component.css', '../../../../public/css/input.css'],
   host: { 'class': 'main' }
 })
 export class CollaborationComponent implements OnInit{
   form: FormGroup = new FormGroup({});
   searchForm: FormGroup = new FormGroup({});
 
-  project: Project | undefined;
+  selectedProject: Project | null = null;
   responsible: boolean = false;
 
   projectionBudget: number = 0;
-  page = 2;
 
-  currentYear = 0;
-  yearMonths: YearMonth[] = [];
-
+  projects: Project[] = []
   professors: ProfessorAssignedHoursDto[] = []
+  searchedProfessors: ProfessorAssignedHoursDto[] = []
   professorToAdd: number[] = []
   collaborations: Collaboration[] = []
 
-  yearlyDetail: YearlyDetailDto[] = []
-  monthlyDetail: MonthlyDetailDto[] = []
+  isError = false;
+  message = "";
+  showToast = false;
 
+  totalHoursInDuration = 0;
 
   constructor(
     private collaborationService: CollaborationsService,
-    private yearlyHoursService: YearlyHoursService,
     private monthlyHoursService: MonthlyHoursService,
-    private formBuilder: FormBuilder,
-    private router: Router
+    private projectService: ProjectsService,
+    private formBuilder: FormBuilder
   ) {
     this.form = this.formBuilder.group({
       professors: this.formBuilder.array([])
     });
 
     this.searchForm = this.formBuilder.group({
-      search: ['']
+      search: [''],
+      select: ['', Validators.required]
     });
 
-    const navigation = this.router.getCurrentNavigation();
-    if (navigation?.extras && navigation.extras.state) {
-      this.project = navigation.extras.state['project'];
-    }
+    const selectControl = this.searchForm.get('select');
+    const searchControl = this.searchForm.get('search');
 
-    if (this.project) {
-        this.projectionBudget = this.project.budget; // todo calcolare anche le spese per i collaboratori già assegnati
+    if (selectControl)
+      selectControl.valueChanges.subscribe(value =>{
+        this.selectedProject = value
+        this.loadProfessors()
+        this.searchedProfessors=this.professors
+        this.projectionBudget = value.budget;
+        this.calcDurationInYears()
+      })
+
+    if (searchControl)
+      searchControl.valueChanges.subscribe(value => {
+        this.searchedProfessors = this.professors.filter(
+          p =>
+            p.professor.name.toLowerCase().includes(value.toLowerCase()) || p.professor.surname.toLowerCase().includes(value.toLowerCase())
+        )
+      })
+
+    if (this.selectedProject) {
+        this.projectionBudget = this.selectedProject.budget; // todo calcolare anche le spese per i collaboratori già assegnati
     }
   }
 
   ngOnInit(): void {
-    this.loadProfessors()
-    this.initYearsAndMonths()
+    this.loadProjects()
+  }
 
-    this.loadMonthlyDetail()
-    this.loadYearlyDetail()
+  private loadProjects(){
+    this.projectService.getProjects().subscribe({
+      next: data => {
+        this.projects = data;
+        this.selectedProject = this.projects[0];
+        this.projectionBudget = this.selectedProject.budget;
+        this.searchForm.get('select')?.setValue(this.selectedProject)
+      }
+    })
   }
 
   private loadProfessors() {
     this.professors = [];
     (this.form.get('professors') as FormArray).clear();
-    this.collaborationService.getProfessorAssignedHours(this.project!.cup).subscribe({
-      next: data => {
-        data.forEach(professor => {
-          this.professors.push(professor);
 
-          (this.form.get('professors') as FormArray).push(
-            this.formBuilder.group({
-              expectedHours: ['0', [
-                Validators.required, Validators.pattern("[0-9]+"),
-                Validators.min(1),
-                Validators.max(1500-professor.workedHours)]]
-            })
-          );
-        });
-      }
-    })
-  }
-
-  private loadMonthlyDetail(){
-    if (!this.project) return
-    this.monthlyHoursService.getMonthlyDetailDto(this.project.cup, Number(this.yearMonths[this.currentYear].year)).subscribe({
-      next: data => { this.monthlyDetail = data; }
-    })
-  }
-
-  private loadYearlyDetail(){
-    if (!this.project) return
-    this.yearlyHoursService.getYearlyDetailDto(this.project.cup).subscribe({
-      next: data => { this.yearlyDetail = data; }
-    })
-  }
-
-  getHoursYear(s: string, detail: YearlyDetailDto): number {
-    let value = 0
-    detail.collaborationHoursYearly.forEach(c => {
-      if (c.year.toString() == s) value = c.yearExpectedHours
-    })
-    return value
-  }
-
-  getHoursMonth(s: string, detail: MonthlyDetailDto): number {
-    let value = 0
-    detail.collaborationHoursMonthly.forEach(c => {
-      if (c.month.toString() == s) value = c.monthExpectedHours
-    })
-    return value
+    if (this.selectedProject)
+      this.collaborationService.getProfessorAssignedHours(this.selectedProject.cup).subscribe({
+        next: data => {
+          data.forEach(professor => {
+            this.professors.push(professor);
+            (this.form.get('professors') as FormArray).push(
+              this.formBuilder.group({
+                expectedHours: ['0', [
+                  Validators.required, Validators.pattern("[0-9]+"),
+                  Validators.min(1),
+                  Validators.max(1500-professor.assignedHours)]]
+              })
+            );
+          });
+        }
+      })
   }
 
   checkInvalid(i: number, b: boolean): boolean{
@@ -157,18 +119,28 @@ export class CollaborationComponent implements OnInit{
       return input != null ? input.invalid : true
   }
 
+  resetValue(i: number){
+    const input = (this.form.get('professors') as FormArray).at(i).get("expectedHours")
+
+    if (input == null) return
+
+    if (input.invalid && input.dirty) {
+      input.reset()
+      input.setValue(0)
+    }
+  }
+
 
   toggleItem(i: number){
-    if( !this.professorToAdd.includes(i) ) {
+    if( !this.professorToAdd.includes(i) && this.selectedProject) {
       this.professorToAdd.push(i)
       this.projectionBudget = this.projectionBudget - this.calcCost(i)
-      console.log(this.projectionBudget)
 
       this.collaborations.push(
         new Collaboration({
           responsible: this.responsible,
-          professorId: this.professors[i].id,
-          projectId: this.project?.cup,
+          professorId: this.professors[i].professor.id,
+          projectId: this.selectedProject.cup,
           expectedHours: (this.form.get('professors') as FormArray).at(i).get("expectedHours")?.value
         })
       )
@@ -176,63 +148,51 @@ export class CollaborationComponent implements OnInit{
     else {
       this.projectionBudget = this.projectionBudget + this.calcCost(i)
       this.professorToAdd.splice(this.professorToAdd.indexOf(i), 1);
-      this.collaborations = this.collaborations.filter(c => c.professorId !== this.professors[i].id)
+      this.collaborations = this.collaborations.filter(c => c.professorId !== this.professors[i].professor.id)
     }
   }
 
-  private initYearsAndMonths(){
-    const start = new Date(this.project!.startDate);
-    const end = new Date(this.project!.endDate);
-
-    for (let d = new Date(start); d.getFullYear() <= end.getFullYear(); d.setFullYear(d.getFullYear() + 1)) {
-      let year = d.getFullYear().toString();
-      let months: string[] = [];
-
-      for (let month = 0; month < 12; month++) {
-        const currentMonthDate = new Date(d.getFullYear(), month, 1);
-
-        if (currentMonthDate >= start && currentMonthDate <= end) {
-          months.push(YearMonth.prototype.convertMonth(month));
-        }
-      }
-
-      this.yearMonths.push(new YearMonth(year, months));
-    }
-  }
 
   private calcCost(i: number): number {
-    if (!this.project) return 0
     const cost = (this.form.get('professors') as FormArray).at(i).get("expectedHours")
 
-    if (cost != null && cost.valid)
-      for (let r of this.project.remunerations)
+    if (cost != null && cost.valid && this.selectedProject)
+      for (let r of this.selectedProject.remunerations)
         if (r.roleType == this.professors[i].roleType)
             return cost.value * r.amount
     return 0
   }
 
-  next(){
-    if (this.currentYear < this.yearMonths.length-1) this.currentYear= this.currentYear + 1;
-    this.loadMonthlyDetail()
+  private calcDurationInYears() {
+    return this.selectedProject?.duration ? this.totalHoursInDuration = 125 * this.selectedProject.duration : 0;
   }
 
-  prev(){
-    if (this.currentYear > this.yearMonths.length-1) this.currentYear= this.currentYear - 1
-    this.loadMonthlyDetail()
-  }
-
-  search() {
-    //todo implementare ricerca
+  private resetAfterSave() {
+    this.professorToAdd = [];
+    this.collaborations = [];
+    this.loadProfessors();
+    this.searchedProfessors = this.professors;
   }
 
   save() {
-    /*this.collaborationService.addCollaboration(this.collaborations).subscribe({
+    const collaborations = this.professorToAdd
+      .map(i => this.collaborations[i]);
+
+    this.collaborationService.addCollaboration(collaborations).subscribe({
       next: () => {
-        //todo mostrare popup di successo
+        this.isError = false;
+        this.message = "Professori assegnati con successo";
+        this.showToast = true;
+        this.resetAfterSave()
       },
       error: () => {
-        //todo mostrare popup di errore
+        this.isError = true;
+        this.message = "Errore durante l'assegnazione dei professori, riprovare.";
+        this.showToast = true;
       }
-    })*/
+    })
+    setTimeout(() => {
+      this.showToast = false;
+    }, 3000);
   }
 }

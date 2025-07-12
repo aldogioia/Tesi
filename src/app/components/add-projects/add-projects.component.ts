@@ -20,6 +20,7 @@ export class AddProjectsComponent implements OnInit {
 
   message = '';
   showToast = false;
+  isError = false;
 
   id: number | undefined;
   project: Project | null = null;
@@ -32,7 +33,7 @@ export class AddProjectsComponent implements OnInit {
     private router: Router
   ){
     this.projectForm = this.formBuilder.group({
-      cup: ['', [Validators.required]], //todo da vedere il formato del CUP
+      cup: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
       acronym: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       overhead: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -87,33 +88,30 @@ export class AddProjectsComponent implements OnInit {
         new Remuneration({roleType: 'Researcher', amount: this.projectForm.get('amountResearcher')?.value})
       ];
 
-      this.projectsService.addProject(project).subscribe(
-        {
-          next: () => {
-            this.message = 'Project added successfully';
-            this.showToast = true;
-            this.projectForm.reset();
-            //this.router.navigate(['/projects'])
-          },
-          error: () => {
-            this.message = 'Project not added';
-            this.showToast = true;
-          }
+      this.projectsService.addProject(project).subscribe({
+        next: () => {
+          this.isError = false;
+          this.message = 'Project added successfully';
+          this.showToast = true;
+          this.projectForm.reset();
+          //this.router.navigate(['/projects'])
+        },
+        error: () => {
+          this.isError = true;
+          this.message = 'Project not added';
+          this.showToast = true;
         }
-      )
+      });
 
       setTimeout(() => {
         this.showToast = false;
       }, 3000);
-
     }
   }
 
   private updateProject() {
     if (this.projectForm.valid) {
       let project = new UpdateProjectDto(this.projectForm.value);
-
-      console.log(project);
 
       project.pnrr = this.pnrr;
       project.state = 'Attivo'; //todo da vedere come modificare lo stato
@@ -135,14 +133,14 @@ export class AddProjectsComponent implements OnInit {
         ];
       }
 
-      console.log(project);
-
       this.projectsService.updateProject(project).subscribe({
         next: () => {
+          this.isError = false;
           this.message = 'Project updated successfully';
           this.showToast = true;
         },
         error: () => {
+          this.isError = true;
           this.message = 'An error occurred';
           this.showToast = true
         }

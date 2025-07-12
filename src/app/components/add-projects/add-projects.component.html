@@ -48,10 +48,10 @@
       </div>
 
       <div class="input-wrapper" [class]="{'fixed' : modify}">
-        <input type="date" id="date" formControlName="endDate" *ngIf="!modify">
+        <input type="date" id="date2" formControlName="endDate" *ngIf="!modify">
         <div class="fake-input" *ngIf="modify">{{project?.endDate}}</div>
         <span class="start">Data fine</span>
-        <label class="end" for="date" *ngIf="!modify">
+        <label class="end" for="date2" *ngIf="!modify">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 17" fill="none">
             <path d="M12.5 1.8335V3.16683M4.5 1.8335V3.16683" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M8.49698 9.1665H8.50298M8.49698 11.8332H8.50298M11.1606 9.1665H11.1666M5.83331 9.1665H5.83929M5.83331 11.8332H5.83929" stroke-linecap="round" stroke-linejoin="round"/>
@@ -105,7 +105,7 @@
     <button type="submit">{{ modify ? "Modifica" : "Aggiungi" }}</button>
   </form>
 
-  <div class="toast" *ngIf="showToast">
+  <div class="toast" [class]="{'error': isError}" *ngIf="showToast">
     <p>{{message}}</p>
   </div>
 </div>

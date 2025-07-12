@@ -1,14 +1,5 @@
 .projects{
-  display: flex;
-  width: 100%;
   max-width: 1000px;
-  padding-top: 20px;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.projects > h1 {
-  color: var(--orange);
 }
 
 .container{

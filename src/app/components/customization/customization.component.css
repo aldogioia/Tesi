@@ -1,14 +1,21 @@
-.customization {
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0 50px 0;
-  gap: 50px;
-  max-width: 600px;
-  width: 100%;
+.calendar{
+  max-width: 800px;
 }
 
-.customization > h1 {
-  color: var(--purple);
+.logout{
+  color: #FF000080;
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: fit-content;
+  margin: auto;
+  transition: .3s ease-in-out;
+  font-size: 14px;
+}
+.logout:hover{
+  background: none;
+  color: #FF0000;
 }
 
 .content{
@@ -40,7 +47,7 @@
   justify-content: center;
   flex: 1 0 0;
   gap: 10px;
-  min-width: 200px;
+  min-width: 300px;
   padding: 10px;
   cursor: pointer;
   border-radius: 5px;
@@ -129,15 +136,7 @@
 }
 
 button{
-  padding: 10px;
-  border: none;
-  border-radius: 10px;
   background: var(--purple50);
-  color: var(--black);
-  font-weight: 500;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s ease-in-out;
 }
 button:hover{
   background: var(--purple);

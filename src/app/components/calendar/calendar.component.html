@@ -1,70 +1,71 @@
 <div class="calendar">
-  <h1>Calendario Ore</h1>
+  <h1>Rendicontazione</h1>
 
-  <div class="select-box">
-    <div class="selection date">
-      <div>
-        <select [ngModel]="months[currentMonth]">
-          <option *ngFor="let month of months" [value]="month">{{month}}</option>
-        </select>
-        <select [ngModel]="currentYear">
-          <option *ngFor="let year of years" [value]="year">{{year}}</option>
-        </select>
-      </div>
-
-      <div>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
-          <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
-          <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-    </div>
-
-    <div class="selection professor">
-      <select [ngModel]="professors.length > 0 ? professors[0] : '0 Professori'">
-        <option *ngFor="let professor of professors" [value]="professor">{{professor.name}} {{professor.surname}}</option>
+  <div class="selection">
+    <div>
+      <select [ngModel]="months[currentMonth]" (ngModelChange)="onMonthChange($event)">
+        <option *ngFor="let month of months" [ngValue]="month">{{month}}</option>
       </select>
-
-      <p><span>Ore totali {{ currentMonth === 3 ? "ad" : "a" }} {{months[currentMonth]}}:</span> {{totalHours()}}</p>
+      <select [ngModel]="currentYear" (ngModelChange)="onYearChange($event)">
+        <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+      </select>
     </div>
 
-
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="prev()">
+        <path d="M13 15C13 15 8 11.3176 8 10C8 8.68233 13 5 13 5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" (click)="next()">
+        <path d="M8.00004 5C8.00004 5 13 8.68242 13 10C13 11.3177 8 15 8 15" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
   </div>
 
-  <form>
-    <div class="box">
-      <button type="submit">Salva</button>
-      <div class="rows">
-        <div *ngFor="let p of pprojects">
-          <p class="hover on">{{ p }}</p>
-          <p class="hover off">{{ "24/50 ore" }}</p>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 12" fill="none">
-            <path d="M11.5 6C11.5 3.23857 9.2614 1 6.5 1C3.73857 1 1.5 3.23857 1.5 6C1.5 8.7614 3.73857 11 6.5 11C9.2614 11 11.5 8.7614 11.5 6Z"/>
-            <path d="M6.62109 8.5V6C6.62109 5.7643 6.62109 5.64645 6.54784 5.5732C6.47464 5.5 6.35679 5.5 6.12109 5.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M6.496 4H6.5005" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
+  <div class="selection">
+    <select [ngModel]="currentProfessor" (ngModelChange)="onProfessorChange($event)" *ngIf="isAdmin">
+      <option *ngFor="let professor of professors; let i = index" [value]="i">{{professor.name}} {{professor.surname}}</option>
+    </select>
+
+    <div *ngIf="!isAdmin" style="padding: 5px">
+      <p>{{professorLogged?.name}} {{professorLogged?.surname}}</p>
+    </div>
+
+    <div>
+      <p><span>Ore totali {{ currentMonth === 3 ? "ad" : "a" }} {{months[currentMonth]}}:</span> {{totalHours()}}</p>
+    </div>
+  </div>
+
+  <form class="table" [formGroup]="form" (submit)="save()">
+    <div class="r">
+      <div class="first">
+        <button type="submit">Salva</button>
       </div>
-      <div class="total">
-        <p>Totale Giorno</p>
+      <p class="cell-mod" [class]="{'left': days[0] === d, 'right': days[days.length-1] === d}" *ngFor="let d of days">{{ d.substring(0,3) }} <br> {{d.substring(4)}}</p>
+    </div>
+
+    <div class="c" formArrayName="rows">
+      <div class="r" *ngFor="let dd of dailyDetail; let i = index" [formGroupName]="i">
+        <div class="first">
+          <p [class]="{'top': dailyDetail[0] === dd, 'bottom' : dailyDetail[dailyDetail.length-1] === dd}">{{ dd.project.name }}</p>
+        </div>
+        <div class="values" formArrayName="values">
+          <input class="cell-mod" type="number"
+                 *ngFor="let d of days; let j = index" [formControlName]="j"
+                 [class]="{'error': checkInvalid(i,j), 'to-add': toAdd.includes(i*this.days.length + j)}"
+                 (focusout)="add(i, j, d, dd)" >
+        </div>
       </div>
     </div>
 
-    <div class="cols">
-      <div class="col" *ngFor="let day of days">
-        <p>{{ day }}</p>
-        <div>
-          <input
-            type="number"
-            *ngFor="let p of pprojects"
-            (input)="onInputChange($event)"
-            (blur)="onInputBlur($event)"
-            value="{{ 0 }}">
-        </div>
-        <p>{{ totalDayHours(day) }}</p>
+    <div class="r">
+      <div class="first">
+        <p style="text-align: center; border-radius: 10px">Totale Giorno</p>
       </div>
+      <p style="padding: 10px 0" class="cell-mod"  [class]="{'left': days[0] === d, 'right': days[days.length-1] === d}" *ngFor="let d of days; let i = index">{{ dailyTotals[i] }}</p>
     </div>
   </form>
+
+  <div class="toast" [class.error]="isError" *ngIf="isError">
+    <p>{{ message }}</p>
+  </div>
 </div>

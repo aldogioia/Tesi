@@ -1,4 +1,9 @@
-<div class="customization">
+<div class="calendar">
+
+  <app-professor-details [professor]="professor!" *ngIf="professor"></app-professor-details>
+
+  <button class="logout" (click)="authService.makeLogout()">Logout</button>
+
   <h1>Personalizzazione</h1>
 
   <div class="content">
@@ -49,17 +54,6 @@
             <div class="color purple"></div>
           </div>
         </div>
-        <div [class]="{'active' : settingsService.mode == Mode.auto}" class="item" (click)="settingsService.mode = Mode.auto">
-          <h2>Modalità Automatica</h2>
-          <p>Questa modalità si adatta in base all’orario e imposta la migliore modalità tra le due.</p>
-          <div class="colors">
-            <div class="color white"></div>
-            <div class="color black"></div>
-            <div class="color orange"></div>
-            <div class="color blu"></div>
-            <div class="color purple"></div>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -79,22 +73,6 @@
           <p>In questo loyaut le due sidebar andranno ad occupare lo schermo in tutta la sua altezza.</p>
           <div class="view">
             <div class="leftbar ex"></div>
-            <div class="rightbar ex"></div>
-          </div>
-        </div>
-        <div [class]="{'active' : settingsService.layout == Layout.mixedSX}" class="item" (click)="settingsService.layout = Layout.mixedSX">
-          <h2>Layout Misto - Sinistro</h2>
-          <p>In questo loyaut la sidebar sinistra andrà ad occupare lo spazio per tutta la sua altezza.</p>
-          <div class="view">
-            <div class="leftbar ex"></div>
-            <div class="rightbar no"></div>
-          </div>
-        </div>
-        <div [class]="{'active' : settingsService.layout == Layout.mixedDX}" class="item" (click)="settingsService.layout = Layout.mixedDX">
-          <h2>Layout Misto - Destro</h2>
-          <p>In questo loyaut la sidebar destra andrà ad occupare lo spazio per tutta la sua altezza.</p>
-          <div class="view">
-            <div class="leftbar no"></div>
             <div class="rightbar ex"></div>
           </div>
         </div>

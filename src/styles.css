@@ -114,7 +114,7 @@ p{
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 20px);
+  height: calc(100vh - 15px);
   overflow-y: scroll;
 }
 
@@ -133,6 +133,104 @@ p{
 
 .toast.error{
   background: #ff000080;
+}
+
+router-outlet{
+  display: none;
+}
+
+/*projects - professors - calendar*/
+.calendar, .professors, .projects{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px 0 80px 0;
+  gap: 25px;
+}
+
+.professors, .projects{
+  max-width: 600px;
+}
+
+.calendar h1{
+  color: var(--purple);
+}
+
+.professors > h1 {
+  color: var(--blu);
+}
+
+.projects > h1 {
+  color: var(--orange);
+}
+
+.calendar .title > div:hover {
+  background: var(--purple20);
+}
+.calendar .title > div > svg{
+  stroke: var(--purple);
+}
+
+.professors .title > div:hover {
+  background: var(--blu20);
+}
+.professors .title > div > svg{
+  stroke: var(--blu);
+}
+.professors .title > h1{
+  color: var(--blu);
+}
+
+
+/*LOGIN - RESET*/
+.boxForm{
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  padding: 10px;
+  border: 1px solid var(--black10);
+  border-radius: 15px;
+  transform: translateY(-50%);
+  position: absolute;
+  top: 50%;
+}
+
+img{
+  width: 100%;
+  max-width: 250px;
+}
+
+.login{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.inputs{
+  display: flex;
+  align-items: center;
+}
+
+/*button*/
+button{
+  color: var(--black);
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+  border: none;
+  outline: none;
+  width: 100%;
+  z-index: 3;
+  font-size: 12px;
+  font-weight: 500;
+}
+button:hover{
+  background: var(--purple);
 }
 
 /* WebKit browsers (Chrome, Safari) */

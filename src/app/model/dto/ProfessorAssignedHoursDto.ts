@@ -1,15 +1,13 @@
+import {SummaryProfessorDto} from "./SummaryProfessorDto";
+
 export class ProfessorAssignedHoursDto {
-  id: number;
-  name: string;
-  surname: string;
+  professor: SummaryProfessorDto;
   roleType: string;
-  workedHours: number;
+  assignedHours: number;
 
   constructor(data: any) {
-    this.id = data.id;
-    this.name = data.name;
-    this.surname = data.surname;
+    this.professor = data.professor;
     this.roleType = data.roleType;
-    this.workedHours = data.workedHours;
+    this.assignedHours = data.assignedHours;
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MonthlyDetailDto } from '../../model/dto/MonthlyDetailDto';
 import { MonthlyHours } from '../../model/MonthlyHours';
+import {UpdateMonthlyHoursDto} from "../../model/dto/UpdateMonthlyHoursDto";
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,19 @@ export class MonthlyHoursService {
 
   constructor(private http: HttpClient) { }
 
-  addMonthlyHours(monthlyHours: MonthlyHours[]) {
-    return this.http.post(this.urlApi, monthlyHours);
+  createMonthlyHours(monthlyHours: MonthlyHours[]) {
+    console.log(monthlyHours);
+    return this.http.post(this.urlApi + "/create", monthlyHours);
+  }
+
+  updateMonthlyHours(updateMonthlyHoursDto: UpdateMonthlyHoursDto[]) {
+    return this.http.patch(this.urlApi + "/update", updateMonthlyHoursDto);
   }
 
   getMonthlyDetailDto(projectCup: number, year: number){
-    return this.http.get<MonthlyDetailDto[]>(this.urlApi,
-      {params: {projectCup: projectCup.toString(), year: year.toString()}});
+    return this.http.get<MonthlyDetailDto[]>(
+      this.urlApi,
+      {params: {projectCup: projectCup.toString(), year: year.toString()}}
+    );
   }
 }

@@ -1,19 +1,6 @@
-.main{
-  position: relative;
-}
-
-.projects {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+.calendar{
   max-width: 600px;
-  height: 100%;
-  gap: 50px;
-  padding: 20px 0 50px 0;
-  overflow-y: scroll;
-}
-.projects h1{
-  color: var(--orange);
+  gap: 25px;
 }
 
 .project-info, .selection{
@@ -22,9 +9,6 @@
   align-items: center;
   padding: 5px;
 }
-.project-info > h2{
-  color: var(--orange);
-}
 .project-info > p{
   color: var(--black50);
 }
@@ -32,89 +16,13 @@
   color: var(--black);
 }
 
-.wizard {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.wizard .box {
-  height: 25px;
-  width: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--black);
-  background: var(--black20);
-  border-radius: 13px;
-  transition: .3s ease-in-out;
-}
-.wizard .box.selected {
-  background: var(--orange20);
-}
-.wizard .box.completed {
-  color: var(--white);
-  background: var(--orange);
-}
-
-.wizard > .progress{
-  display: flex;
-  flex: 1 0 0;
-  height: 2px;
-  background: var(--black20);
-  border-radius: 1px;
-}
-.progress > span {
-  height: 100%;
-  background: var(--orange);
-  border-radius: 1px;
-  transition: .3s ease-in-out;
-}
-
-.wizard-actions{
-  display: flex;
-  width: 100%;
-  max-width: 600px;
-  padding: 3px;
-  background: var(--black10);
-  backdrop-filter: blur(10px);
-  border-radius: 25px;
-  position: absolute;
-  bottom: 10px;
-}
-
-.wizard-button{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--orange20);
-  padding: 8px;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: .3s ease-in-out;
-}
-.wizard-button:hover{
-  background: var(--orange50);
-}
-.wizard-button>svg{
-  stroke: var(--black);
-}
-
-
-.wizard-content{
-  display: flex;
-  flex-direction: column;
-  gap:25px;
-  animation: dissolve .3s ease-in-out;
-}
-
 form{
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.row {
-  flex-direction: row;
-}
+
 .content{
   display: flex;
   flex-direction: column;
@@ -152,8 +60,8 @@ form{
   transition: .3s ease-in-out;
 }
 .item.selected{
-  background: var(--orange20);
-  border: 1px dashed var(--orange);
+  background: var(--purple20);
+  border: 1px dashed var(--purple);
 }
 
 .wrap{
@@ -186,7 +94,7 @@ form{
 .wrap > span > svg{
   height: 15px;
   width: 0;
-  stroke: var(--orange);
+  stroke: var(--purple);
   transition: .3s ease-in-out;
 }
 
@@ -211,99 +119,11 @@ form{
 }
 
 button{
-  background: var(--orange50);
-  color: var(--black);
-  padding: 10px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: .3s ease-in-out;
-  border: none;
-  outline: none;
-  width: 100%;
-  z-index: 3;
+  position: sticky;
+  top: 0;
+  background: var(--purple50);
 }
+
 button:hover{
-  background: var(--orange);
+  background: var(--purple);
 }
-
-
-@keyframes dissolve{
-  0%{
-    opacity: 0;
-    scale: 0.8;
-  }
-  100%{
-    opacity: 1;
-    scale: 1;
-  }
-}
-
-
-.table{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-x: scroll;
-}
-
-.r,.c{
-  display: flex;
-}
-
-.r{
-  align-items: center;
-}
-
-.c{
-  flex-direction: column;
-  gap: 10px;
-}
-
-.first, .r > button{
-  width: 150px;
-  min-width: 150px;
-  margin-right: 10px;
-}
-
-.first{
-  border-radius:  10px;
-  padding: 10px;
-  background: var(--black10);
-}
-.first.br{
-  border-radius: 0;
-}
-.first.br:first-of-type{
-  border-radius: 10px 10px 0 0;
-}
-.first.br:last-of-type{
-  border-radius: 0 0 10px 10px;
-}
-
-.cell{
-  border-radius: 10px;
-  width: 90px;
-  min-width: 90px;
-  padding: 10px 0;
-  background: none;
-  text-align: center;
-}
-.cell.b{
-  border-radius: 0;
-  background: var(--black10);
-}
- .cell:hover{
-  background: var(--black10);
-}
-
- .cell.b:first-of-type{
-   border-radius: 10px 0 0 10px;
- }
-.cell.b:last-of-type {
-  border-radius: 0 10px 10px 0;
-}
-
-
-
-
-

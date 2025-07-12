@@ -1,124 +1,139 @@
-form{
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
-
-.box{
-  display: flex;
-  flex-direction: column;
-  width: 180px;
-  gap: 10px;
-}
-
-button{
-  padding: 10px;
-  background: var(--blu50);
-  color: var(--black);
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: .3s ease-in-out;
-}
-button:hover{
-  background: var(--blu);
-}
-
-.rows {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 10px;
-  background: var(--black10);
-  border-radius: 10px;
-}
-
-.rows > div{
-  height: 40px;
+.selection{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 5px;
+  border-radius: 15px;
+  background: var(--black10);
+}
+
+.selection > div{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.selection > div:last-of-type{
+  padding: 5px;
+  height: 100%;
+  border-radius: 10px;
+  background: var(--black10);
+}
+.selection > div > svg{
+  stroke: var(--black50);
+  height: 20px;
+  width: 20px;
   cursor: pointer;
-}
-.rows > div:hover > svg{
-  opacity: 1;
-}
-.rows > div:hover > .on{
-  display: none;
-}
-.rows > div:hover > .off{
-  display: initial;
-}
-
-.rows .hover {
-  font-weight: 400;
-}
-.rows .hover.off{
-  display: none;
-}
-
-.rows svg{
-  stroke: var(--black);
-  opacity: .5;
-  height: 16px;
-  width: 16px;
   transition: .3s ease-in-out;
 }
-
-.total{
-  height: 33px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--black10);
-  border-radius: 10px;
+.selection > div > svg:hover{
+  stroke: var(--black);
 }
 
-.cols{
-  display: flex;
-  width: 100%;
-  overflow-x: auto;
+.selection > div > p{
+  font-size: 14px;
+}
+.selection > div > p > span{
+  opacity: .5;
 }
 
-.col{
+.table{
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 10px;
-  border-radius: 10px;
-}
-.col > p{
-  height: 33px;
-  width: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 5px;
+  border-radius: 15px;
   background: var(--black10);
+  overflow-x: scroll;
 }
 
-.col:first-child > p{
-  border-radius: 10px 0 0 10px;
+.r,.c{
+  display: flex;
 }
-.col:last-child > p{
+
+.r{
+  align-items: center;
+}
+
+.c{
+  flex-direction: column;
+}
+
+.first{
+  width: 150px;
+  min-width: 150px;
+  margin-right: 10px;
+  height: 100%;
+}
+.first > button{
+  height: 100%;
+  background: var(--purple50);
+}
+.first > p{
+  padding: 10px;
+  background: var(--black10);
+}
+p.top{
+  border-radius: 10px 10px 0 0;
+}
+p.bottom{
+  border-radius: 0 0 10px 10px;
+}
+p.top.bottom{
+  border-radius: 10px;
+}
+.first > select{
+  background: var(--purple20);
+  font-size: 12px;
+  height: 100%;
+  border-radius: 10px;
+}
+
+.cell{
+  width: 80px;
+  min-width: 80px;
+  padding: 10px 0;
+  background: var(--black10);
+  text-align: center;
+}
+.cell.left{
+  border-radius: 10px 0  0 10px;
+}
+.cell.right{
   border-radius: 0 10px 10px 0;
 }
+.cell.left.right{
+  border-radius: 10px;
+}
 
-.col > div{
+.values{
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 5px;
-  width: 80px;
 }
 
-.col input{
-  text-align: center;
+input.cell{
+  height: 37px;
   background: none;
-  transition: background .3s ease-in-out;
+  outline: 2px solid transparent;
+  padding: 10px;
+  outline-offset: -3px;
 }
-.col input:hover{
-  background: var(--black5);
+input.cell:hover{
+  background: var(--black10);
+  background-clip: padding-box;
 }
-.col input:focus{
-  background: var(--blu20);
+input.cell:focus{
+  background: var(--purple20);
+  background-clip: padding-box;
+}
+input.cell.to-add{
+  background: var(--purple20);
+  outline: 2px dashed var(--purple);
+  background-clip: padding-box;
+}
+input.cell.error{
+  border: none;
+  outline-color: red;
+}
+
+.toast{
+  max-width: 800px;
 }

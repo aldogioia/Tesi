@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { DailyHours } from '../../model/DailyHours';
-import { ProfessorDailyHoursDto } from '../../model/dto/ProfessorDailyHoursDto';
+import {DailyDetailDto} from "../../model/dto/DailyDetailDto";
+import {UpdateDailyHoursDto} from "../../model/dto/UpdateDailyHoursDto";
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +12,25 @@ export class DailyHoursService {
 
   constructor(private http: HttpClient) { }
 
-  addDailyHours(dailyHours: DailyHours[]) {
-    return this.http.post(this.urlApi, dailyHours);
+  createDailyHours(dailyHours: DailyHours[]) {
+    return this.http.post(this.urlApi + "/create", dailyHours);
   }
 
-  getDailyHours(month: number, year: number, projectCup: number){
-    return this.http.get<ProfessorDailyHoursDto[]>(
+  updateDailyHours(updateDailyHours: UpdateDailyHoursDto[]) {
+    return this.http.patch(
+      this.urlApi + "/update",
+      updateDailyHours,
+      { params: {}}
+    );
+  }
+
+  getDailyHours(month: string, year: number, professorId: number){
+    return this.http.get<DailyDetailDto[]>(
       this.urlApi,
       { params: {
         month: month.toString(),
         year: year.toString(),
-        projectCup: projectCup.toString() 
+        professor: professorId.toString()
       }
     });
   }

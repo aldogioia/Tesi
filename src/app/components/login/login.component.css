@@ -1,0 +1,82 @@
+.back{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back > span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+.back  svg{
+  cursor: pointer;
+  stroke: var(--black50);
+}
+
+.back span:hover > svg{
+  animation: left .5s ease-in-out;
+  stroke: var(--black);
+}
+
+.back p {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--black);
+}
+
+form{
+  overflow: hidden;
+  padding: 8px 0;
+}
+
+.inputs{
+  width: 200%;
+  transition: .3s ease-in-out;
+}
+
+.inputs.translate{
+  transform: translateX(-50%);
+}
+
+.input-wrapper{
+  padding: 0 2px;
+}
+
+.input-wrapper > label > svg {
+  stroke-width: 2px;
+  animation: appear .3s ease-in-out;
+}
+
+.boxForm > p{
+  font-size: 14px;
+  font-weight: 400;
+  text-align: center;
+}
+
+button{
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+  background: var(--black);
+  border: none;
+  outline: none;
+  color: var(--white);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: .3s ease-in-out;
+}
+
+@keyframes left {
+  0%{
+    transform: translateX(0);
+  }
+  50%{
+    transform: translateX(-5px);
+  }
+  100%{
+    transform: translateX(0);
+  }
+
+}

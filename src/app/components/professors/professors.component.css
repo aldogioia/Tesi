@@ -1,14 +1,5 @@
 .professors{
-  display: flex;
-  width: 100%;
   max-width: 1000px;
-  padding-top: 20px;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.professors > h1 {
-  color: var(--blu);
 }
 
 .container{

@@ -17,13 +17,29 @@ export class Project{
     this.cup = data.cup
     this.name = data.name
     this.acronym = data.acronym
-    this.startDate = data.startDate
+    this.startDate = new Date(data.startDate)
     this.duration = data.duration
-    this.endDate = data.endDate
+    this.endDate = new Date(data.endDate)
     this.overhead = data.overhead
     this.budget = data.budget
-    this.state = data.status
+    this.state = data.state
     this.pnrr = data.pnrr
     this.remunerations = data.remunerations
+  }
+
+  emptyProject(): Project {
+    return new Project({
+      cup: 0,
+      name: '',
+      acronym: '',
+      startDate: new Date(),
+      duration: 0,
+      endDate: new Date(),
+      overhead: 0,
+      budget: 0,
+      status: '',
+      pnrr: false,
+      remunerations: []
+    })
   }
 }
